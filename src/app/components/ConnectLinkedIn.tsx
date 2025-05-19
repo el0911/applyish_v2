@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 
 interface LinkedInTokenResponse {
   [domain: string]: Array<{ name: string; value: string }>;
@@ -10,15 +9,15 @@ interface LinkedInTokenResponse {
 interface ExtensionRequest {
   type: string; // e.g., 'FROM_MY_APP_GET_LINKEDIN_TOKENS'
   requestId: string; // Unique ID to match request and response
-  payload?: any;
+  payload?: Record<string, string >; // Any additional data needed by the extension
 }
 
 
 interface ExtensionResponse {
   type: string; // e.g., 'FROM_EXTENSION_RESPONSE', 'FROM_EXTENSION_ERROR'
   requestId: string; // Must match the request ID
-  tokens?: any; // The actual response data
-  error?: string; // Error message if type is FROM_EXTENSION_ERROR
+  tokens?:LinkedInTokenResponse; // The actual response data
+  error?: string // Error message if type is FROM_EXTENSION_ERROR
 }
 
 export default function ConnectLinkedIn() {
@@ -27,7 +26,7 @@ export default function ConnectLinkedIn() {
   const [timeoutError, setTimeoutError] = useState(false);
   const [success, setSuccess]   = useState<string | null>(null);
   const [hasTokens, setHasTokens] = useState(false);
-  const router = useRouter();
+  // const router = useRouter();
 
   // ... your existing useEffect for fetchStatus ...
 // This function now sends a message via postMessage and waits for a response
@@ -145,8 +144,10 @@ const getLinkedInTokens = (): Promise<LinkedInTokenResponse> => {
       // Mark connected and show a one-off success message
       setHasTokens(true);
       setSuccess('✅ LinkedIn tokens synced successfully!');
-     } catch (err: any) {
-      const msg = err.message || '';
+      
+     } 
+      catch (err: unknown) {
+      const msg = (err instanceof Error) ? err.message : String(err);
       if (msg.includes('Extension response timed out')) {
         // special timeout UI
         setTimeoutError(true);

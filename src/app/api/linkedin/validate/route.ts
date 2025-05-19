@@ -2,7 +2,6 @@
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
 
 import { NextResponse } from 'next/server';
-import { currentUser } from '@clerk/nextjs/server';
 import prisma from '@/lib/prisma';
 
 
@@ -70,6 +69,7 @@ export async function GET(req: Request) {
     
    
   } catch (error) {
-    
+    console.error('Error fetching LinkedIn tokens:', error);
+    return new NextResponse('Internal Server Error', { status: 500 });
   }
 }

@@ -1,8 +1,7 @@
 // app/api/linkedin/route.ts
 
 import { NextResponse } from 'next/server';
-import { currentUser } from '@clerk/nextjs/server';
-import prisma from '@/lib/prisma';
+
  
 
 const steps = {
@@ -255,7 +254,7 @@ const steps = {
     ]
   }
   
-export async function GET(req: Request) {
+export async function GET() {
     // would uncomment later after i figure auth out not a massive priority
 //   const user = await currentUser();
 //   if (!user) return new NextResponse('Unauthorized', { status: 401 });

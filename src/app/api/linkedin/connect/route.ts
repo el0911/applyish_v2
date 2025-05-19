@@ -33,7 +33,7 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
     const user = await currentUser();
     if (!user) return new NextResponse('Unauthorized', { status: 401 });
