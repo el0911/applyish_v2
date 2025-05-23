@@ -3,6 +3,7 @@ import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
 
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
 
  
 
@@ -23,7 +24,14 @@ export async function GET(req: Request) {
     const accounts = await prisma.user.findMany({
        select: {
         id: true
-       }
+       },
+       where: {
+         linkedInAccount: {
+            tokens: {
+              not: Prisma.JsonNull,
+           },
+         },
+       },
     });
     if (!accounts) {
       // 204 No Content indicates “we have nothing for you yet”
