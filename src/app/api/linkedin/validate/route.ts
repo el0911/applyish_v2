@@ -51,7 +51,7 @@ export async function GET(req: Request) {
     if (!token) return new NextResponse('Unauthorized', { status: 401 });
   
     const decoded = jwt.verify(token, process.env.JWT_SECRET as Secret) as JwtPayload;
-    const userId = decoded.userId;
+    const {userId} = decoded;
 
     if (!userId) return new NextResponse('Unauthorized', { status: 401 });
 
@@ -59,6 +59,7 @@ export async function GET(req: Request) {
     const account = await prisma.linkedInAccount.findUnique({
       where: { userId },
     });
+
     if (!account) {
       // 204 No Content indicates “we have nothing for you yet”
       return new NextResponse(null, { status: 204 });
