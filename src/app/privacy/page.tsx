@@ -55,7 +55,7 @@ const PrivacyPolicy = () => {
           <li>Request deletion of your data</li>
           <li>Opt out of optional analytics</li>
         </ul>
-        <p className="mb-6">To exercise these rights, email us at <a href="mailto:privacy@applyish.com" className="text-blue-600 underline">privacy@applyish.com</a>.</p>
+        <p className="mb-6">To exercise these rights, email us at <a href="mailto:el@applyish.com" className="text-blue-600 underline">el@applyish.com</a>.</p>
 
         <h2 className="text-2xl font-semibold mt-10 mb-4">6. Updates to This Policy</h2>
         <p className="mb-6">
@@ -67,7 +67,7 @@ const PrivacyPolicy = () => {
           For questions about this Privacy Policy, contact us at:
         </p>
         <p className="mt-2">
-          📧 <a href="mailto:privacy@applyish.com" className="text-blue-600 underline">privacy@applyish.com</a><br />
+          📧 <a href="mailto:el@applyish.com" className="text-blue-600 underline">el@applyish.com</a><br />
           🌐 <a href="https://applyish.com" className="text-blue-600 underline">https://applyish.com</a>
         </p>
       </div>
