@@ -9,9 +9,7 @@ const PrivacyPolicy = () => {
         <p className="mb-4 text-sm text-gray-500">Effective Date: May 23, 2025</p>
 
         <p className="mb-6">
-          Applyish ("we", "our", or "us") is a Chrome extension that helps users streamline the job application
-          process by automating applications on their behalf. This Privacy Policy explains what data we collect,
-          how we use it, and your rights. By using Applyish, you agree to the practices outlined in this Privacy Policy.
+          {`Applyish is committed to protecting your privacy. This Privacy Policy outlines how we collect, use, and protect your information when you use our browser extension. By using Applyish, you agree to the collection and use of information in accordance with this policy.`}
         </p>
 
         <h2 className="text-2xl font-semibold mt-10 mb-4">1. What Information We Collect</h2>
