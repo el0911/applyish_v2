@@ -60,174 +60,174 @@
 
  
 
-// "use client"
-// // add a react component that uses an iframe and fills the entire page
-
-// import React, { useState } from 'react'
-// import { Loader2 } from 'lucide-react' // optional: for stylish spinner icon
-// import { motion } from 'framer-motion'
-
-// const IframeComponent = () => {
-//   const [loading, setLoading] = useState(true)
-//   const iframeUrl = 'https://first-gas-3bf.notion.site/ebd/1ac65bb93d5680d295d3fd55df9501e6'
-
-//   return (
-//     <div className="h-screen w-screen relative bg-black">
-//       {loading && (
-//         <motion.div
-//           className="absolute inset-0 flex items-center justify-center bg-black z-10"
-//           initial={{ opacity: 1 }}
-//           animate={{ opacity: loading ? 1 : 0 }}
-//           transition={{ duration: 0.5 }}
-//         >
-//           <div className="flex flex-col items-center gap-4">
-//             <Loader2 className="h-12 w-12 animate-spin text-white" />
-//             <p className="text-white text-lg font-medium">Loading...</p>
-//           </div>
-//         </motion.div>
-//       )}
-//       <iframe
-//         src={iframeUrl}
-//         width="100%"
-//         height="100%"
-//         frameBorder="0"
-//         allowFullScreen
-//         style={{
-//           display: loading ? 'none' : 'block',
-//           transition: 'opacity 0.5s ease-in-out',
-//         }}
-//         onLoad={() => setLoading(false)}
-//         className="h-full w-full border-none"
-//         title="Iframe Example"
-//       />
-//     </div>
-//   )
-// }
-
-// export default IframeComponent
-
 "use client"
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-const MotionH2 = motion('h2');
+// add a react component that uses an iframe and fills the entire page
 
-const LayoutComponent = () => {
+import React, { useState } from 'react'
+import { Loader2 } from 'lucide-react' // optional: for stylish spinner icon
+import { motion } from 'framer-motion'
+
+const IframeComponent = () => {
+  const [loading, setLoading] = useState(true)
+  const iframeUrl = 'https://first-gas-3bf.notion.site/ebd/1ac65bb93d5680d295d3fd55df9501e6'
+
   return (
-    <div className="min-h-screen bg-white text-black font-serif">
-      {/* Artistic Header */}
-      <header className="p-10 bg-black text-white shadow-xl">
-        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-          <h1 className="text-5xl font-extrabold tracking-tight uppercase">Applyish</h1>
-          <a
-            href="#get-started"
-            className="mt-4 md:mt-0 inline-flex items-center gap-2 border border-white px-6 py-2 rounded-full text-lg hover:bg-white hover:text-black transition"
-          >
-            Get Started <ArrowRight size={20} />
-          </a>
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <section className="container mx-auto px-8 py-24 text-center">
-        <MotionH2
-          className="text-6xl font-black leading-tight tracking-tight mb-6"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+    <div className="h-screen w-screen relative bg-black">
+      {loading && (
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center bg-black z-10"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: loading ? 1 : 0 }}
+          transition={{ duration: 0.5 }}
         >
-          Beautifully Automated Job Applications
-        </MotionH2>
-        <p className="text-xl font-light max-w-2xl mx-auto mb-10">
-          Let Applyish be your personal application concierge — we’ll handle the busy work, you focus on shining in interviews.
-        </p>
-        <a
-          href="#get-started"
-          className="inline-block bg-black text-white px-8 py-3 rounded-full text-lg hover:bg-gray-800 transition"
-        >
-          Start Applying
-        </a>
-      </section>
-
-      {/* Artistic Imagery Section */}
-      <section className="bg-[#f7f7f7] py-24">
-        <div className="container mx-auto px-8 grid md:grid-cols-3 gap-12">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 bg-white"
-            >
-              <img
-                src={`https://source.unsplash.com/600x400/?art,design,abstract&sig=${i}`}
-                alt={`Artistic Visual ${i}`}
-                className="w-full h-64 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-2xl font-semibold mb-2">Elegant Workflow</h3>
-                <p className="text-gray-600">
-                  Every step of the application process is curated for visual harmony and functional impact.
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Philosophy Section */}
-      <section className="container mx-auto px-8 py-24 text-center">
-        <blockquote className="text-3xl italic font-light max-w-3xl mx-auto">
-          “Art is not freedom from discipline, but disciplined freedom.”
-          <span className="block text-lg mt-4">— Applyish Design Philosophy</span>
-        </blockquote>
-      </section>
-
-      {/* Pricing Section */}
-      <section className="bg-black text-white py-24">
-        <div className="container mx-auto px-8 text-center">
-          <h2 className="text-4xl font-bold mb-8">Minimalist Pricing</h2>
-          <div className="inline-block bg-white text-black p-10 rounded-xl shadow-lg">
-            <h3 className="text-2xl font-semibold mb-4">$55 / week</h3>
-            <ul className="text-left space-y-2 mb-6">
-              <li>✓ 150 curated applications per week</li>
-              <li>✓ Custom resume targeting</li>
-              <li>✓ Real human strategists</li>
-              <li>✓ Cancel anytime</li>
-            </ul>
-            <a
-              href="#get-started"
-              className="bg-black text-white px-6 py-3 rounded-full hover:bg-gray-900"
-            >
-              Begin
-            </a>
+          <div className="flex flex-col items-center gap-4">
+            <Loader2 className="h-12 w-12 animate-spin text-white" />
+            <p className="text-white text-lg font-medium">Loading...</p>
           </div>
-        </div>
-      </section>
-
-      {/* Google Form Embed */}
-      <section className="container mx-auto px-8 py-24 text-center" id="get-started">
-        <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
-        <p className="mb-8 text-gray-700 max-w-xl mx-auto">
-          Fill out the form below and let Applyish craft your personalized application journey.
-        </p>
-        <div className="relative overflow-hidden rounded-xl shadow-lg" style={{ paddingTop: '56.25%' }}>
-          <iframe
-            src="https://first-gas-3bf.notion.site/1b565bb93d5681dfaaf7fad306122371?pvs=105"
-            className="absolute top-0 left-0 w-full h-full border-none"
-            frameBorder="0"
-            allowFullScreen
-            title="Applyish Signup Form"
-          >
-            Loading…
-          </iframe>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-white text-center py-10 border-t border-black">
-        <p className="text-gray-600">© 2025 Applyish. Built with purpose and precision.</p>
-      </footer>
+        </motion.div>
+      )}
+      <iframe
+        src={iframeUrl}
+        width="100%"
+        height="100%"
+        frameBorder="0"
+        allowFullScreen
+        style={{
+          display: loading ? 'none' : 'block',
+          transition: 'opacity 0.5s ease-in-out',
+        }}
+        onLoad={() => setLoading(false)}
+        className="h-full w-full border-none"
+        title="Iframe Example"
+      />
     </div>
-  );
-};
+  )
+}
 
-export default LayoutComponent;
+export default IframeComponent
+
+// "use client"
+// import React from 'react';
+// import { motion } from 'framer-motion';
+// import { ArrowRight } from 'lucide-react';
+// const MotionH2 = motion('h2');
+
+// const LayoutComponent = () => {
+//   return (
+//     <div className="min-h-screen bg-white text-black font-serif">
+//       {/* Artistic Header */}
+//       <header className="p-10 bg-black text-white shadow-xl">
+//         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
+//           <h1 className="text-5xl font-extrabold tracking-tight uppercase">Applyish</h1>
+//           <a
+//             href="#get-started"
+//             className="mt-4 md:mt-0 inline-flex items-center gap-2 border border-white px-6 py-2 rounded-full text-lg hover:bg-white hover:text-black transition"
+//           >
+//             Get Started <ArrowRight size={20} />
+//           </a>
+//         </div>
+//       </header>
+
+//       {/* Hero Section */}
+//       <section className="container mx-auto px-8 py-24 text-center">
+//         <MotionH2
+//           className="text-6xl font-black leading-tight tracking-tight mb-6"
+//           initial={{ opacity: 0, y: 50 }}
+//           animate={{ opacity: 1, y: 0 }}
+//           transition={{ duration: 1 }}
+//         >
+//           Beautifully Automated Job Applications
+//         </MotionH2>
+//         <p className="text-xl font-light max-w-2xl mx-auto mb-10">
+//           Let Applyish be your personal application concierge — we’ll handle the busy work, you focus on shining in interviews.
+//         </p>
+//         <a
+//           href="#get-started"
+//           className="inline-block bg-black text-white px-8 py-3 rounded-full text-lg hover:bg-gray-800 transition"
+//         >
+//           Start Applying
+//         </a>
+//       </section>
+
+//       {/* Artistic Imagery Section */}
+//       <section className="bg-[#f7f7f7] py-24">
+//         <div className="container mx-auto px-8 grid md:grid-cols-3 gap-12">
+//           {[1, 2, 3].map((i) => (
+//             <div
+//               key={i}
+//               className="rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 bg-white"
+//             >
+//               <img
+//                 src={`https://source.unsplash.com/600x400/?art,design,abstract&sig=${i}`}
+//                 alt={`Artistic Visual ${i}`}
+//                 className="w-full h-64 object-cover"
+//               />
+//               <div className="p-6">
+//                 <h3 className="text-2xl font-semibold mb-2">Elegant Workflow</h3>
+//                 <p className="text-gray-600">
+//                   Every step of the application process is curated for visual harmony and functional impact.
+//                 </p>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </section>
+
+//       {/* Philosophy Section */}
+//       <section className="container mx-auto px-8 py-24 text-center">
+//         <blockquote className="text-3xl italic font-light max-w-3xl mx-auto">
+//           “Art is not freedom from discipline, but disciplined freedom.”
+//           <span className="block text-lg mt-4">— Applyish Design Philosophy</span>
+//         </blockquote>
+//       </section>
+
+//       {/* Pricing Section */}
+//       <section className="bg-black text-white py-24">
+//         <div className="container mx-auto px-8 text-center">
+//           <h2 className="text-4xl font-bold mb-8">Minimalist Pricing</h2>
+//           <div className="inline-block bg-white text-black p-10 rounded-xl shadow-lg">
+//             <h3 className="text-2xl font-semibold mb-4">$55 / week</h3>
+//             <ul className="text-left space-y-2 mb-6">
+//               <li>✓ 150 curated applications per week</li>
+//               <li>✓ Custom resume targeting</li>
+//               <li>✓ Real human strategists</li>
+//               <li>✓ Cancel anytime</li>
+//             </ul>
+//             <a
+//               href="#get-started"
+//               className="bg-black text-white px-6 py-3 rounded-full hover:bg-gray-900"
+//             >
+//               Begin
+//             </a>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Google Form Embed */}
+//       <section className="container mx-auto px-8 py-24 text-center" id="get-started">
+//         <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
+//         <p className="mb-8 text-gray-700 max-w-xl mx-auto">
+//           Fill out the form below and let Applyish craft your personalized application journey.
+//         </p>
+//         <div className="relative overflow-hidden rounded-xl shadow-lg" style={{ paddingTop: '56.25%' }}>
+//           <iframe
+//             src="https://first-gas-3bf.notion.site/1b565bb93d5681dfaaf7fad306122371?pvs=105"
+//             className="absolute top-0 left-0 w-full h-full border-none"
+//             frameBorder="0"
+//             allowFullScreen
+//             title="Applyish Signup Form"
+//           >
+//             Loading…
+//           </iframe>
+//         </div>
+//       </section>
+
+//       {/* Footer */}
+//       <footer className="bg-white text-center py-10 border-t border-black">
+//         <p className="text-gray-600">© 2025 Applyish. Built with purpose and precision.</p>
+//       </footer>
+//     </div>
+//   );
+// };
+
+// export default LayoutComponent;
