@@ -53,6 +53,9 @@ export async function GET(req: Request) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as Secret) as JwtPayload;
     const {userId} = decoded;
 
+    console.log('userId', userId);
+    console.log('decoded', decoded);
+    console.log('token', token);
     if (!userId) return new NextResponse('Unauthorized', { status: 401 });
 
     // fetch the tokens from the database
