@@ -44,10 +44,11 @@ import prisma from '@/lib/prisma';
  
 
 export async function GET(req: Request) {
+  const token = req.headers.get('Authorization')?.split(' ')[1];
+
   try {
     // use the token from the request header to get the linkeind tokkens
     // todo encrypt the tokens when transferring them over the network
-    const token = req.headers.get('Authorization')?.split(' ')[1];
     if (!token) return new NextResponse('Unauthorized', { status: 401 });
   
     const decoded = jwt.verify(token, process.env.JWT_SECRET as Secret) as JwtPayload;
@@ -73,7 +74,7 @@ export async function GET(req: Request) {
     
    
   } catch (error) {
-    console.error('Error fetching LinkedIn tokens:', error);
+    console.error('Error fetching LinkedIn tokens: ',token, error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }
