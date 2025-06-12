@@ -41,7 +41,39 @@ import prisma from '@/lib/prisma';
 //   }
   
 // }
- 
+
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+
+// ...existing code...
+
+const oneTimeDownloadUrl = async (s3_identifier: string) => {
+  try {
+    const s3Client = new S3Client({
+      region: process.env.AWS_REGION,
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
+      },
+    });
+
+    const command = new GetObjectCommand({
+      Bucket: process.env.AWS_S3_BUCKET,
+      Key: s3_identifier,
+    });
+
+    // Generate a one-time download URL valid for 15 minutes
+    const downloadUrl = await getSignedUrl(s3Client, command, { expiresIn: 900 });
+    
+    return downloadUrl;
+  }
+  catch (error) {
+    console.error('Error generating one-time download URL:', error);
+    throw new Error('Failed to generate download URL');
+  }
+};
+
+
 
 export async function GET(req: Request) {
   const token = req.headers.get('Authorization')?.split(' ')[1];
@@ -52,25 +84,30 @@ export async function GET(req: Request) {
     if (!token) return new NextResponse('Unauthorized', { status: 401 });
   
     const decoded = jwt.verify(token, process.env.JWT_SECRET as Secret) as JwtPayload;
-    const {userId} = decoded;
+    const {s3_identifier} = decoded;
 
-    console.log('userId', userId);
+    console.log('s3_identifier', s3_identifier);
     console.log('decoded', decoded);
-    console.log('token', token);
-    if (!userId) return new NextResponse('Unauthorized', { status: 401 });
+    if (!s3_identifier) return new NextResponse('Unauthorized', { status: 401 });
 
     // fetch the tokens from the database
-    const account = await prisma.linkedInAccount.findUnique({
-      where: { userId },
+    const s3_connector = await prisma.s3File.findFirst({
+      where: { s3Identifier: s3_identifier },
     });
 
-    if (!account) {
+    if (!s3_connector) {
       // 204 No Content indicates “we have nothing for you yet”
       return new NextResponse(null, { status: 204 });
     }
 
+    // now we have link lets make a one time donwload url to the folder 
+
+
+    const downloadUrl = await oneTimeDownloadUrl(s3_connector.s3Identifier);
+
+
     // Return the saved tokens
-    return NextResponse.json({ tokens: account.tokens });
+    return NextResponse.json({ s3_download_link:downloadUrl, job_link: s3_connector.jobLink });
     
    
   } catch (error) {

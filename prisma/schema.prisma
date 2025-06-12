@@ -30,3 +30,13 @@ model LinkedInAccount {
 
   @@index([userId])
 }
+
+
+model S3File {
+  id           String   @id @default(cuid())
+  username     String
+  dateCreated  DateTime @default(now())
+  s3Identifier String   
+  jobLink      String   @default("")
+}
+ 
