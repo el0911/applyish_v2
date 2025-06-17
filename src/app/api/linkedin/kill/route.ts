@@ -11,6 +11,9 @@ export async function POST(req: Request) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as Secret) as JwtPayload;
     const { instance_name } = decoded;
 
+    consol.log('Decoded token:', decoded);
+    console.log('Instance name:', instance_name);
+
     if (!instance_name) {
       return new NextResponse('Instance name missing from token', { status: 400 });
     }
