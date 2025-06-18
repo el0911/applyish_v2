@@ -1,54 +1,51 @@
+// file: app/api/stop-instance/route.ts
 import { NextResponse } from 'next/server';
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
-import { EC2Client, StopInstancesCommand, DescribeInstancesCommand } from '@aws-sdk/client-ec2';
+import { LightsailClient, StopInstanceCommand } from '@aws-sdk/client-lightsail';
 
 export async function GET(req: Request) {
+  // 1. Check Authorization header
+  const auth = req.headers.get('Authorization')?.split(' ')[1];
+  if (!auth) {
+    return new NextResponse('Unauthorized', { status: 401 });
+  }
+
+  // 2. Verify JWT and get instance_name
+  let payload: JwtPayload;
   try {
-    const token = req.headers.get('Authorization')?.split(' ')[1];
-    if (!token) return new NextResponse('Unauthorized', { status: 401 });
+    payload = jwt.verify(auth, process.env.JWT_SECRET as Secret) as JwtPayload;
+  } catch {
+    return new NextResponse('Invalid token', { status: 401 });
+  }
+  const instanceName = payload.instance_name;
+  console.log('Decoded JWT payload:', payload);
+  if (!instanceName || typeof instanceName !== 'string') {
+    return new NextResponse('Instance name missing', { status: 400 });
+  }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as Secret) as JwtPayload;
-    const { instance_name } = decoded;
+  // 3. Initialize Lightsail client
+  const client = new LightsailClient({
+    region: process.env.AWS_REGION,
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
+    },
+  });
 
-    if (!instance_name) {
-      return new NextResponse('Instance name missing from token', { status: 400 });
-    }
-
-    const ec2Client = new EC2Client({
-      region: process.env.AWS_REGION,
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
-      },
-    });
-
-    // Lookup instance ID by Name tag
-    const describeCommand = new DescribeInstancesCommand({
-      Filters: [
-        { Name: 'tag:Name', Values: [instance_name] }
-      ]
-    });
-    const describeResult = await ec2Client.send(describeCommand);
-    console.dir(describeResult, { depth: null, colors: true });
-    const reservations = describeResult.Reservations || [];
-    const instanceId = reservations
-      .flatMap(res => res.Instances || [])
-      .map(inst => inst.InstanceId)
-      .find(id => !!id);
-
-    if (!instanceId) {
-      return new NextResponse('Instance not again found', { status: 404 });
-    }
-
-    const stopCommand = new StopInstancesCommand({
-      InstanceIds: [instanceId],
-    });
-
-    const result = await ec2Client.send(stopCommand);
-
-    return NextResponse.json({ message: 'Stop command sent successfully', result });
-  } catch (error) {
-    console.error('Error stopping instance:', error);
-    return new NextResponse('Failed to stop instance', { status: 500 });
+  // 4. Issue stop command directly
+  try {
+    const stopResp = await client.send(
+      new StopInstanceCommand({ instanceName })
+    );
+    return NextResponse.json({ message: 'Stop command sent', stopResp });
+  } catch (err: any) {
+    console.error('Error stopping instance:', err);
+    // If instance not found or other Lightsail error, can inspect err.name or err.Code if needed.
+    // For simplicity, return 404 if name-related, else 500.
+    const isNotFound = err.name === 'NotFoundException' || /not found/i.test(err.message);
+    return new NextResponse(
+      isNotFound ? 'Instance not found' : 'Failed to stop instance',
+      { status: isNotFound ? 404 : 500 }
+    );
   }
 }
