@@ -29,6 +29,7 @@ export async function GET(req: Request) {
       ]
     });
     const describeResult = await ec2Client.send(describeCommand);
+    console.dir(describeResult, { depth: null, colors: true });
     const reservations = describeResult.Reservations || [];
     const instanceId = reservations
       .flatMap(res => res.Instances || [])
