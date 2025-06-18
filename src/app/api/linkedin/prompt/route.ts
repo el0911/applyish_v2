@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
 import { PROMPT_TASK_EASY_APPLY } from '@/utils/constants';
 
-export async function POST(req: Request) {
+export async function GET(req: Request) {
   try {
     const token = req.headers.get('Authorization')?.split(' ')[1];
     if (!token) return new NextResponse('Unauthorized', { status: 401 });
