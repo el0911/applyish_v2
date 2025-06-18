@@ -36,7 +36,7 @@ export async function GET(req: Request) {
       .find(id => !!id);
 
     if (!instanceId) {
-      return new NextResponse('Instance not found', { status: 404 });
+      return new NextResponse('Instance not again found', { status: 404 });
     }
 
     const stopCommand = new StopInstancesCommand({
