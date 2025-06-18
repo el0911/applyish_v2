@@ -1,7 +1,6 @@
-// app/api/stop-instance/route.ts
 import { NextResponse } from 'next/server';
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
-import { EC2Client, StopInstancesCommand } from '@aws-sdk/client-ec2';
+import { EC2Client, StopInstancesCommand, DescribeInstancesCommand } from '@aws-sdk/client-ec2';
 
 export async function GET(req: Request) {
   try {
@@ -11,15 +10,9 @@ export async function GET(req: Request) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as Secret) as JwtPayload;
     const { instance_name } = decoded;
 
-    console.log('Decoded token:', decoded);
-    console.log('Instance name:', instance_name);
-
     if (!instance_name) {
       return new NextResponse('Instance name missing from token', { status: 400 });
     }
-
-    // You can optionally fetch the instance ID by name from DB if needed
-    // For this example, we assume `instance_name` is the actual EC2 instance ID (e.g., i-0abc123xyz...)
 
     const ec2Client = new EC2Client({
       region: process.env.AWS_REGION,
@@ -29,8 +22,25 @@ export async function GET(req: Request) {
       },
     });
 
+    // Lookup instance ID by Name tag
+    const describeCommand = new DescribeInstancesCommand({
+      Filters: [
+        { Name: 'tag:Name', Values: [instance_name] }
+      ]
+    });
+    const describeResult = await ec2Client.send(describeCommand);
+    const reservations = describeResult.Reservations || [];
+    const instanceId = reservations
+      .flatMap(res => res.Instances || [])
+      .map(inst => inst.InstanceId)
+      .find(id => !!id);
+
+    if (!instanceId) {
+      return new NextResponse('Instance not found', { status: 404 });
+    }
+
     const stopCommand = new StopInstancesCommand({
-      InstanceIds: [instance_name],
+      InstanceIds: [instanceId],
     });
 
     const result = await ec2Client.send(stopCommand);
