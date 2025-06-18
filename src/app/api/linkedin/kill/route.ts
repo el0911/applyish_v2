@@ -38,14 +38,8 @@ export async function GET(req: Request) {
       new StopInstanceCommand({ instanceName })
     );
     return NextResponse.json({ message: 'Stop command sent', stopResp });
-  } catch (err: any) {
+  } catch (err) {
     console.error('Error stopping instance:', err);
-    // If instance not found or other Lightsail error, can inspect err.name or err.Code if needed.
-    // For simplicity, return 404 if name-related, else 500.
-    const isNotFound = err.name === 'NotFoundException' || /not found/i.test(err.message);
-    return new NextResponse(
-      isNotFound ? 'Instance not found' : 'Failed to stop instance',
-      { status: isNotFound ? 404 : 500 }
-    );
+    return new NextResponse('Failed to stop instance', { status: 500 });
   }
 }
