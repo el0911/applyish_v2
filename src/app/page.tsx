@@ -60,7 +60,6 @@
 
  
 
-"use client"
 // add a react component that uses an iframe and fills the entire page
 
 import React from 'react'
