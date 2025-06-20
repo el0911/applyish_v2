@@ -65,24 +65,24 @@
 import React from 'react'
 // import { Loader2 } from 'lucide-react' // optional: for stylish spinner icon
 // import { motion } from 'framer-motion'
-import HeroSection from './components/landingPage/hero'
+// import HeroSection from './components/landingPage/hero'
 import StatsSection from './components/landingPage/stats'
 import InterviewShowcase from './components/landingPage/InterviewShowcase'
 import HowItWorksSection from './components/landingPage/HowItWorksSection'
 // import TestimonialsSection from './components/landingPage/TestimonialsSection'
-import PricingSection from './components/landingPage/pricingSection'
+// import PricingSection from './components/landingPage/pricingSection'
 import type { Metadata } from 'next'
 
 const IframeComponent = () => {
   
   return (
     <div className="h-screen w-screen relative bg-black">
-      <HeroSection />
+      {/* <HeroSection /> */}
       <StatsSection/>
       <InterviewShowcase />
       <HowItWorksSection />
       {/* <TestimonialsSection /> */}
-      <PricingSection />
+      {/* <PricingSection /> */}
     </div>
   )
 }
