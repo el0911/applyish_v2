@@ -72,6 +72,7 @@ import InterviewShowcase from './components/landingPage/InterviewShowcase'
 import HowItWorksSection from './components/landingPage/HowItWorksSection'
 import TestimonialsSection from './components/landingPage/TestimonialsSection'
 import PricingSection from './components/landingPage/pricingSection'
+import type { Metadata } from 'next'
 
 const IframeComponent = () => {
   // const [loading, setLoading] = useState(true)
@@ -88,6 +89,26 @@ const IframeComponent = () => {
     </div>
   )
 }
+
+
+export const metadata: Metadata = {
+  title: 'Applyish',
+  description: 'We stress you chill',
+  openGraph: {
+    title: 'Applyish – We Apply to Jobs For You',
+    description: 'Applyish is your job-hunting agent. We apply to jobs on your behalf, so you can focus on interviews — not filling out forms.',
+    type: 'website',
+    images: [
+      {
+        url: 'https://placehold.co/1200x600.png?text=applyish',
+        width: 1200,
+        height: 630,
+        alt: 'Applyish Open Graph Image',
+      }
+    ]
+  },
+}
+
 
 export default IframeComponent
 
