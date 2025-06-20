@@ -81,8 +81,8 @@ const PricingSection = () => {
                   </div>
                 </div>
                 <p className="text-green-200 leading-relaxed text-lg">
-                  If you don't receive any interview invitations within your first month of service, 
-                  we'll refund 100% of your fees. We're that confident in our ability to get you results.
+                  {`If you don't receive any interview invitations within your first month of service, 
+                  we'll refund 100% of your fees. We're that confident in our ability to get you results.`}
                 </p>
               </div>
 

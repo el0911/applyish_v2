@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/app/components/ui/card";
 import { Badge } from "@/app/components/ui/badge";
-import { Mail, Calendar, Building, MapPin, Clock } from "lucide-react";
+import { Mail, Calendar, Clock } from "lucide-react";
 
 const InterviewShowcase = () => {
   const interviews = [
@@ -82,7 +82,7 @@ const InterviewShowcase = () => {
                       Interview Invitation: {interview.position}
                     </h3>
                     <p className="text-slate-600 text-sm leading-relaxed">
-                      We're excited to invite you for an interview for the {interview.position} position.
+                     {` We're excited to invite you for an interview for the ${interview.position} position.`}
                     </p>
                   </div>
 

@@ -79,7 +79,7 @@ const HeroSection: FC = () => {
                         <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-slate-800 to-slate-900 p-8 border border-slate-700/50">
                             {/* Header */}
                             <div className="flex items-center justify-between mb-8">
-                                <h3 className="text-white text-xl font-semibold">Job applications being submitted by VA's</h3>
+                                <h3 className="text-white text-xl font-semibold">{`Job applications being submitted by VA's`}</h3>
                                 <div className="bg-green-500 text-white p-2 rounded-full shadow-lg animate-bounce">
                                     <CheckCircle className="w-5 h-5" />
                                 </div>

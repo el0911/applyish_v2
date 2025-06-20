@@ -63,7 +63,7 @@
 "use client"
 // add a react component that uses an iframe and fills the entire page
 
-import React, { useState } from 'react'
+import React from 'react'
 // import { Loader2 } from 'lucide-react' // optional: for stylish spinner icon
 // import { motion } from 'framer-motion'
 import HeroSection from './components/landingPage/hero'

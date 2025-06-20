@@ -116,7 +116,7 @@ const TestimonialsSection = () => {
                                     <Quote className="w-16 h-16 text-blue-400 mx-auto mb-8 opacity-50" />
 
                                     <blockquote className="text-2xl lg:text-3xl leading-relaxed mb-10 text-white font-light italic">
-                                        "{testimonial.content}"
+                                        {`"${testimonial.content}"`}
                                     </blockquote>
 
                                     <div className="flex items-center justify-center space-x-6">

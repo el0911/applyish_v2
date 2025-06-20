@@ -1,6 +1,6 @@
 // components/Seo.tsx
 import Head from 'next/head';
-
+import image_favicon from "../app/favicon.ico"; // Adjust the path as necessary
 interface SeoProps {
   title?: string;
   description?: string;
@@ -12,7 +12,7 @@ export default function Seo({
   title = 'Applyish – We Apply to Jobs For You',
   description = 'Applyish is your job-hunting agent. We apply to jobs on your behalf, so you can focus on interviews — not filling out forms.',
   url = 'https://applyish.com',
-  image = require('../app/favicon.ico').default, // Adjust the path as necessary
+  image = image_favicon.src,  
 }: SeoProps) {
   return (
     <Head>
