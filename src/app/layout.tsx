@@ -34,9 +34,10 @@ export const metadata: Metadata = {
     title: 'Applyish – We Apply to Jobs For You',
     description: 'Applyish is your job-hunting agent. We apply to jobs on your behalf, so you can focus on interviews — not filling out forms.',
     type: 'website',
+    url: 'https://www.applyish.com',
     images: [
       {
-        url: 'https://placehold.co/1200x600.png?text=applyish',
+        url: 'https://www.applyish.com/1200x600.png',
         width: 1200,
         height: 630,
         alt: 'Applyish Open Graph Image',
