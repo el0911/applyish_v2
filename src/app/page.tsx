@@ -74,9 +74,7 @@ import PricingSection from './components/landingPage/pricingSection'
 import type { Metadata } from 'next'
 
 const IframeComponent = () => {
-  // const [loading, setLoading] = useState(true)
-  // const iframeUrl = 'https://first-gas-3bf.notion.site/ebd/1ac65bb93d5680d295d3fd55df9501e6'
-
+  
   return (
     <div className="h-screen w-screen relative bg-black">
       <HeroSection />
