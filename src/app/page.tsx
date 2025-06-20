@@ -69,7 +69,7 @@ import HeroSection from './components/landingPage/hero'
 import StatsSection from './components/landingPage/stats'
 import InterviewShowcase from './components/landingPage/InterviewShowcase'
 import HowItWorksSection from './components/landingPage/HowItWorksSection'
-import TestimonialsSection from './components/landingPage/TestimonialsSection'
+// import TestimonialsSection from './components/landingPage/TestimonialsSection'
 import PricingSection from './components/landingPage/pricingSection'
 import type { Metadata } from 'next'
 
