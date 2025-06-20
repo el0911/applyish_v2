@@ -64,42 +64,27 @@
 // add a react component that uses an iframe and fills the entire page
 
 import React, { useState } from 'react'
-import { Loader2 } from 'lucide-react' // optional: for stylish spinner icon
-import { motion } from 'framer-motion'
+// import { Loader2 } from 'lucide-react' // optional: for stylish spinner icon
+// import { motion } from 'framer-motion'
+import HeroSection from './components/landingPage/hero'
+import StatsSection from './components/landingPage/stats'
+import InterviewShowcase from './components/landingPage/InterviewShowcase'
+import HowItWorksSection from './components/landingPage/HowItWorksSection'
+import TestimonialsSection from './components/landingPage/TestimonialsSection'
+import PricingSection from './components/landingPage/pricingSection'
 
 const IframeComponent = () => {
-  const [loading, setLoading] = useState(true)
-  const iframeUrl = 'https://first-gas-3bf.notion.site/ebd/1ac65bb93d5680d295d3fd55df9501e6'
+  // const [loading, setLoading] = useState(true)
+  // const iframeUrl = 'https://first-gas-3bf.notion.site/ebd/1ac65bb93d5680d295d3fd55df9501e6'
 
   return (
     <div className="h-screen w-screen relative bg-black">
-      {loading && (
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center bg-black z-10"
-          initial={{ opacity: 1 }}
-          animate={{ opacity: loading ? 1 : 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="flex flex-col items-center gap-4">
-            <Loader2 className="h-12 w-12 animate-spin text-white" />
-            <p className="text-white text-lg font-medium">Loading...</p>
-          </div>
-        </motion.div>
-      )}
-      <iframe
-        src={iframeUrl}
-        width="100%"
-        height="100%"
-        frameBorder="0"
-        allowFullScreen
-        style={{
-          display: loading ? 'none' : 'block',
-          transition: 'opacity 0.5s ease-in-out',
-        }}
-        onLoad={() => setLoading(false)}
-        className="h-full w-full border-none"
-        title="Iframe Example"
-      />
+      <HeroSection />
+      <StatsSection/>
+      <InterviewShowcase />
+      <HowItWorksSection />
+      <TestimonialsSection />
+      <PricingSection />
     </div>
   )
 }
