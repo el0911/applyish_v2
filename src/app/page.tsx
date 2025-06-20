@@ -81,7 +81,7 @@ const IframeComponent = () => {
       <StatsSection/>
       <InterviewShowcase />
       <HowItWorksSection />
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> */}
       <PricingSection />
     </div>
   )
