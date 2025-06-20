@@ -60,52 +60,34 @@
 
  
 
+"use client"
 // add a react component that uses an iframe and fills the entire page
 
 import React from 'react'
 // import { Loader2 } from 'lucide-react' // optional: for stylish spinner icon
 // import { motion } from 'framer-motion'
-// import HeroSection from './components/landingPage/hero'
+import HeroSection from './components/landingPage/hero'
 import StatsSection from './components/landingPage/stats'
 import InterviewShowcase from './components/landingPage/InterviewShowcase'
 import HowItWorksSection from './components/landingPage/HowItWorksSection'
-// import TestimonialsSection from './components/landingPage/TestimonialsSection'
-// import PricingSection from './components/landingPage/pricingSection'
-import type { Metadata } from 'next'
+import TestimonialsSection from './components/landingPage/TestimonialsSection'
+import PricingSection from './components/landingPage/pricingSection'
 
 const IframeComponent = () => {
-  
+  // const [loading, setLoading] = useState(true)
+  // const iframeUrl = 'https://first-gas-3bf.notion.site/ebd/1ac65bb93d5680d295d3fd55df9501e6'
+
   return (
     <div className="h-screen w-screen relative bg-black">
-      {/* <HeroSection /> */}
+      <HeroSection />
       <StatsSection/>
       <InterviewShowcase />
       <HowItWorksSection />
-      {/* <TestimonialsSection /> */}
-      {/* <PricingSection /> */}
+      <TestimonialsSection />
+      <PricingSection />
     </div>
   )
 }
-
-
-export const metadata: Metadata = {
-  title: 'Applyish',
-  description: 'We stress you chill',
-  openGraph: {
-    title: 'Applyish – We Apply to Jobs For You',
-    description: 'Applyish is your job-hunting agent. We apply to jobs on your behalf, so you can focus on interviews — not filling out forms.',
-    type: 'website',
-    images: [
-      {
-        url: 'https://placehold.co/1200x600.png?text=applyish',
-        width: 1200,
-        height: 630,
-        alt: 'Applyish Open Graph Image',
-      }
-    ]
-  },
-}
-
 
 export default IframeComponent
 
