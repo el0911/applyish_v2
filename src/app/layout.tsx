@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://placehold.co/1200x600?text=applyish',
+        url: 'https://placehold.co/1200x600.png?text=applyish',
         width: 1200,
         height: 630,
         alt: 'Applyish Open Graph Image',
