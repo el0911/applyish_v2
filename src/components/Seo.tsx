@@ -1,6 +1,6 @@
 // components/Seo.tsx
 import Head from 'next/head';
-import image_favicon from "../app/favicon.ico"; // Adjust the path as necessary
+// import image_favicon from "../app/favicon.ico"; // Adjust the path as necessary
 interface SeoProps {
   title?: string;
   description?: string;
