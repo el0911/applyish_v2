@@ -1,0 +1,21 @@
+Sitemap: https://www.applyish.com/sitemap.xml
+
+# Allow major social and search bots
+User-agent: Googlebot
+Disallow:
+
+User-agent: Bingbot
+Disallow:
+
+User-agent: LinkedInBot
+Disallow:
+
+User-agent: facebookexternalhit
+Disallow:
+
+User-agent: Twitterbot
+Disallow:
+
+# Block all bots from /api
+User-agent: *
+Disallow: /api
