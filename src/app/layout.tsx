@@ -24,7 +24,24 @@ import './globals.css'
 //   variable: '--font-geist-mono',
 //   subsets: ['latin'],
 // })
- 
+
+export const metadata: Metadata = {
+  title: 'Applyish',
+  description: 'We stress you chill',
+  openGraph: {
+    title: 'Applyish – We Apply to Jobs For You',
+    description: 'Applyish is your job-hunting agent. We apply to jobs on your behalf, so you can focus on interviews — not filling out forms.',
+    type: 'website',
+    images: [
+      {
+        url: 'https://placehold.co/1200x600?text=applyish',
+        width: 1200,
+        height: 630,
+        alt: 'Applyish Open Graph Image',
+      }
+    ]
+  },
+}
 
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
