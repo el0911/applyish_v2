@@ -35,6 +35,7 @@ export const metadata: Metadata = {
     description: 'Applyish is your job-hunting agent. We apply to jobs on your behalf, so you can focus on interviews — not filling out forms.',
     type: 'website',
     url: 'https://www.applyish.com',
+    locale: 'en_US',
     images: [
       {
         url: 'https://www.applyish.com/1200x600.png',
