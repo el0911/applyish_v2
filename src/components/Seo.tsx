@@ -12,7 +12,7 @@ export default function Seo({
   title = 'Applyish – We Apply to Jobs For You',
   description = 'Applyish is your job-hunting agent. We apply to jobs on your behalf, so you can focus on interviews — not filling out forms.',
   url = 'https://applyish.com',
-  image = 'https://www.applyish.com/og-image.jpg'
+//   image = 'https://www.applyish.com/og-image.jpg'
 }: SeoProps) {
   return (
     <Head>
