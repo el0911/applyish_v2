@@ -76,7 +76,6 @@ const TestimonialsSection = () => {
         const timer = setInterval(() => {
             setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
         }, 6000);
-
         return () => clearInterval(timer);
     }, [testimonials.length]);
 
@@ -89,15 +88,13 @@ const TestimonialsSection = () => {
     };
 
     return (
-        <section className="py-32 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden relative">
-            {/* Background pattern */}
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=" />
+        <section className="py-32 bg-white text-black overflow-hidden relative">
             <div className="relative max-w-7xl mx-auto px-6">
                 <div className="text-center mb-20">
                     <h2 className="text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
                         Success Stories
                     </h2>
-                    <p className="text-xl lg:text-2xl text-slate-300 max-w-3xl mx-auto font-light leading-relaxed">
+                    <p className="text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
                         Real results from real job seekers who transformed their careers with us
                     </p>
                 </div>
@@ -107,34 +104,33 @@ const TestimonialsSection = () => {
                         {testimonials.map((testimonial, index) => (
                             <Card
                                 key={index}
-                                className={`absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/10 transition-all duration-1000 transform ${index === currentTestimonial
-                                    ? 'translate-x-0 opacity-100 scale-100'
-                                    : index < currentTestimonial
-                                        ? '-translate-x-full opacity-0 scale-95'
-                                        : 'translate-x-full opacity-0 scale-95'}`}
+                                className={`absolute inset-0 bg-white border border-gray-200 shadow transition-all duration-700 ease-in-out transform
+                                    ${index === currentTestimonial
+                                        ? 'translate-x-0 opacity-100 scale-100 z-10'
+                                        : index < currentTestimonial
+                                            ? '-translate-x-8 opacity-0 scale-95 z-0'
+                                            : 'translate-x-8 opacity-0 scale-95 z-0'}`}
+                                style={{ pointerEvents: index === currentTestimonial ? 'auto' : 'none' }}
                             >
                                 <CardContent className="p-12 lg:p-16 text-center h-full flex flex-col justify-center">
-                                    <Quote className="w-16 h-16 text-blue-400 mx-auto mb-8 opacity-50" />
-
-                                    <blockquote className="text-2xl lg:text-3xl leading-relaxed mb-10 text-white font-light italic">
+                                    <Quote className="w-12 h-12 text-black mx-auto mb-8 opacity-10" />
+                                    <blockquote className="text-2xl lg:text-3xl leading-relaxed mb-10 text-black font-light italic">
                                         {`"${testimonial.content}"`}
                                     </blockquote>
-
                                     <div className="flex items-center justify-center space-x-6">
                                         <img
                                             src={testimonial.avatar}
                                             alt={testimonial.name}
-                                            className="w-16 h-16 rounded-full object-cover border-2 border-white/20" />
+                                            className="w-16 h-16 rounded-full object-cover border-2 border-gray-200" />
                                         <div className="text-left">
-                                            <div className="font-bold text-xl text-white">{testimonial.name}</div>
-                                            <div className="text-blue-300 text-lg">{testimonial.role}</div>
-                                            <div className="text-slate-400">{testimonial.company} • {testimonial.location}</div>
+                                            <div className="font-bold text-xl text-black">{testimonial.name}</div>
+                                            <div className="text-gray-700 text-lg">{testimonial.role}</div>
+                                            <div className="text-gray-400">{testimonial.company} • {testimonial.location}</div>
                                         </div>
                                     </div>
-
                                     <div className="flex justify-center mt-8 space-x-1">
                                         {[...Array(testimonial.rating)].map((_, i) => (
-                                            <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
+                                            <Star key={i} className="w-6 h-6 text-black fill-black/80 opacity-60" />
                                         ))}
                                     </div>
                                 </CardContent>
@@ -148,28 +144,27 @@ const TestimonialsSection = () => {
                             variant="outline"
                             size="lg"
                             onClick={prevTestimonial}
-                            className="border-white/20 text-white hover:bg-white/10 backdrop-blur-sm"
+                            className="border-gray-300 text-white hover:bg-gray-100 transition hover:text-black"
                         >
                             <ChevronLeft className="w-5 h-5" />
                         </Button>
-
                         {/* Navigation dots */}
                         <div className="flex space-x-3">
                             {testimonials.map((_, index) => (
                                 <button
                                     key={index}
                                     onClick={() => setCurrentTestimonial(index)}
-                                    className={`w-4 h-4 rounded-full transition-all duration-300 ${index === currentTestimonial
-                                        ? 'bg-blue-400 scale-125'
-                                        : 'bg-white/30 hover:bg-white/50'}`} />
+                                    className={`w-3 h-3 rounded-full transition-all duration-300
+                                        ${index === currentTestimonial
+                                            ? 'bg-black scale-125'
+                                            : 'bg-gray-300 hover:bg-black/30'}`} />
                             ))}
                         </div>
-
                         <Button
                             variant="outline"
                             size="lg"
                             onClick={nextTestimonial}
-                            className="border-white/20 text-white hover:bg-white/10 backdrop-blur-sm"
+                            className="border-gray-300 text-white hover:bg-gray-100 transition hover:text-black"
                         >
                             <ChevronRight className="w-5 h-5" />
                         </Button>

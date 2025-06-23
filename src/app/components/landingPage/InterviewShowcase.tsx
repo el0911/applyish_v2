@@ -1,35 +1,19 @@
-import { Card, CardContent } from "@/app/components/ui/card";
 import { Badge } from "@/app/components/ui/badge";
-import { Mail, Calendar, Clock } from "lucide-react";
+
+// Import your images statically or dynamically
+import img1 from "@/app/interviewimages/1.png"
+import img2 from "@/app/interviewimages/2.png"
+import img3 from "@/app/interviewimages/3.png"
+import img4 from "@/app/interviewimages/4.png"
+
+const interviewImages = [
+  { src: img1.src, alt: "Interview Screenshot 1" },
+  { src: img2.src, alt: "Interview Screenshot 2" },
+  { src: img3.src, alt: "Interview Screenshot 3" },
+  { src: img4.src, alt: "Interview Screenshot 4" },
+];
 
 const InterviewShowcase = () => {
-  const interviews = [
-    {
-      company: "TechCorp",
-      position: "Senior Software Engineer",
-      date: "Tomorrow, 2:00 PM",
-      type: "Video Interview",
-      status: "Confirmed",
-      logo: "🏢"
-    },
-    {
-      company: "DataFlow Inc",
-      position: "Data Scientist",
-      date: "Friday, 10:00 AM",
-      type: "Phone Screen",
-      status: "Confirmed",
-      logo: "📊"
-    },
-    {
-      company: "DesignStudio",
-      position: "UX Designer",
-      date: "Next Monday, 3:30 PM",
-      type: "Portfolio Review",
-      status: "Scheduled",
-      logo: "🎨"
-    }
-  ];
-
   return (
     <section className="py-20 bg-gradient-to-br from-blue-50 to-slate-50">
       <div className="max-w-7xl mx-auto px-6">
@@ -45,94 +29,71 @@ const InterviewShowcase = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
-          {interviews.map((interview, index) => (
-            <Card 
-              key={index}
-              className="bg-white border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 group overflow-hidden"
-              style={{ animationDelay: `${index * 300}ms` }}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {interviewImages.map((img, idx) => (
+            <div
+              key={idx}
+              className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden flex flex-col"
             >
-              <CardContent className="p-6">
-                {/* Email header simulation */}
-                <div className="flex items-center justify-between mb-4 pb-4 border-b border-slate-100">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
-                      {interview.logo}
-                    </div>
-                    <div>
-                      <div className="font-semibold text-slate-900">{interview.company}</div>
-                      <div className="text-sm text-slate-500">HR Department</div>
-                    </div>
-                  </div>
-                  <Badge 
-                    className={
-                      interview.status === "Confirmed" 
-                        ? "bg-green-100 text-green-700 border-green-200" 
-                        : "bg-blue-100 text-blue-700 border-blue-200"
-                    }
-                  >
-                    {interview.status}
-                  </Badge>
-                </div>
-
-                {/* Email content */}
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-bold text-lg text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
-                      Interview Invitation: {interview.position}
-                    </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                     {` We're excited to invite you for an interview for the ${interview.position} position.`}
-                    </p>
-                  </div>
-
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-3 text-sm">
-                      <Calendar className="w-4 h-4 text-blue-500" />
-                      <span className="text-slate-700 font-medium">{interview.date}</span>
-                    </div>
-                    
-                    <div className="flex items-center space-x-3 text-sm">
-                      <Clock className="w-4 h-4 text-purple-500" />
-                      <span className="text-slate-700">{interview.type}</span>
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t border-slate-100">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-slate-400">Received via Applyish Pro</span>
-                      <Mail className="w-4 h-4 text-slate-400" />
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+              <div className="w-full aspect-[9/16] bg-slate-100 flex items-center justify-center">
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="object-cover w-full h-full"
+                  draggable={false}
+                />
+              </div>
+            </div>
           ))}
+          {/* Call-to-action card */}
+          <div 
+              className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden flex flex-col"
+          >
+            <div className="flex flex-col items-center justify-center h-full w-full">
+              <span className="inline-block mb-3">
+                <svg width="40" height="40" fill="none" viewBox="0 0 24 24" className="mx-auto text-black">
+                  <path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4Zm0 2c-2.67 0-8 1.34-8 4v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2c0-2.66-5.33-4-8-4Z" />
+                </svg>
+              </span>
+              <h3 className="text-lg font-semibold text-black mb-2">
+                Want to get an interview like this?
+              </h3>
+              <p className="text-slate-700 mb-4">
+                Get on a free call with us and start your journey!
+              </p>
+              <a
+                href="https://first-gas-3bf.notion.site/1b565bb93d5681dfaaf7fad306122371?pvs=105"
+                className="inline-block bg-black hover:bg-neutral-800 text-white font-medium px-4 py-2 rounded transition"
+              >
+                Book a Call
+              </a>
+            </div>
+          </div>
         </div>
 
         <div className="text-center mt-12">
           <p className="text-slate-600 mb-6">
             Join hundreds of professionals getting interview invites every week
           </p>
-            <div className="flex justify-center items-center space-x-4">
+          <div className="flex justify-center items-center space-x-4">
             <div className="flex -space-x-2">
               {[
-              "https://randomuser.me/api/portraits/men/32.jpg",
-              "https://randomuser.me/api/portraits/women/44.jpg",
-              "https://randomuser.me/api/portraits/men/65.jpg",
-              "https://randomuser.me/api/portraits/women/68.jpg",
-              "https://randomuser.me/api/portraits/men/12.jpg"
+                "https://randomuser.me/api/portraits/men/32.jpg",
+                "https://randomuser.me/api/portraits/women/44.jpg",
+                "https://randomuser.me/api/portraits/men/65.jpg",
+                "https://randomuser.me/api/portraits/women/68.jpg",
+                "https://randomuser.me/api/portraits/men/12.jpg"
               ].map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                alt="Happy client"
-                className="w-10 h-10 rounded-full border-2 border-white object-cover"
-              />
+                <img
+                  key={i}
+                  src={src}
+                  alt="Happy client"
+                  className="w-10 h-10 rounded-full border-2 border-white object-cover"
+                />
               ))}
             </div>
             <span className="text-slate-600 font-medium">+1000 happy clients</span>
-            </div>
+          </div>
         </div>
       </div>
     </section>
