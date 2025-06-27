@@ -60,7 +60,6 @@ const PricingSection = () => {
               </div>
 
               <Button 
-                size="lg" 
                 variant="outline"
                 onClick={()=>{
                   window.location.href = "https://first-gas-3bf.notion.site/1b565bb93d5681dfaaf7fad306122371?pvs=105";
