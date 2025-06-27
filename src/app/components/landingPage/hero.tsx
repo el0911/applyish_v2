@@ -70,7 +70,7 @@ const HeroSection: FC = () => {
                                     }}
                                     variant="outline"
                                     size="lg"
-                                    className="border-black text-black hover:bg-black/10 px-10 py-6 text-lg font-medium group hover:text-black"
+                                    className="border-black dark:border-white text-black dark:text-white hover:bg-black/10 dark:hover:bg-white/10 px-10 py-6 text-lg font-medium group hover:text-black dark:hover:text-white"
                                 >
                                     <Calendar className="mr-3 w-5 h-5 group-hover:scale-110 transition-transform" />
                                     Book Demo
