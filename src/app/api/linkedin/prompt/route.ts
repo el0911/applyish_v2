@@ -1,7 +1,7 @@
 // app/api/stop-instance/route.ts
 import { NextResponse } from 'next/server';
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
-import { PROMPT_TASK_EASY_APPLY } from '@/utils/constants';
+import { PROMPT_TASK_EASY_APPLY,SYSTEM_PROMPT_TASK_EASY_APPLY } from '@/utils/constants';
 
 export async function GET(req: Request) {
   try {
@@ -16,7 +16,10 @@ export async function GET(req: Request) {
     }
 
     
-    return NextResponse.json({ prompt:PROMPT_TASK_EASY_APPLY });
+    return NextResponse.json({ 
+      task:PROMPT_TASK_EASY_APPLY,
+      extended_system_prompt : SYSTEM_PROMPT_TASK_EASY_APPLY
+     });
   } catch (error) {
     console.error('Error stopping instance:', error);
     return new NextResponse('Failed to stop instance', { status: 500 });
