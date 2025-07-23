@@ -10,13 +10,13 @@ export async function POST(req: Request) {
     }
 
     const account = await prisma.s3File.findFirst({
-      where: { username },
+      where: { s3Identifier: username },
     });
 
     if(account == null) {
       return new NextResponse('No account found for this username', { status: 404 });
     }
-    
+
     const now = new Date();
     const year = now.getFullYear();
     const startOfYear = new Date(year, 0, 1);
