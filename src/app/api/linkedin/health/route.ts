@@ -16,7 +16,7 @@ export async function POST(req: Request) {
         }
 
         const account = await prisma.s3File.findFirst({
-            where: { username },
+            where: { s3Identifier : username },
         });
 
         if (account == null) {
