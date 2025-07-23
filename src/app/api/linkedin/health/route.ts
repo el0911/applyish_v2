@@ -5,7 +5,7 @@ import prisma from '@/lib/prisma';
 // health check for the LinkedIn easy connect accounts its done every day for accounts that are  connected 
 //if it fails that means the account is not connected anymore and we need to reinitialize the connection
 
-export async function GET(req: Request) {
+export async function POST(req: Request) {
 
 
     try {
