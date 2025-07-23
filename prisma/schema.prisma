@@ -18,6 +18,7 @@ model User {
   email           String             @unique
   name            String?
   linkedInAccount LinkedInAccount?
+  applicationCounts ApplicationCount[]
 }
 
 model LinkedInAccount {
@@ -39,4 +40,25 @@ model S3File {
   s3Identifier String   
   jobLink      String   @default("")
 }
- 
+
+model ApplicationCount {
+  id          String   @id @default(cuid())
+  username    String
+  weekOfYear  Int
+  year        Int
+  count       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([username, weekOfYear, year])
+  user        User     @relation(fields: [username], references: [email])
+}
+
+model HealthChecks{
+  id          String   @id @default(cuid())
+  username    String
+
+  isAlive     Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
