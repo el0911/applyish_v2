@@ -60,11 +60,7 @@ const PricingSection = () => {
               </div>
 
               <Button
-                style={{
-                  position: 'relative',
-                  display: 'ruby',
-                  height: 'auto'
-                }}
+                
                 variant="outline"
                 onClick={() => {
                   window.location.href = "https://first-gas-3bf.notion.site/1b565bb93d5681dfaaf7fad306122371?pvs=105";
