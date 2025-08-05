@@ -7,7 +7,7 @@ import logoImg from "../../logo.png"; // <-- Replace with your logo path
 
 const HeroSection: FC = () => {
     return (
-        <div className="relative bg-white text-black min-h-screen h-screen flex flex-col">
+        <div className="relative bg-white text-black flex flex-col">
             {/* Logo at the top */}
             <div className="w-full flex justify-start items-center px-8 py-6">
                 <img src={logoImg.src} alt="Logo" className="h-12 w-auto" />
@@ -15,8 +15,8 @@ const HeroSection: FC = () => {
 
             {/* Main Content */}
             <div className="flex-1 flex items-center">
-                <div className="relative max-w-7xl mx-auto px-6 w-full">
-                    <div className="grid lg:grid-cols-2 gap-20 items-center">
+                <div className="relative max-w-7xl mx-auto px-6 w-full px-4">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                         {/* LEFT: Text Content */}
                         <div className="space-y-10">
                             <Badge className="bg-black/10 text-black border border-black/20">
@@ -24,7 +24,7 @@ const HeroSection: FC = () => {
                                 100% Interview Guarantee
                             </Badge>
 
-                            <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold leading-tight tracking-tight">
+                            <h1 className="text-4xl sm:text-5xl lg:text-8xl font-bold leading-tight tracking-tight">
                                 Land Your{" "}
                                 <span className="bg-gradient-to-r from-black via-gray-700 to-black bg-clip-text text-transparent block">
                                     Dream Job

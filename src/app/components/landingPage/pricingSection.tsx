@@ -59,9 +59,14 @@ const PricingSection = () => {
                 ))}
               </div>
 
-              <Button 
+              <Button
+                style={{
+                  position: 'relative',
+                  display: 'ruby',
+                  height: 'auto'
+                }}
                 variant="outline"
-                onClick={()=>{
+                onClick={() => {
                   window.location.href = "https://first-gas-3bf.notion.site/1b565bb93d5681dfaaf7fad306122371?pvs=105";
                 }}
                 className="border-black dark:border-white text-black dark:text-white hover:bg-black/10 dark:hover:bg-white/10 px-10 py-6 text-lg font-medium group hover:text-black dark:hover:text-white"
@@ -70,7 +75,7 @@ const PricingSection = () => {
                 <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
               </Button>
 
-              
+
 
               <div className="mt-10 p-8 border border-black/10 rounded-2xl bg-black/5 backdrop-blur-sm animate-fadeIn">
                 <div className="flex items-center justify-center space-x-3 mb-4">
