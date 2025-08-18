@@ -39,7 +39,11 @@ export async function GET(req: Request) {
     // }
 
     //so just return all accounts saved in s3 table
-    const accounts = await prisma.s3File.findMany({})
+    const accounts = await prisma.s3File.findMany({
+      whhere: { 
+        active: true
+      }
+    })
 
 
     // Return the saved tokens
