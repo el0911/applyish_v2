@@ -40,7 +40,7 @@ export async function GET(req: Request) {
 
     //so just return all accounts saved in s3 table
     const accounts = await prisma.s3File.findMany({
-      whhere: { 
+      where: { 
         active: true
       }
     })
