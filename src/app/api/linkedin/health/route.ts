@@ -11,6 +11,9 @@ export async function POST(req: Request) {
     try {
         const { username,isAlive } = await req.json();
 
+        console.log('username', username);
+        console.log('isAlive', isAlive);
+
         if (!username) {
             return new NextResponse('Username is required', { status: 400 });
         }

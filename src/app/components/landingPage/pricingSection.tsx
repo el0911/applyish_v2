@@ -40,7 +40,7 @@ const PricingSection = () => {
               <div className="mb-10">
                 <h3 className="text-3xl lg:text-4xl font-bold mb-6">Job Application Service</h3>
                 <div className="flex items-center justify-center space-x-3 mb-6">
-                  <span className="text-7xl lg:text-8xl font-bold text-black">$18</span>
+                  <span className="text-7xl lg:text-8xl font-bold text-black">$45</span>
                   <span className="text-3xl text-black/60">/ week</span>
                 </div>
                 <p className="text-xl text-black/60 font-light">
@@ -65,7 +65,7 @@ const PricingSection = () => {
                 onClick={() => {
                   window.location.href = "https://first-gas-3bf.notion.site/1b565bb93d5681dfaaf7fad306122371?pvs=105";
                 }}
-                className="border-black dark:border-white text-black dark:text-white hover:bg-black/10 dark:hover:bg-white/10 px-10 py-6 text-lg font-medium group hover:text-black dark:hover:text-white"
+                className="border-black dark:border-white text-black dark:text-white hover:bg-black/10 dark:hover:bg-white/10 px-10 py-6 text-lg font-medium group hover:text-black "
               >
                 Start Your Success Journey
                 <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
