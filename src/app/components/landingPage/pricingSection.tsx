@@ -40,7 +40,7 @@ const PricingSection = () => {
               <div className="mb-10">
                 <h3 className="text-3xl lg:text-4xl font-bold mb-6">Job Application Service</h3>
                 <div className="flex items-center justify-center space-x-3 mb-6">
-                  <span className="text-7xl lg:text-8xl font-bold text-black">$45</span>
+                  <span className="text-7xl lg:text-8xl font-bold text-black">$55</span>
                   <span className="text-3xl text-black/60">/ week</span>
                 </div>
                 <p className="text-xl text-black/60 font-light">
