@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /app
+
+# Host
+Host: https://www.applyish.com
+
+# Sitemaps
+Sitemap: https://www.applyish.com/sitemap.xml
