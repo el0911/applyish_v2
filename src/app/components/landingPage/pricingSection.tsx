@@ -51,7 +51,7 @@ const PricingSection = () => {
             Simple, Transparent Pricing
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Choose the plan that's right for you. Cancel anytime.
+            Choose the plan that&apos;s right for you. Cancel anytime.
           </p>
         </div>
 

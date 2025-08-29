@@ -1,9 +1,10 @@
 import { FC } from "react";
 import { Button } from "../ui/button";
-import { ArrowRight, Calendar, CheckCircle, Zap, Check } from "lucide-react";
+import { ArrowRight, CheckCircle, Zap, Check } from "lucide-react";
 import logoImg from "../../logo.png";
 import vaImg from "../../va.png";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const HeroSection: FC = () => {
     const floatingCards = [
@@ -103,7 +104,7 @@ const HeroSection: FC = () => {
         <div className="relative bg-white text-gray-900 min-h-screen">
             {/* Logo at the top */}
             <div className="w-full flex justify-start items-center px-8 py-6">
-                <img src={logoImg.src} alt="Logo" className="h-10 w-auto" />
+                <Image src={logoImg.src} alt="Logo" className="h-10 w-auto" height={40} width={100} />
             </div>
 
             {/* Main Content */}
@@ -149,10 +150,12 @@ const HeroSection: FC = () => {
 
                             {/* VA Illustration */}
                             <div className="flex items-center justify-center mb-8 relative">
-                                <img
+                                <Image
                                     src={vaImg.src}
                                     alt="Virtual Assistant"
                                     className="w-48 h-48 object-cover rounded-full shadow-lg border-4 border-black/10"
+                                    width={192}
+                                    height={192}
                                 />
                             </div>
 
@@ -169,10 +172,12 @@ const HeroSection: FC = () => {
                                         </span>
                                     </div>
                                     <span className="text-gray-700 flex font-semibold items-center gap-2">
-                                        <img
+                                        <Image
                                             src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
                                             alt="Google Logo"
                                             className="w-5 h-5"
+                                            width={20}
+                                            height={20}
                                         />Google</span>
                                 </div>
 
@@ -185,10 +190,12 @@ const HeroSection: FC = () => {
                                         <span className="text-black font-medium">Interview scheduled</span>
                                     </div>
                                     <span className="text-gray-700 flex font-semibold items-center gap-2">
-                                        <img
+                                        <Image
                                             src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg"
                                             alt="Facebook Logo"
                                             className="w-5 h-5"
+                                            width={20}
+                                            height={20}
                                         />
                                         Facebook
                                     </span>
@@ -204,10 +211,12 @@ const HeroSection: FC = () => {
                                     </div>
                                     <div className="flex items-center space-x-3">
                                         <span className="text-gray-700 flex font-semibold items-center gap-2">
-                                            <img
+                                            <Image
                                                 src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
                                                 alt="Amazon Logo"
                                                 className="w-5 h-5"
+                                                width={20}
+                                                height={20}
                                             />
                                             Amazon
                                         </span>

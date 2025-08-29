@@ -1,10 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
-import { Star, Quote, ArrowRight } from "lucide-react";
+import {  useEffect } from "react";
+import { Quote, ArrowRight } from "lucide-react";
 import { Button } from "../ui/button";
+import Image from "next/image";
 
 const TestimonialsSection = () => {
-    const [currentTestimonial, setCurrentTestimonial] = useState(0);
+    
     const testimonials = [
         {
             name: "Sarah J.",
@@ -28,7 +29,7 @@ const TestimonialsSection = () => {
 
     useEffect(() => {
         const timer = setInterval(() => {
-            setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+            // setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
         }, 6000);
         return () => clearInterval(timer);
     }, [testimonials.length]);
@@ -51,10 +52,12 @@ const TestimonialsSection = () => {
                             <Quote className="w-8 h-8 text-gray-400 mb-4" />
                             <p className="text-gray-700 mb-6">{testimonial.content}</p>
                             <div className="flex items-center">
-                                <img
+                                <Image
                                     src={testimonial.avatar}
                                     alt={testimonial.name}
                                     className="w-12 h-12 rounded-full object-cover mr-4"
+                                    width={48}
+                                    height={48}
                                 />
                                 <div>
                                     <div className="font-bold">{testimonial.name}</div>

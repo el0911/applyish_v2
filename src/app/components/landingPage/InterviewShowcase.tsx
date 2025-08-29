@@ -1,7 +1,8 @@
 import { Button } from "../ui/button";
 import { ArrowRight } from "lucide-react";
-import { Badge } from "@/app/components/ui/badge";
+
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 // Import your images statically or dynamically
 import img1 from "@/app/interviewimages/1.png"
@@ -63,10 +64,12 @@ const InterviewShowcase = () => {
               className="bg-gray-100 rounded-lg overflow-hidden"
               variants={itemVariants}
             >
-              <img
+              <Image
                 src={img.src}
                 alt={img.alt}
                 className="object-cover w-full h-full"
+                width={500}
+                height={300}
               />
             </motion.div>
           ))}
