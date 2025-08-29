@@ -61,30 +61,29 @@
  
 
 "use client"
-// add a react component that uses an iframe and fills the entire page
 
 import React from 'react'
-// import { Loader2 } from 'lucide-react' // optional: for stylish spinner icon
-// import { motion } from 'framer-motion'
 import HeroSection from './components/landingPage/hero'
-import StatsSection from './components/landingPage/stats'
-import InterviewShowcase from './components/landingPage/InterviewShowcase'
+import SocialProofSection from './components/landingPage/SocialProofSection'
 import HowItWorksSection from './components/landingPage/HowItWorksSection'
+import InterviewShowcase from './components/landingPage/InterviewShowcase'
 import TestimonialsSection from './components/landingPage/TestimonialsSection'
+import ObjectionHandling from './components/landingPage/ObjectionHandling'
 import PricingSection from './components/landingPage/pricingSection'
+import FinalCTA from './components/landingPage/FinalCTA'
 
 const IframeComponent = () => {
-  // const [loading, setLoading] = useState(true)
-  // const iframeUrl = 'https://first-gas-3bf.notion.site/ebd/1ac65bb93d5680d295d3fd55df9501e6'
 
   return (
-    <div className="h-screen w-screen relative bg-black">
+    <div className="bg-white">
       <HeroSection />
-      <StatsSection/>
-      <InterviewShowcase />
+      <SocialProofSection />
       <HowItWorksSection />
+      <InterviewShowcase />
       <TestimonialsSection />
+      <ObjectionHandling />
       <PricingSection />
+      <FinalCTA />
     </div>
   )
 }
