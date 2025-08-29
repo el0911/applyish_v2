@@ -1,4 +1,7 @@
 import { FC } from 'react';
+import { motion } from "framer-motion";
+import { Button } from "../ui/button";
+import { ArrowRight } from "lucide-react";
 
 const stats = [
   { id: 1, name: 'Applications sent', value: '30+' },
@@ -8,64 +11,66 @@ const stats = [
 ];
 
 const SocialProofSection: FC = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
-    <div className="bg-white py-24 sm:py-32">
+    <div className="relative overflow-hidden bg-gradient-to-b from-blue-400 to-blue-50 py-24 sm:py-32 text-gray-900">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-none">
           <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Trusted by professionals at leading companies
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Join thousands of professionals who landed their dream job
             </h2>
           </div>
-          <div className="mx-auto mt-16 grid grid-cols-4 items-center gap-x-8 gap-y-10 sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:grid-cols-5">
-            <img
-              className="col-span-2 max-h-12 w-full object-contain object-left lg:col-span-1"
-              src="https://tailwindui.com/img/logos/transistor-logo-gray-900.svg"
-              alt="Transistor"
-              width={158}
-              height={48}
-            />
-            <img
-              className="col-span-2 max-h-12 w-full object-contain object-left lg:col-span-1"
-              src="https://tailwindui.com/img/logos/reform-logo-gray-900.svg"
-              alt="Reform"
-              width={158}
-              height={48}
-            />
-            <img
-              className="col-span-2 max-h-12 w-full object-contain object-left lg:col-span-1"
-              src="https://tailwindui.com/img/logos/tuple-logo-gray-900.svg"
-              alt="Tuple"
-              width={158}
-              height={48}
-            />
-            <img
-              className="col-span-2 max-h-12 w-full object-contain object-left lg:col-span-1"
-              src="https://tailwindui.com/img/logos/savvycal-logo-gray-900.svg"
-              alt="SavvyCal"
-              width={158}
-              height={48}
-            />
-            <img
-              className="col-span-2 max-h-12 w-full object-contain object-left lg:col-span-1"
-              src="https://tailwindui.com/img/logos/statamic-logo-gray-900.svg"
-              alt="Statamic"
-              width={158}
-              height={48}
-            />
-          </div>
-          <div className="mt-16 border-t border-gray-200 pt-16">
+          <motion.div
+            className="mt-16 border-t border-gray-200 pt-16"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+          >
             <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-4">
               {stats.map((stat) => (
-                <div key={stat.id} className="mx-auto flex max-w-xs flex-col gap-y-4">
+                <motion.div key={stat.id} className="mx-auto flex max-w-xs flex-col gap-y-4" variants={itemVariants}>
                   <dt className="text-base leading-7 text-gray-600">{stat.name}</dt>
-                  <dd className="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                  <dd className="order-first text-3xl font-semibold tracking-tight sm:text-5xl">
                     {stat.value}
                   </dd>
-                </div>
+                </motion.div>
               ))}
             </dl>
-          </div>
+          </motion.div>
+        </div>
+      <div className="mt-16 text-center">
+          <Button
+            onClick={() => {
+              window.location.href = "https://first-gas-3bf.notion.site/1b565bb93d5681dfaaf7fad306122371?pvs=105";
+            }}
+            size="lg"
+            className="bg-indigo-600 text-white px-10 py-6 text-lg min-h-[60px] font-semibold shadow-lg border border-indigo-600 hover:bg-indigo-700 hover:scale-105 transition-all duration-300"
+          >
+            Start Your Job Search Today
+            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Button>
         </div>
       </div>
     </div>

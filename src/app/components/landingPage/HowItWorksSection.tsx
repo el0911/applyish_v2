@@ -1,5 +1,8 @@
 
-import { Users, Target, Calendar } from "lucide-react";
+
+import { Button } from "../ui/button";
+import { ArrowRight, Users, Target, Calendar } from "lucide-react";
+import { motion } from "framer-motion";
 
 const HowItWorksSection = () => {
   const steps = [
@@ -20,32 +23,71 @@ const HowItWorksSection = () => {
     }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white text-gray-900">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-4xl font-bold mb-4">
             How It Works
           </h2>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             A simple 3-step process to land your dream job.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <motion.div
+          className="grid lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+        >
           {steps.map((step, index) => (
-            <div key={index} className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-6">
-                <step.icon className="w-8 h-8 text-gray-600" />
+            <motion.div key={index} className="text-center" variants={itemVariants}>
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-6">
+                <step.icon className="w-8 h-8 text-blue-600" />
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">
+              <h3 className="text-2xl font-bold mb-4">
                 {step.title}
               </h3>
-              <p className="text-slate-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed">
                 {step.description}
               </p>
-            </div>
+            </motion.div>
           ))}
+        </motion.div>
+      <div className="mt-16 text-center">
+          <Button
+            onClick={() => {
+              window.location.href = "https://first-gas-3bf.notion.site/1b565bb93d5681dfaaf7fad306122371?pvs=105";
+            }}
+            size="lg"
+            className="bg-indigo-600 text-white px-10 py-6 text-lg min-h-[60px] font-semibold shadow-lg border border-indigo-600 hover:bg-indigo-700 hover:scale-105 transition-all duration-300"
+          >
+            Start Your Job Search Today
+            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Button>
         </div>
       </div>
     </section>

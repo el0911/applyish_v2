@@ -4,42 +4,41 @@ import { Check } from "lucide-react";
 const PricingSection = () => {
   const pricingTiers = [
     {
-      name: "Basic",
-      price: "$297",
-      description: "For those who want to get their foot in the door.",
+      name: "Bulk",
+      price: "$50",
+      frequency: "One Time",
+      description: "Perfect for a quick boost to your job applications.",
       features: [
-        "30 applications per week",
-        "Resume optimization",
-        "Weekly progress reports",
+        "100 Job Applications",
+        "One Time Payment",
       ],
-      cta: "Choose Basic",
+      cta: "Get Bulk Applications",
       isPremium: false,
     },
     {
-      name: "Premium",
-      price: "$497",
-      description: "For those who want to accelerate their job search.",
+      name: "Custom",
+      price: "$65",
+      frequency: "/wk",
+      description: "Tailored applications and LinkedIn support.",
       features: [
-        "50 applications per week",
-        "LinkedIn optimization",
-        "Interview preparation",
-        "Resume optimization",
+        "75 Tailored Resume Applications",
+        "50 LinkedIn Easy Apply Weekly",
+        "Personalized Support",
       ],
-      cta: "Choose Premium",
+      cta: "Get Custom Plan",
       isPremium: true,
     },
     {
-      name: "Executive",
-      price: "$997",
-      description: "For those who want a personalized job search experience.",
+      name: "Pro",
+      price: "$55",
+      frequency: "/wk",
+      description: "Guaranteed interviews to accelerate your job search.",
       features: [
-        "Personal job strategist",
-        "Salary negotiation",
-        "50 applications per week",
-        "LinkedIn optimization",
-        "Interview preparation",
+        "Interview Guaranteed",
+        "200 jobs Weekly",
+        "Weekly Progress Reports",
       ],
-      cta: "Choose Executive",
+      cta: "Go Pro",
       isPremium: false,
     },
   ];
@@ -48,34 +47,33 @@ const PricingSection = () => {
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
             Simple, Transparent Pricing
           </h2>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Choose the plan that's right for you. Cancel anytime.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {pricingTiers.map((tier, index) => (
-            <div key={index} className={`rounded-lg p-8 ${tier.isPremium ? 'bg-black text-white' : 'bg-gray-50'}`}>
-              <h3 className="text-2xl font-bold">{tier.name}</h3>
-              <p className={`mt-4 text-4xl font-bold ${tier.isPremium ? 'text-white' : 'text-black'}`}>{tier.price}<span className="text-lg font-normal text-gray-500">/month</span></p>
-              <p className={`mt-4 ${tier.isPremium ? 'text-gray-300' : 'text-gray-600'}`}>{tier.description}</p>
+            <div key={index} className={`rounded-lg p-8 ${tier.isPremium ? 'bg-blue-600 text-white' : 'bg-gray-50'}`}>
+              <h3 className={`text-2xl font-bold ${tier.isPremium ? 'text-white' : 'text-gray-900'}`}>{tier.name}</h3>
+              <p className={`mt-4 text-4xl font-bold ${tier.isPremium ? 'text-white' : 'text-gray-900'}`}>{tier.price}<span className="text-lg font-normal text-gray-500">{tier.frequency}</span></p>
+              <p className={`mt-4 ${tier.isPremium ? 'text-blue-100' : 'text-gray-600'}`}>{tier.description}</p>
               <ul className="mt-8 space-y-4">
                 {tier.features.map((feature, index) => (
                   <li key={index} className="flex items-center">
-                    <Check className={`w-5 h-5 mr-2 ${tier.isPremium ? 'text-white' : 'text-black'}`} />
-                    <span>{feature}</span>
+                    <Check className={`w-5 h-5 mr-2 ${tier.isPremium ? 'text-white' : 'text-blue-600'}`} />
+                    <span className={`${tier.isPremium ? 'text-white' : 'text-gray-900'}`}>{feature}</span>
                   </li>
                 ))}
               </ul>
               <Button
-                variant={tier.isPremium ? 'default' : 'outline'}
                 onClick={() => {
                   window.location.href = "https://first-gas-3bf.notion.site/1b565bb93d5681dfaaf7fad306122371?pvs=105";
                 }}
-                className={`w-full mt-8 ${tier.isPremium ? 'bg-white text-black hover:bg-gray-200' : 'border-black text-black hover:bg-gray-100'}`}
+                className={`w-full mt-8 ${tier.isPremium ? 'bg-white text-blue-600 hover:bg-gray-200' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
               >
                 {tier.cta}
               </Button>
