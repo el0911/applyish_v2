@@ -106,11 +106,11 @@ const HeroSection: FC = () => {
             <div className="absolute top-0 left-0 p-6 sm:p-8 z-10">
                 <Image src={logoImg.src} alt="Logo" className="h-8 sm:h-10 w-auto" height={40} width={100} />
             </div>
-            <div className="absolute bottom-0 left-0 p-6 sm:p-8 z-10">
+            {/* <div className="absolute bottom-0 left-0 p-6 sm:p-8 z-10">
                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-black text-white flex items-center justify-center rounded-full font-bold text-xl shadow-md">
                     N
                  </div>
-            </div>
+            </div> */}
 
             <main className="min-h-screen flex items-center justify-center p-6">
                 <div className="w-full max-w-5xl lg:max-w-6xl xl:max-w-7xl 2xl:max-w-[1700px] transition-all duration-300 ease-in-out">
