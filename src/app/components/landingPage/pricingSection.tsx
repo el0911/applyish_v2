@@ -71,7 +71,7 @@ const PricingSection = () => {
               </ul>
               <Button
                 onClick={() => {
-                  window.location.href = "https://first-gas-3bf.notion.site/1b565bb93d5681dfaaf7fad306122371?pvs=105";
+                  window.location.href = "/apply";
                 }}
                 className={`w-full mt-8 ${tier.isPremium ? 'bg-white text-blue-600 hover:bg-gray-200' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
               >
