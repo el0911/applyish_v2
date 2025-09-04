@@ -94,3 +94,4 @@ export async function POST(request: Request) {
     console.error('Error submitting form to HubSpot:', error);
     return NextResponse.json({ message: "Failed to submit form to HubSpot" }, { status: 500 });
   }
+}
