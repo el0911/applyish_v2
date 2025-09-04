@@ -18,7 +18,7 @@ const FinalCTA: FC = () => {
         <div className="mt-10 flex items-center justify-center gap-x-6 flex-col sm:flex-row">
           <Button
             onClick={() => {
-              window.location.href = "https://first-gas-3bf.notion.site/1b565bb93d5681dfaaf7fad306122371?pvs=105";
+              window.location.href = "https://calendly.com/el-applyish/30min?month=2025-09";
             }}
             size="lg"
             className="bg-blue-600 text-white px-10 py-6 text-lg font-semibold group transition-all duration-500 hover:bg-blue-700 hover:scale-105 shadow-xl border border-blue-600 w-full sm:w-auto"

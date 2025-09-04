@@ -131,7 +131,7 @@ const HeroSection: FC = () => {
                             <div className="mt-10 flex justify-center lg:justify-start">
                                 <Button
                                     onClick={() => {
-                                        window.location.href = "https://first-gas-3bf.notion.site/1b565bb93d5681dfaaf7fad306122371?pvs=105";
+                                        window.location.href = "/apply";
                                     }}
                                     size="lg"
                                     className="bg-indigo-600 text-white px-10 py-6 min-h-[60px] font-semibold shadow-lg border border-indigo-600 hover:bg-indigo-700 hover:scale-105 transition-all duration-300 group"
