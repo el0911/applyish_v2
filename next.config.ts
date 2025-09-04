@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
       "images.unsplash.com",
       "cdn.jsdelivr.net",
       "upload.wikimedia.org",
+      "flagcdn.com"
     ],
   },
 };

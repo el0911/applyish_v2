@@ -26,7 +26,7 @@ export async function POST(request: Request) {
   // Map specific fields to HubSpot property names
   const mappedFields: { name: string; value: string }[] = [
     { name: "email", value: fields.find(f => f.name === "email")?.value || "" },
-    { name: "fullname", value: fields.find(f => f.name === "name")?.value || "" },
+    { name: "fullname", value: fields.find(f => f.name === "fullname")?.value || "" },
     { name: "phone", value: fields.find(f => f.name === "phone")?.value || "" },
     { name: "linkedinbio", value: fields.find(f => f.name === "linkedin")?.value || "" },
     { name: "github_profile_url", value: fields.find(f => f.name === "github")?.value || "" },
@@ -39,6 +39,8 @@ export async function POST(request: Request) {
     // { name: "veteran_status", value: fields.find(f => f.name === "veteran")?.value || "" },
     // { name: "disability_status", value: fields.find(f => f.name === "disability")?.value || "" },
   ];
+
+  console.log(mappedFields,fields)
 
   // Upload files to HubSpot Files API
   for (const fileField of fileFields) {
