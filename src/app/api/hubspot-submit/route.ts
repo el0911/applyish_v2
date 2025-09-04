@@ -26,20 +26,18 @@ export async function POST(request: Request) {
   // Map specific fields to HubSpot property names
   const mappedFields: { name: string; value: string }[] = [
     { name: "email", value: fields.find(f => f.name === "email")?.value || "" },
-    { name: "name", value: fields.find(f => f.name === "name")?.value || "" },
+    { name: "fullname", value: fields.find(f => f.name === "name")?.value || "" },
     { name: "phone", value: fields.find(f => f.name === "phone")?.value || "" },
-    { name: "linkedin", value: fields.find(f => f.name === "linkedin")?.value || "" },
-    { name: "github", value: fields.find(f => f.name === "github")?.value || "" },
+    { name: "linkedinbio", value: fields.find(f => f.name === "linkedin")?.value || "" },
+    { name: "github_profile_url", value: fields.find(f => f.name === "github")?.value || "" },
     { name: "portfolio", value: fields.find(f => f.name === "portfolio")?.value || "" },
     { name: "howHearAboutUs", value: fields.find(f => f.name === "howHearAboutUs")?.value || "" },
     { name: "whyLookingForJob", value: fields.find(f => f.name === "whyLookingForJob")?.value || "" },
     { name: "career", value: fields.find(f => f.name === "career")?.value || "" },
-    { name: "workAuthorization", value: fields.find(f => f.name === "workAuthorization")?.value || "" },
-    { name: "sponsorship", value: fields.find(f => f.name === "sponsorship")?.value || "" },
-    { name: "gender", value: fields.find(f => f.name === "gender")?.value || "" },
-    { name: "race", value: fields.find(f => f.name === "race")?.value || "" },
-    { name: "veteran", value: fields.find(f => f.name === "veteran")?.value || "" },
-    { name: "disability", value: fields.find(f => f.name === "disability")?.value || "" },
+    // { name: "sex", value: fields.find(f => f.name === "gender")?.value || "" },
+    // { name: "race", value: fields.find(f => f.name === "race")?.value || "" },
+    // { name: "veteran_status", value: fields.find(f => f.name === "veteran")?.value || "" },
+    // { name: "disability_status", value: fields.find(f => f.name === "disability")?.value || "" },
   ];
 
   // Upload files to HubSpot Files API
