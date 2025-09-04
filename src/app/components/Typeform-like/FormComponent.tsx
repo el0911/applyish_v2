@@ -43,6 +43,14 @@ export default function FormComponent() {
       }
     }
 
+    // Add the new fields
+    if (formData.howHearAboutUs) {
+      clientFormData.append("howHearAboutUs", formData.howHearAboutUs as string);
+    }
+    if (formData.whyLookingForJob) {
+      clientFormData.append("whyLookingForJob", formData.whyLookingForJob as string);
+    }
+
     try {
       await fetch(
         `/api/hubspot-submit`,

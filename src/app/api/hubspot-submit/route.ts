@@ -23,6 +23,23 @@ export async function POST(request: Request) {
     }
   }
 
+  // Map specific fields to HubSpot property names
+  const mappedFields: { name: string; value: string }[] = [
+    { name: "email", value: fields.find(f => f.name === "email")?.value || "" },
+    { name: "firstname", value: fields.find(f => f.name === "name")?.value || "" },
+    { name: "phone", value: fields.find(f => f.name === "phone")?.value || "" },
+    { name: "hs_linkedin_url", value: fields.find(f => f.name === "linkedin")?.value || "" },
+    { name: "github_profile_url", value: fields.find(f => f.name === "github")?.value || "" },
+    { name: "portfolio_url", value: fields.find(f => f.name === "portfolio")?.value || "" },
+    { name: "how_hear_about_us", value: fields.find(f => f.name === "howHearAboutUs")?.value || "" },
+    { name: "why_looking_for_job", value: fields.find(f => f.name === "whyLookingForJob")?.value || "" },
+    { name: "career", value: fields.find(f => f.name === "career")?.value || "" },
+    { name: "sex", value: fields.find(f => f.name === "gender")?.value || "" },
+    { name: "race", value: fields.find(f => f.name === "race")?.value || "" },
+    { name: "veteran_status", value: fields.find(f => f.name === "veteran")?.value || "" },
+    { name: "disability_status", value: fields.find(f => f.name === "disability")?.value || "" },
+  ];
+
   // Upload files to HubSpot Files API
   for (const fileField of fileFields) {
     const fileFormData = new FormData();
@@ -43,7 +60,7 @@ export async function POST(request: Request) {
       );
       const data = await response.json();
       if (response.ok) {
-        fields.push({ name: fileField.name, value: data.url });
+        mappedFields.push({ name: fileField.name, value: data.url });
       } else {
         console.error(`Error uploading file ${fileField.name}:`, data);
         return NextResponse.json({ message: `Failed to upload file: ${fileField.name}` }, { status: response.status });
@@ -61,11 +78,9 @@ export async function POST(request: Request) {
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fields }),
+        body: JSON.stringify({ fields: mappedFields }),
       }
     );
-
-    console.log({fields})
     const data = await response.json();
     if (response.ok) {
       return NextResponse.json(data, { status: 200 });
@@ -77,4 +92,5 @@ export async function POST(request: Request) {
     console.error('Error submitting form to HubSpot:', error);
     return NextResponse.json({ message: "Failed to submit form to HubSpot" }, { status: 500 });
   }
+}
 }
