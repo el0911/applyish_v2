@@ -71,11 +71,15 @@ export const questions: Question[] = [
     type: 'text',
     title: 'What is your desired career path or role?',
     id: 'career',
+        optional: true,
+
   },
   {
     type: 'file',
     title: 'Please upload your resume.',
     id: 'resume',
+        optional: true,
+
   },
   {
     type: 'file',
