@@ -41,9 +41,12 @@ const GatingQuestion = ({ onNext }: GatingQuestionProps) => {
 
   const toggleMute = () => {
     if (videoRef.current) {
+      console.log("Current muted state:", videoRef.current.muted);
       const newMutedState = !videoRef.current.muted;
       videoRef.current.muted = newMutedState;
       setIsMuted(newMutedState);
+      console.log("New muted state:", videoRef.current.muted);
+      console.log("isMuted state:", newMutedState);
     }
   };
 
@@ -74,10 +77,10 @@ const GatingQuestion = ({ onNext }: GatingQuestionProps) => {
     <>
       <div ref={targetRef} className="min-h-[200vh] bg-white text-gray-800">
         <motion.div
-          style={{ backdropFilter: blur }}
+          style={{ backdropFilter: blur,zIndex: 10 }}
           className="h-screen sticky top-0 flex flex-col items-center justify-center"
         >
-          <div className="relative">
+          <div className="relative"  >
             <motion.div
               style={{ scale: videoScale, y: videoY, opacity: videoOpacity }}
               className="flex items-center justify-center"
@@ -103,7 +106,7 @@ const GatingQuestion = ({ onNext }: GatingQuestionProps) => {
                 </div>
               </div>
             </motion.div>
-            <button
+           <button
               onClick={toggleMute}
               className="absolute -bottom-5 -right-5 bg-white p-4 rounded-full shadow-lg border-2 border-gray-200 text-gray-700 hover:scale-110 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 z-10"
               aria-label={isMuted ? 'Unmute video' : 'Mute video'}
