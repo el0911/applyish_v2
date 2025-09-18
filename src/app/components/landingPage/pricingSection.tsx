@@ -1,47 +1,10 @@
 import { Button } from "@/app/components/ui/button";
 import { Check } from "lucide-react";
 
+import { pricingTiers } from "@/lib/pricingTiers";
+
 const PricingSection = () => {
-  const pricingTiers = [
-    {
-      name: "Bulk",
-      price: "$50",
-      frequency: "One Time",
-      description: "Perfect for a quick boost to your job applications.",
-      features: [
-        "100 Job Applications",
-        "One Time Payment",
-      ],
-      cta: "Get Bulk Applications",
-      isPremium: false,
-    },
-    {
-      name: "Custom",
-      price: "$65",
-      frequency: "/wk",
-      description: "Tailored applications and LinkedIn support.",
-      features: [
-        "75 Tailored Resume Applications",
-        "50 LinkedIn Easy Apply Weekly",
-        "Personalized Support",
-      ],
-      cta: "Get Custom Plan",
-      isPremium: true,
-    },
-    {
-      name: "Pro",
-      price: "$55",
-      frequency: "/wk",
-      description: "Guaranteed interviews to accelerate your job search.",
-      features: [
-        "Interview Guaranteed",
-        "200 jobs Weekly",
-        "Weekly Progress Reports",
-      ],
-      cta: "Go Pro",
-      isPremium: false,
-    },
-  ];
+
 
   return (
     <section className="py-20 bg-white">

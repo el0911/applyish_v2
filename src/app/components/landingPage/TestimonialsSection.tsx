@@ -58,6 +58,7 @@ const TestimonialsSection = () => {
                                     className="w-12 h-12 rounded-full object-cover mr-4"
                                     width={48}
                                     height={48}
+                                    priority
                                 />
                                 <div>
                                     <div className="font-bold">{testimonial.name}</div>

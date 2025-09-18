@@ -70,6 +70,7 @@ const InterviewShowcase = () => {
                 className="object-cover w-full h-full"
                 width={500}
                 height={300}
+                priority
               />
             </motion.div>
           ))}

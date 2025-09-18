@@ -10,7 +10,7 @@ const ObjectionHandling: FC = () => {
     },
     {
       question: "What kind of jobs do you apply for?",
-      answer: "We focus on quality over quantity. During your initial consultation, we'll work with you to define your ideal role, industry, and location. We then target jobs that match your criteria, from startups to Fortune 500 companies.",
+      answer: "No more spray-and-pray applications that lead nowhere. We focus on quality over quantity, working with you to define your ideal role so we can target jobs that are actually a good fit.",
     },
     {
       question: "How do you handle my personal information?",
@@ -18,11 +18,11 @@ const ObjectionHandling: FC = () => {
     },
     {
       question: "What if I want to apply for a job myself?",
-      answer: "No problem! We provide you with a real-time dashboard of all the applications we've submitted on your behalf. You can pause our service at any time to apply for jobs on your own.",
+      answer: "See exactly where your applications stand so you're not left wondering if you've been ghosted. We provide a real-time dashboard of all submitted applications, and you can pause our service any time.",
     },
     {
       question: "How do you tailor my resume for each job?",
-      answer: "Our job application specialists are expert resume writers. They will analyze the job description and highlight the skills and experience that are most relevant to the role. We can also work with you to create multiple versions of your resume for different types of positions.",
+      answer: "Finally, someone who knows what actually gets past those ATS filters. Our specialists analyze job descriptions to highlight the skills and experience that are most relevant to the role, significantly improving your response rate.",
     },
     {
       question: "What's the difference between the plans?",

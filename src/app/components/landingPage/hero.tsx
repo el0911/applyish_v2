@@ -104,7 +104,7 @@ const HeroSection: FC = () => {
         <div className="relative bg-white text-gray-900 min-h-screen w-full overflow-x-hidden">
             {/* Logos */}
             <div className="absolute top-0 left-0 p-6 sm:p-8 z-10">
-                <Image src={logoImg.src} alt="Logo" className="h-8 sm:h-10 w-auto" height={40} width={100} />
+                <Image src={logoImg.src} alt="Logo" className="h-8 sm:h-10 w-auto" height={40} width={100} priority />
             </div>
             {/* <div className="absolute bottom-0 left-0 p-6 sm:p-8 z-10">
                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-black text-white flex items-center justify-center rounded-full font-bold text-xl shadow-md">
@@ -121,12 +121,12 @@ const HeroSection: FC = () => {
                             <h1 
                                 className="font-bold leading-tight tracking-tight text-[clamp(2.75rem,4.5vw,5rem)]"
                             >
-                                Real People, Real Applications. No AI.
+                                Stop spending weekends applying to jobs that ghost you.
                             </h1>
                             <p 
                                 className="mt-6 text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0 text-[clamp(1rem,1.5vw,1.25rem)]"
                             >
-                                Tired of sending your resume into the void? Our team of dedicated job application specialists personally handles every application, ensuring your profile gets the attention it deserves.
+                               {" While you're stuck in application hell, our specialists are getting your resume in front of actual hiring managers."}
                             </p>
                             <div className="mt-10 flex justify-center lg:justify-start">
                                 <Button
@@ -156,7 +156,7 @@ const HeroSection: FC = () => {
                                     </div>
                                     {/* VA Illustration */}
                                     <div className="flex items-center justify-center mb-8 relative">
-                                        <Image src={vaImg.src} alt="Virtual Assistant" className="w-48 h-48 object-cover rounded-full shadow-lg border-4 border-black/10" width={192} height={192} />
+                                        <Image src={vaImg.src} alt="Virtual Assistant" className="w-48 h-48 object-cover rounded-full shadow-lg border-4 border-black/10" width={192} height={192} priority />
                                     </div>
                                     {/* Status Cards */}
                                     <div className="space-y-4">

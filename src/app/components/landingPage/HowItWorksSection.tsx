@@ -9,17 +9,17 @@ const HowItWorksSection = () => {
     {
       icon: Users,
       title: "1. Sign Up & Tell Us What You're Looking For",
-      description: "Meet once with a team member for resume review and share job preferences, target roles, location, and experience level.",
+      description: "One 30-minute call to stop your resume from getting auto-rejected (we'll fix what's killing your response rate)",
     },
     {
       icon: Target,
       title: "2. We Search & Apply to Jobs For You",
-      description: "Our team submits 30 targeted applications every day on your behalf across job boards and company websites.",
+      description: "No more spray-and-pray applications that go nowhere – we hand-pick roles where you actually have a shot",
     },
     {
       icon: Calendar,
       title: "3. You Get Interview Invites",
-      description: "Focus on preparing for interviews while we track and organize your applications. Most clients receive interview invitations weekly.",
+      description: "Skip the application anxiety – we handle the follow-ups while you prep for interviews that actually happen",
     }
   ];
 
