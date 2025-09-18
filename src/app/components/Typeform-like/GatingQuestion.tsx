@@ -50,8 +50,19 @@ const GatingQuestion = ({ onNext }: GatingQuestionProps) => {
     }
   };
 
+  const scrollToImages = () => {
+    if (imagesRef.current) {
+      const elementRect = imagesRef.current.getBoundingClientRect();
+      const absoluteElementTop = elementRect.top + window.scrollY;
+      window.scrollTo({
+        top: absoluteElementTop,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   const targetRef = useRef(null);
+  const imagesRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: targetRef });
 
   const videoScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.5]);
@@ -119,15 +130,20 @@ const GatingQuestion = ({ onNext }: GatingQuestionProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
-            style={{ opacity: useTransform(scrollYProgress, [0, 0.3], [1, 0]) }} // Add this
-            className="absolute bottom-10 flex flex-col items-center space-y-2 text-gray-600"
+            style={{ opacity: useTransform(scrollYProgress, [0, 0.2, 0.3], [1, 1, 0]), zIndex: 20 }}
+            className="absolute bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2 text-gray-600"
           >
-            <p>Scroll to see the results</p>
-            <ArrowDown className="animate-bounce" />
+            <button
+              onClick={scrollToImages}
+              className="bg-white px-4 py-2 rounded-full shadow-lg flex items-center space-x-2 cursor-pointer hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              <p className="text-gray-800">Scroll to see the results</p>
+              <ArrowDown className="animate-bounce text-gray-800" />
+            </button>
           </motion.div>
         </motion.div>
 
-        <motion.div style={{ opacity: imageOpacity }} className="-mt-[100vh] pt-24 pb-32">
+        <motion.div ref={imagesRef} style={{ opacity: imageOpacity }} className="-mt-[100vh] pt-24 pb-32">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Real Results</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-8">
             {images.map((src, index) => (
@@ -144,7 +160,7 @@ const GatingQuestion = ({ onNext }: GatingQuestionProps) => {
           </div>
         </motion.div>
 
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white/90 to-transparent flex justify-center">
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white/90 to-transparent flex justify-center z-30">
           <Button
             onClick={() => setShowPricing(true)}
             className="bg-blue-600 text-white hover:bg-blue-700 text-lg font-bold py-4 px-8 rounded-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
