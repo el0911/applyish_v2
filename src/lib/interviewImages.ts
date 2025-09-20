@@ -7,8 +7,8 @@ export const interviewImages: string[] = [
   "https://res.cloudinary.com/immotal/image/upload/v1758220121/Screenshot_2025-09-09-13-39-14-208_com.google.android.gm_bbvkse.jpg",
   "https://res.cloudinary.com/immotal/image/upload/v1758220121/Screenshot_2025-09-09-13-37-23-767_com.google.android.gm_tlk2z1.jpg",
   "https://res.cloudinary.com/immotal/image/upload/v1758220121/Screenshot_2025-09-09-13-35-03-546_com.google.android.gm_vsqakf.jpg",
-  "https://res.cloudinary.com/immotal/image/upload/v1758220121/Screenshot_2025-09-09-13-35-16-353_com.google.android.gm_dgazfr.jpg",
-  "https://res.cloudinary.com/immotal/image/upload/v1758220121/Screenshot_2025-09-09-13-35-16-353_com.google.android.gm_dgazfr.jpg",
+  "https://res.cloudinary.com/immotal/image/upload/f_auto,q_auto/v1758220121/Screenshot_2025-09-09-13-35-16-353_com.google.android.gm_dgazfr.jpg",
+  "https://res.cloudinary.com/immotal/image/upload/f_auto,q_auto/v1758220121/Screenshot_2025-09-09-13-35-16-353_com.google.android.gm_dgazfr.jpg",
   "https://res.cloudinary.com/immotal/image/upload/v1758220121/Screenshot_2025-09-09-13-36-35-932_com.google.android.gm_wbntxu.jpg",
   "https://res.cloudinary.com/immotal/image/upload/v1758220121/Screenshot_2025-09-09-13-31-45-272_com.google.android.gm_a50wag.jpg",
   "https://res.cloudinary.com/immotal/image/upload/v1758220120/Screenshot_2025-09-09-13-28-39-265_com.google.android.gm_keifox.jpg",
@@ -24,6 +24,6 @@ export const interviewImages: string[] = [
   "https://res.cloudinary.com/immotal/image/upload/v1758220068/Screenshot_2025-09-09-13-24-17-015_com.google.android.gm_f9svpk.jpg",
   "https://res.cloudinary.com/immotal/image/upload/v1758220069/Screenshot_2025-09-09-13-27-23-252_com.google.android.gm_xybjju.jpg",
   "https://res.cloudinary.com/immotal/image/upload/v1758220068/Screenshot_2025-09-09-13-10-40-233_com.google.android.gm_radney.jpg",
-  "https://res.cloudinary.com/immotal/image/upload/v1758220068/Screenshot_2025-09-09-13-21-54-278_com.google.android.gm_qvwjdn.jpg",
-  "https://res.cloudinary.com/immotal/image/upload/v1758220068/Screenshot_2025-09-09-13-09-44-832_com.google.android.gm_iwryfv.jpg"
+  "https://res.cloudinary.com/immotal/image/upload/f_auto,q_auto/v1758220068/Screenshot_2025-09-09-13-21-54-278_com.google.android.gm_qvwjdn.jpg",
+  "https://res.cloudinary.com/immotal/image/upload/f_auto,q_auto/v1758220068/Screenshot_2025-09-09-13-09-44-832_com.google.android.gm_iwryfv.jpg"
 ];
