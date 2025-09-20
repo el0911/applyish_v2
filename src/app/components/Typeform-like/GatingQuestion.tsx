@@ -12,24 +12,21 @@ type GatingQuestionProps = {
 };
 
 const ImageWithLoader = ({ src, alt }: { src: string; alt: string }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
   if (hasError) {
     return null;
   }
 
-  // For Cloudinary, we can create a low-quality placeholder by adding transformations to the URL.
   const getBlurDataURL = (url: string) => {
     if (!url.includes('res.cloudinary.com')) {
-      // Return a transparent pixel if it's not a Cloudinary URL
-      return 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+      return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8v5ZgPQAHNwF/pUf52wAAAABJRU5ErkJggg==';
     }
     const parts = url.split('/upload/');
-    // w_50 for a small width, q_auto:low for low quality
     return `${parts[0]}/upload/w_50,q_auto:low/${parts[1]}`;
   };
 
-  // Aspect ratio container: (height / width) * 100 = (16 / 9) * 100 = 177.77%
   return (
     <div className="relative w-full" style={{ paddingTop: '177.77%' }}>
       <Image
@@ -37,9 +34,10 @@ const ImageWithLoader = ({ src, alt }: { src: string; alt: string }) => {
         alt={alt}
         layout="fill"
         objectFit="cover"
-        className="absolute inset-0 w-full h-full rounded-2xl shadow-xl border-4 border-white" // Opacity transition is no longer needed
+        className={`absolute inset-0 w-full h-full rounded-2xl shadow-xl border-4 border-white transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
         placeholder="blur"
         blurDataURL={getBlurDataURL(src)}
+        onLoadingComplete={() => setIsLoading(false)}
         onError={() => setHasError(true)}
       />
     </div>
@@ -53,12 +51,9 @@ const GatingQuestion = ({ onNext }: GatingQuestionProps) => {
 
   const toggleMute = () => {
     if (videoRef.current) {
-      console.log("Current muted state:", videoRef.current.muted);
       const newMutedState = !videoRef.current.muted;
       videoRef.current.muted = newMutedState;
       setIsMuted(newMutedState);
-      console.log("New muted state:", videoRef.current.muted);
-      console.log("isMuted state:", newMutedState);
     }
   };
 
@@ -80,13 +75,11 @@ const GatingQuestion = ({ onNext }: GatingQuestionProps) => {
   const videoScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.5]);
   const videoY = useTransform(scrollYProgress, [0, 0.15], [0, 800]);
   const videoOpacity = useTransform(scrollYProgress, [0, 0.12, 0.15], [1, 1, 0]);
-  // const blur = useTransform(scrollYProgress, [0, 0.15, 0.25], ['blur(12px)', 'blur(12px)', 'blur(0px)']);
-  // const imageOpacity = useTransform(scrollYProgress, [0.15, 0.25], [0, 1]);
 
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (latest) => {
       if (videoRef.current) {
-        if (latest > 0.1) { // Pause when video is mostly off-screen
+        if (latest > 0.1) {
           videoRef.current.pause();
         } else {
           videoRef.current.play();
@@ -98,22 +91,29 @@ const GatingQuestion = ({ onNext }: GatingQuestionProps) => {
 
   return (
     <>
-      <div ref={targetRef} className="min-h-[200vh] bg-white text-gray-800">
+      <div ref={targetRef} className="min-h-[200vh] bg-white text-gray-800" style={{ width: '100vw' }}>
         <motion.div
           style={{ zIndex: 10 }}
           className="h-screen sticky top-0 flex flex-col items-center justify-center"
         >
-          <div className="relative"  >
+          <div className="relative">
             <motion.div
               style={{ scale: videoScale, y: videoY, opacity: videoOpacity }}
               className="flex items-center justify-center"
             >
               <div className="relative mx-auto border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[640px] w-[320px] shadow-xl">
-                 <div className="w-[140px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
-                 <div className="h-[46px] w-[3px] bg-gray-800 absolute -left-[17px] top-[124px] rounded-l-lg"></div>
+                <div className="w-[140px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
+                <div className="h-[46px] w-[3px] bg-gray-800 absolute -left-[17px] top-[124px] rounded-l-lg"></div>
                 <div className="h-[46px] w-[3px] bg-gray-800 absolute -left-[17px] top-[178px] rounded-l-lg"></div>
                 <div className="h-[64px] w-[3px] bg-gray-800 absolute -right-[17px] top-[142px] rounded-r-lg"></div>
-                 <div className="rounded-[2rem] overflow-hidden w-full h-full bg-black">
+                <div className="rounded-[2rem] overflow-hidden w-full h-full bg-black">
+                  <button
+                    onClick={toggleMute}
+                    className="absolute -top-5 -right-5 bg-white p-4 rounded-full shadow-lg border-2 border-gray-200 text-gray-700 hover:scale-110 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 z-10"
+                    aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                  >
+                    {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
+                  </button>
                   <video
                     ref={videoRef}
                     src="https://res.cloudinary.com/immotal/video/upload/v1758219180/AQMZcYoCtGTDDd8oJiRnD3rJF2vo7en1a6BEW0zZRrZRhlNrUVcg-LzMIlwUW0VNwhrp53dFdn55aphugsZ30vfJmJ3Vd4mBKPbarMs_zsfmm9.mp4"
@@ -126,13 +126,6 @@ const GatingQuestion = ({ onNext }: GatingQuestionProps) => {
                 </div>
               </div>
             </motion.div>
-           <button
-              onClick={toggleMute}
-              className="absolute -bottom-5 -right-5 bg-white p-4 rounded-full shadow-lg border-2 border-gray-200 text-gray-700 hover:scale-110 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 z-10"
-              aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-            >
-              {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
-            </button>
           </div>
 
           <motion.div
