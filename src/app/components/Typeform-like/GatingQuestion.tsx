@@ -80,8 +80,8 @@ const GatingQuestion = ({ onNext }: GatingQuestionProps) => {
   const videoScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.5]);
   const videoY = useTransform(scrollYProgress, [0, 0.15], [0, 800]);
   const videoOpacity = useTransform(scrollYProgress, [0, 0.12, 0.15], [1, 1, 0]);
-  const blur = useTransform(scrollYProgress, [0, 0.15, 0.25], ['blur(12px)', 'blur(12px)', 'blur(0px)']);
-  const imageOpacity = useTransform(scrollYProgress, [0.15, 0.25], [0, 1]);
+  // const blur = useTransform(scrollYProgress, [0, 0.15, 0.25], ['blur(12px)', 'blur(12px)', 'blur(0px)']);
+  // const imageOpacity = useTransform(scrollYProgress, [0.15, 0.25], [0, 1]);
 
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (latest) => {
