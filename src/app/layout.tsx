@@ -3,7 +3,7 @@
 import './globals.css'
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
-
+ 
 export const metadata: Metadata = {
   title: 'Applyish – Your Job Hunt Assistant',
   description: 'Applyish is your personal job-hunting assistant. We apply to dozens of jobs for you every week, saving you time and energy so you can focus on what really matters: getting hired.',

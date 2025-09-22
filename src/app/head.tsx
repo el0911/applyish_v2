@@ -1,4 +1,6 @@
 // app/head.tsx
+import { sprig } from '@sprig-technologies/sprig-browser';
+
 export default function Head() {
   return (
     <>
@@ -20,3 +22,7 @@ export default function Head() {
     </>
   );
 }
+
+export const Sprig = sprig.configure({
+  environmentId: `${process.env.NEXT_SPRING_API}`,
+})
