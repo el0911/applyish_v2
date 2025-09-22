@@ -4,10 +4,10 @@ import { Button } from "../ui/button";
 import { ArrowRight } from "lucide-react";
 
 const stats = [
-  { id: 1, name: 'Applications sent', value: '30+' },
+  { id: 1, name: 'Applications sent per week', value: '70+' },
   { id: 2, name: 'Interviews per week', value: '2+' },
   { id: 3, name: 'Success rate', value: '94%' },
-  { id: 4, name: 'Happy clients', value: '1000+' },
+  { id: 4, name: 'Happy clients', value: '130+' },
 ];
 
 const SocialProofSection: FC = () => {

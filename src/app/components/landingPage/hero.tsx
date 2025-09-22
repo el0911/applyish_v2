@@ -115,28 +115,30 @@ const HeroSection: FC = () => {
             <main className="min-h-screen flex items-center justify-center p-6">
                 <div className="w-full max-w-5xl lg:max-w-6xl xl:max-w-7xl 2xl:max-w-[1700px] transition-all duration-300 ease-in-out">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 lg:gap-20 xl:gap-28 items-center">
-                        
+
                         {/* LEFT: Tuned Fluid Text Content */}
                         <div className="text-center lg:text-left">
-                            <h1 
-                                className="font-bold leading-tight tracking-tight text-[clamp(2.75rem,4.5vw,5rem)]"
-                            >
-                                Stop spending weekends applying to jobs that ghost you.
+                            <h1 className="font-bold leading-tight tracking-tight text-[clamp(2.75rem,4.5vw,5rem)]">
+                                We get you{" "}
+                                <span className="text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text font-extrabold relative">
+                                    INTERVIEWS
+                                    <span className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full"></span>
+                                </span>
                             </h1>
-                            <p 
-                                className="mt-6 text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0 text-[clamp(1rem,1.5vw,1.25rem)]"
-                            >
-                               {" While you're stuck in application hell, our specialists are getting your resume in front of actual hiring managers."}
+                            <p className="mt-6 text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0 text-[clamp(1rem,1.5vw,1.25rem)]">
+                                Our team manually applies to almost 100 jobs per week for you. Real humans that care and understand your professional  needs,
+                                <span className="text-orange-600 font-semibold relative">
+                                    not just AI bots
+                                    <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-orange-600 rounded-full"></span>
+                                </span>.
                             </p>
                             <div className="mt-10 flex justify-center lg:justify-start">
                                 <Button
-                                    onClick={() => {
-                                        window.location.href = "/apply";
-                                    }}
+                                    onClick={() => { window.location.href = "/apply"; }}
                                     size="lg"
                                     className="bg-indigo-600 text-white px-10 py-6 min-h-[60px] font-semibold shadow-lg border border-indigo-600 hover:bg-indigo-700 hover:scale-105 transition-all duration-300 group"
                                 >
-                                    Start Your Job Search Today
+                                    Get Me Interviews
                                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </Button>
                             </div>
@@ -161,18 +163,18 @@ const HeroSection: FC = () => {
                                     {/* Status Cards */}
                                     <div className="space-y-4">
                                         <div className="bg-white border border-black/10 rounded-xl p-3 flex items-center justify-between hover:bg-gray-100 transition-colors">
-                                            <div className="flex items-center space-x-3"><div className="w-10 h-10 bg-black/10 rounded-full flex items-center justify-center shadow-sm"><span className="text-black font-bold text-sm">S</span></div><span className="text-black font-medium flex items-center gap-2">Resume sent</span></div><span className="text-gray-700 flex font-semibold items-center gap-2"><Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google Logo" className="w-5 h-5" width={20} height={20}/>Google</span>
+                                            <div className="flex items-center space-x-3"><div className="w-10 h-10 bg-black/10 rounded-full flex items-center justify-center shadow-sm"><span className="text-black font-bold text-sm">S</span></div><span className="text-black font-medium flex items-center gap-2">Resume sent</span></div><span className="text-gray-700 flex font-semibold items-center gap-2"><Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google Logo" className="w-5 h-5" width={20} height={20} />Google</span>
                                         </div>
                                         <div className="bg-white border border-black/10 rounded-xl p-3 flex items-center justify-between hover:bg-gray-100 transition-colors">
-                                            <div className="flex items-center space-x-3"><div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center shadow-sm"><Zap className="w-5 h-5 text-white" /></div><span className="text-black font-medium">Interview scheduled</span></div><span className="text-gray-700 flex font-semibold items-center gap-2"><Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="Facebook Logo" className="w-5 h-5" width={20} height={20}/>Facebook</span>
+                                            <div className="flex items-center space-x-3"><div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center shadow-sm"><Zap className="w-5 h-5 text-white" /></div><span className="text-black font-medium">Interview scheduled</span></div><span className="text-gray-700 flex font-semibold items-center gap-2"><Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="Facebook Logo" className="w-5 h-5" width={20} height={20} />Facebook</span>
                                         </div>
                                         <div className="bg-white border border-black/10 rounded-xl p-3 flex items-center justify-between hover:bg-gray-100 transition-colors">
-                                            <div className="flex items-center space-x-3"><div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center shadow-sm"><Check className="w-5 h-5 text-white" /></div><span className="text-black font-medium">Offer received</span></div><div className="flex items-center space-x-3"><span className="text-gray-700 flex font-semibold items-center gap-2"><Image src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo" className="w-5 h-5" width={20} height={20}/>Amazon</span></div>
+                                            <div className="flex items-center space-x-3"><div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center shadow-sm"><Check className="w-5 h-5 text-white" /></div><span className="text-black font-medium">Offer received</span></div><div className="flex items-center space-x-3"><span className="text-gray-700 flex font-semibold items-center gap-2"><Image src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo" className="w-5 h-5" width={20} height={20} />Amazon</span></div>
                                         </div>
                                     </div>
                                     {/* Floating Stats */}
                                     {floatingCards.map((card, index) => (
-                                        <motion.div key={index} className="absolute hidden lg:block bg-gray-100/50 backdrop-blur-sm rounded-2xl p-4 border border-gray-200 shadow-xl" style={{ top: card.top, bottom: card.bottom, left: card.left, right: card.right }} animate={{x: [0, Math.random() * 20 - 10, 0], y: [0, Math.random() * 20 - 10, 0]}} transition={{duration: Math.random() * 2 + 4, repeat: Infinity, repeatType: "reverse", ease: "easeInOut"}}>
+                                        <motion.div key={index} className="absolute hidden lg:block bg-gray-100/50 backdrop-blur-sm rounded-2xl p-4 border border-gray-200 shadow-xl" style={{ top: card.top, bottom: card.bottom, left: card.left, right: card.right }} animate={{ x: [0, Math.random() * 20 - 10, 0], y: [0, Math.random() * 20 - 10, 0] }} transition={{ duration: Math.random() * 2 + 4, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}>
                                             <div className={`${card.content.color} text-sm font-medium`}>{card.content.line1}</div>
                                             <div className="text-black text-xs">{card.content.line2}</div>
                                         </motion.div>
