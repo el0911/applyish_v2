@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 
 const useSprig = () => {
   useEffect(() => {
-    alert(process.env.NEXT_PUBLIC_CLARITY_API)
     // Check if the script is already present to prevent duplicates
     if (document.getElementById('sprig-script')) {
       return;
