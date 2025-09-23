@@ -56,7 +56,7 @@ const InterviewShowcase = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           {interviewImages.map((img, idx) => (
             <motion.div
