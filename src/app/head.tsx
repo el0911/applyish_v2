@@ -1,7 +1,8 @@
 // app/head.tsx
-import { sprig } from '@sprig-technologies/sprig-browser';
+import useSpring from "../hooks/useSprig"
 
 export default function Head() {
+  useSpring()
   return (
     <>
       <title>Applyish – We Apply to Jobs For You</title>
@@ -19,10 +20,8 @@ export default function Head() {
       <meta name="twitter:title" content="Applyish – We Apply to Jobs For You" />
       <meta name="twitter:description" content="We apply to jobs for you so you can focus on interviews." />
       <meta name="twitter:image" content="https://placehold.co/1200x600.png?text=applyish" />
+        
     </>
   );
 }
 
-export const Sprig = sprig.configure({
-  environmentId: `${process.env.NEXT_SPRING_API}`,
-})
