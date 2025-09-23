@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 
 const useSprig = () => {
   useEffect(() => {
+    alert(process.env.NEXT_PUBLIC_CLARITY_API)
     // Check if the script is already present to prevent duplicates
     if (document.getElementById('sprig-script')) {
       return;
@@ -14,15 +15,11 @@ const useSprig = () => {
 
     // The inline script content from Sprig
     script.innerHTML = `
-      (function(l,e,a,p) {
-        if (window.Sprig) return;
-        window.Sprig = function(){S._queue.push(arguments)}
-        var S = window.Sprig;S.appId = a;S._queue = [];window.UserLeap=S;
-        a=l.createElement('script');
-        a.async=1;a.src=e+'?id='+S.appId;
-        p=l.getElementsByTagName('script')[0];
-        p.parentNode.insertBefore(a, p);
-      })(document, 'https://cdn.sprig.com/shim.js', '${process.env.NEXT_SPRING_API}');
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "${process.env.NEXT_PUBLIC_CLARITY_API}");
     `;
 
     document.head.appendChild(script);

@@ -71,8 +71,10 @@ import TestimonialsSection from './components/landingPage/TestimonialsSection'
 import ObjectionHandling from './components/landingPage/ObjectionHandling'
 import PricingSection from './components/landingPage/pricingSection'
 import FinalCTA from './components/landingPage/FinalCTA'
+import useSprig from '@/hooks/useSprig'
 
 const IframeComponent = () => {
+  useSprig()
 
   return (
     <div className="bg-white">

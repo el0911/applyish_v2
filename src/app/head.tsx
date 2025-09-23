@@ -1,8 +1,6 @@
 // app/head.tsx
-import useSpring from "../hooks/useSprig"
 
 export default function Head() {
-  useSpring()
   return (
     <>
       <title>Applyish – We Apply to Jobs For You</title>
