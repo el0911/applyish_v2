@@ -1,3 +1,4 @@
+"use client"
 import FormComponent from '../components/Typeform-like/FormComponent';
 import useSprig from '@/hooks/useSprig'
 
