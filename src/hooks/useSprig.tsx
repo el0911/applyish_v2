@@ -1,33 +1,47 @@
 import { useEffect } from 'react';
 
-
 const useSprig = () => {
   useEffect(() => {
-    // Check if the script is already present to prevent duplicates
-    if (document.getElementById('sprig-script')) {
-      return;
+    // Load Microsoft Clarity
+    if (!document.getElementById('clarity-script')) {
+      const clarityScript = document.createElement('script');
+      clarityScript.id = 'clarity-script';
+      clarityScript.type = 'text/javascript';
+      clarityScript.innerHTML = `
+        (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "${process.env.NEXT_PUBLIC_CLARITY_API}");
+      `;
+      document.head.appendChild(clarityScript);
     }
 
-    const script = document.createElement('script');
-    script.id = 'sprig-script';
-    script.type = 'text/javascript';
+    // Load Google Analytics (gtag.js)
+    if (!document.getElementById('gtag-js')) {
+      const gaScript = document.createElement('script');
+      gaScript.id = 'gtag-js';
+      gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`;
+      gaScript.async = true;
+      document.head.appendChild(gaScript);
+    }
 
-    // The inline script content from Sprig
-    script.innerHTML = `
-      (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "${process.env.NEXT_PUBLIC_CLARITY_API}");
-    `;
+    // Google Analytics inline config
+    if (!document.getElementById('gtag-config')) {
+      const gaConfigScript = document.createElement('script');
+      gaConfigScript.id = 'gtag-config';
+      gaConfigScript.innerHTML = `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+      `;
+      document.head.appendChild(gaConfigScript);
+    }
 
-    document.head.appendChild(script);
+    // No cleanup: analytics should persist across SPA transitions
 
-    return () => {
-      // Clean up the script when the component unmounts
-      document.head.removeChild(script);
-    };
-  }, []); // Empty dependency array ensures this runs only once
+  }, []); // Runs once on mount
 };
 
 export default useSprig;
