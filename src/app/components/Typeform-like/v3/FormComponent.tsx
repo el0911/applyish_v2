@@ -86,11 +86,11 @@ export default function FormComponent() {
         case 'service-primer':
             return <ServicePrimer question={currentQuestion} onNext={handleNext} />;
         case 'service-selection':
-            return <ServiceSelection onNext={handleNext} />;
+            return <ServiceSelection question={currentQuestion} onNext={handleNext} />;
         case 'testimonial-screenshots':
             return <TestimonialScreenshots question={currentQuestion} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
         case 'confirmation-bridge':
-            return <ConfirmationBridge plan={answers.plan_selected} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
+            return <ConfirmationBridge question={currentQuestion} plan={answers.plan_selected} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
         case 'time-availability':
             return <TimeAvailability onNext={handleNext} />;
         case 'application-blockers':
@@ -102,9 +102,9 @@ export default function FormComponent() {
         case 'loading-animation':
             return <LoadingAnimation question={currentQuestion} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
         case 'calendar-introduction':
-            return <CalendarIntroduction plan={answers.plan_selected} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
+            return <CalendarIntroduction question={currentQuestion} plan={answers.plan_selected} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
         case 'calendar-booking':
-            return <CalendarBooking onNext={handleNext} />;
+            return <CalendarBooking question={currentQuestion} answers={answers} onNext={handleNext} />;
         case 'text-input':
             return <QuestionComponent question={currentQuestion} onNext={handleNext} answers={answers} />;
         case 'phone-input':

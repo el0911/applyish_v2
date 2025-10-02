@@ -1,26 +1,108 @@
-
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from 'react';
+
+// Define types
+interface CalendarConfig {
+  calendlyUrl: string;
+}
+
+interface CalendarBookingQuestion {
+  subtitle: string;
+  title: string;
+  buttonText?: string;
+  calendarConfig: CalendarConfig;
+}
 
 interface CalendarBookingProps {
   onNext: (answer: { [key: string]: string | Date }) => void;
+  question: CalendarBookingQuestion;
+  answers: { [key: string]: any };
 }
 
-export default function CalendarBooking({ onNext }: CalendarBookingProps) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+export default function CalendarBooking({ onNext, question, answers }: CalendarBookingProps) {
+  const calendlyRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [scriptLoaded, setScriptLoaded] = useState(false);
 
-  const handleBooking = () => {
-    onNext({
-      full_name: name,
-      email: email,
-      phone: phone,
-      call_datetime: new Date(), // Placeholder
+  // Load Calendly script
+  useEffect(() => {
+    // Check if script already exists
+    if (document.querySelector('script[src*="calendly.com"]')) {
+      setScriptLoaded(true);
+      setIsLoading(false);
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    
+    script.onload = () => {
+      setScriptLoaded(true);
+      setIsLoading(false);
+    };
+
+    script.onerror = () => {
+      setIsLoading(false);
+      console.error('Failed to load Calendly script');
+    };
+
+    document.body.appendChild(script);
+
+    return () => {
+      // Only remove if we added it
+      const existingScript = document.querySelector('script[src*="calendly.com"]');
+      if (existingScript && existingScript.parentNode) {
+        existingScript.parentNode.removeChild(existingScript);
+      }
+    };
+  }, []);
+
+  // Initialize Calendly widget
+  useEffect(() => {
+    if (!scriptLoaded || !calendlyRef.current || !window.Calendly) return;
+
+    // Build prefill data from previous answers
+    const prefill: any = {};
+    if (answers.fullName) prefill.name = answers.fullName;
+    if (answers.email) prefill.email = answers.email;
+    if (answers.phoneNumber) {
+      prefill.customAnswers = {
+        a1: answers.phoneNumber
+      };
+    }
+
+    // Initialize the widget
+    window.Calendly.initInlineWidget({
+      url: question.calendarConfig.calendlyUrl,
+      parentElement: calendlyRef.current,
+      prefill: prefill,
+      utm: {},
     });
-  };
+
+    // Listen for Calendly events
+    const handleCalendlyEvent = (e: MessageEvent) => {
+      if (e.data.event && e.data.event.indexOf('calendly') === 0) {
+        // Event scheduled successfully
+        if (e.data.event === 'calendly.event_scheduled') {
+          const eventDetails = e.data.payload;
+          onNext({ 
+            call_datetime: new Date(eventDetails.event.start_time),
+            calendly_event_uri: eventDetails.event.uri,
+            calendly_invitee_uri: eventDetails.invitee.uri
+          });
+        }
+      }
+    };
+
+    window.addEventListener('message', handleCalendlyEvent);
+
+    return () => {
+      window.removeEventListener('message', handleCalendlyEvent);
+    };
+  }, [scriptLoaded, question, answers, onNext]);
 
   return (
     <motion.div
@@ -28,54 +110,60 @@ export default function CalendarBooking({ onNext }: CalendarBookingProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -50 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-2xl mx-auto p-4"
+      className="w-full h-full flex flex-col items-center p-4 sm:p-6 lg:p-8"
     >
-      <div className="text-center">
-        <p className="text-sm text-gray-500">HOW WE HELP</p>
-        <h1 className="text-2xl font-bold mt-2">Book your onboarding call</h1>
-        <p className="mt-2 text-gray-500">Choose a time that works for you</p>
+      {/* Header */}
+      <div className="w-full max-w-4xl text-center mb-6 sm:mb-8">
+        {question.subtitle && (
+          <p className="text-xs sm:text-sm text-gray-500 mb-2">{question.subtitle}</p>
+        )}
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
+          {question.title}
+        </h1>
       </div>
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <div className="space-y-4">
-            <input
-              type="text"
-              placeholder="Full Name *"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full p-4 border border-gray-300 rounded-lg" style={{height: 48}}
-            />
-            <input
-              type="email"
-              placeholder="Email *"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-4 border border-gray-300 rounded-lg" style={{height: 48}}
-            />
-            <input
-              type="tel"
-              placeholder="Phone (optional)"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="w-full p-4 border border-gray-300 rounded-lg" style={{height: 48}}
-            />
-            <div className="flex items-center">
-              <input type="checkbox" id="terms" className="mr-2" />
-              <label htmlFor="terms" className="text-sm">I agree to the <a href="/terms" target="_blank" className="underline">Terms of Service</a></label>
+
+      {/* Calendly Widget Container */}
+      <div className="w-full max-w-5xl flex-1 relative">
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-50 rounded-lg">
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+              <p className="text-gray-600 text-sm">Loading calendar...</p>
             </div>
           </div>
-        </div>
-        <div className="bg-gray-100 h-96 flex items-center justify-center rounded-lg">
-          <p>Calendar Placeholder</p>
+        )}
+        
+        <div 
+          ref={calendlyRef}
+          className="w-full rounded-lg overflow-hidden shadow-lg"
+          style={{
+            minHeight: '650px',
+            height: 'calc(100vh - 250px)',
+            maxHeight: '900px'
+          }}
+        >
+          {/* Calendly inline widget will be embedded here */}
         </div>
       </div>
-      <button
-        onClick={handleBooking}
-        className="mt-8 bg-indigo-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-indigo-700 w-full max-w-sm mx-auto block"
-        style={{height: 56}}
-      >
-        Confirm My Booking
-      </button>
+
+      {/* Info text */}
+      <p className="mt-4 text-xs sm:text-sm text-gray-500 text-center max-w-md">
+        Select a time that works best for you. You'll receive a confirmation email after booking.
+      </p>
     </motion.div>
   );
+}
+
+// TypeScript declaration for Calendly on window object
+declare global {
+  interface Window {
+    Calendly?: {
+      initInlineWidget: (options: {
+        url: string;
+        parentElement: HTMLElement;
+        prefill?: any;
+        utm?: any;
+      }) => void;
+    };
+  }
 }

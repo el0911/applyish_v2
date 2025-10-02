@@ -2,66 +2,24 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ServiceSelectionQuestion } from '../types';
 
 interface ServiceSelectionProps {
   onNext: (answer: { [key: string]: string }) => void;
+  question: ServiceSelectionQuestion;
 }
 
-const plans = [
-  {
-    id: "bulk",
-    name: "Bulk",
-    price: "$50",
-    frequency: "One Time",
-    description: "Perfect for a quick boost to your job applications.",
-    features: ["100 Job Applications", "One Time Payment", "Weekly Progress Reports"],
-    buttonText: "Get Bulk Applications",
-    recommended: false,
-    order: "md:order-1",
-  },
-  {
-    id: "pro",
-    name: "Pro",
-    price: "$55",
-    frequency: "/week",
-    description: "A high volume of tailored applications and dedicated support.",
-    features: [
-      "55 Tailored Resume Applications",
-      "50 LinkedIn Easy Apply Weekly",
-      "Personalized Support",
-      "Weekly Progress Reports",
-    ],
-    badge: "MOST POPULAR",
-    buttonText: "Go Pro",
-    recommended: true,
-    order: "md:order-2",
-  },
-  {
-    id: "custom",
-    name: "Custom",
-    price: "$65",
-    frequency: "/week",
-    description: "Tailored applications and LinkedIn support.",
-    features: [
-      "75 Tailored Resume Applications",
-      "50 LinkedIn Easy Apply Weekly",
-      "Personalized Support",
-      "Weekly Progress Reports",
-    ],
-    buttonText: "Get Custom Plan",
-    recommended: false,
-    order: "md:order-3",
-  },
-];
-
-export default function ServiceSelection({ onNext }: ServiceSelectionProps) {
+export default function ServiceSelection({ onNext, question }: ServiceSelectionProps) {
   const handleSelect = (planId: string) => {
-    onNext({ plan_selected: planId });
+    onNext({ selectedPlan: planId });
   };
 
-  // Mobile order: Pro, Custom, Bulk
-  const mobileOrder = ["pro", "custom", "bulk"];
-  const sortedPlans = [...plans].sort((a, b) => mobileOrder.indexOf(a.id) - mobileOrder.indexOf(b.id));
+  const sortedPlans = [...question.plans].sort((a, b) => {
+    const aOrder = question.mobileOrder?.indexOf(a.id) ?? -1;
+    const bOrder = question.mobileOrder?.indexOf(b.id) ?? -1;
+    if (aOrder !== -1 && bOrder !== -1) return aOrder - bOrder;
+    return 0;
+  });
 
   return (
     <motion.div
@@ -71,14 +29,24 @@ export default function ServiceSelection({ onNext }: ServiceSelectionProps) {
       transition={{ duration: 0.5 }}
       className="w-full max-w-4xl mx-auto p-4 text-center"
     >
-      <p className="text-sm text-gray-500">HOW WE HELP</p>
-      <h1 className="text-3xl font-bold mt-2">Which service matches your job search intensity?</h1>
-      <p className="mt-2 text-gray-500">Choose the plan that fits your goals</p>
+      <p className="text-sm text-gray-500">{question.subtitle}</p>
+      <h1 className="text-3xl font-bold mt-2">{question.title}</h1>
+
+      {question.callout && (
+        <div className={`mt-4 p-3 rounded-lg text-sm font-medium flex items-center justify-center
+          ${question.callout.style === 'info' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' : ''}
+          ${question.callout.style === 'success' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : ''}
+        `}>
+          {question.callout.icon && <span className="mr-2">{question.callout.icon}</span>}
+          {question.callout.text}
+        </div>
+      )}
+
       <div className="mt-8 flex flex-col md:flex-row md:justify-center items-center md:items-stretch gap-6">
         {sortedPlans.map((plan) => (
           <div
             key={plan.id}
-            className={`border rounded-xl p-8 flex flex-col ${plan.recommended ? 'border-indigo-600 border-2 shadow-xl transform md:scale-105' : 'border-gray-300'}`}
+            className={`border rounded-xl p-8 flex flex-col ${plan.elevated ? 'border-indigo-600 border-2 shadow-xl transform md:scale-105' : 'border-gray-300'}`}
             style={{width: 320, borderRadius: 12, padding: 32}}
           >
             {plan.badge && (
@@ -88,8 +56,8 @@ export default function ServiceSelection({ onNext }: ServiceSelectionProps) {
             )}
             <h2 className="text-2xl font-bold mt-4 text-center">{plan.name}</h2>
             <p className="mt-4 text-center">
-              <span className="text-4xl font-bold">{plan.price}</span>
-              <span className="text-gray-500 text-sm">{plan.frequency === 'One Time' ? '' : plan.frequency}</span>
+              <span className="text-4xl font-bold">${plan.price}</span>
+              <span className="text-gray-500 text-sm">{plan.period === 'one-time' ? ' one-time' : `/${plan.period}`}</span>
             </p>
             <p className="mt-4 text-gray-600 h-16 text-center text-base">{plan.description}</p>
             <ul className="mt-6 space-y-4 text-left text-sm">
@@ -104,7 +72,9 @@ export default function ServiceSelection({ onNext }: ServiceSelectionProps) {
             </ul>
             <button
               onClick={() => handleSelect(plan.id)}
-              className={`mt-auto w-full py-3 rounded-lg font-bold h-12 ${plan.recommended ? 'bg-indigo-600 text-white' : 'bg-white text-gray-800 border-2 border-gray-400'}`}
+              className={`mt-auto w-full py-3 rounded-full font-bold shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 h-12
+                ${plan.buttonStyle === 'primary' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-800 border-2 border-gray-400 hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700'}
+              `}
             >
               {plan.buttonText}
             </button>

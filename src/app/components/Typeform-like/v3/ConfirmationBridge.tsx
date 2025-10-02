@@ -2,19 +2,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ConfirmationBridgeQuestion } from '../types';
 
 interface ConfirmationBridgeProps {
   onNext: () => void;
   plan: string;
+  question: ConfirmationBridgeQuestion;
 }
 
-const messages: { [key: string]: string } = {
-  bulk: "We'll need to understand your background and target roles on a quick call with our team. This ensures your 100 applications actually match what you're looking for and get you results.",
-  pro: "We'll need to understand your background and goals on a quick call with our team. This helps us deliver Pro service that gets you consistent interviews week after week.",
-  custom: "We'll need to understand your background and goals on a quick call with our team. This ensures every one of your 75 weekly applications is personalized for maximum impact.",
-};
-
-export default function ConfirmationBridge({ onNext, plan }: ConfirmationBridgeProps) {
+export default function ConfirmationBridge({ onNext, plan, question }: ConfirmationBridgeProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -23,21 +19,34 @@ export default function ConfirmationBridge({ onNext, plan }: ConfirmationBridgeP
       transition={{ duration: 0.5 }}
       className="w-full max-w-lg mx-auto p-4 text-center"
     >
-      <p className="text-sm text-gray-500">HOW WE HELP</p>
-      <h1 className="text-3xl font-bold mt-2">Great choice!</h1>
-      <p className="mt-2 text-gray-500">Before we match you with jobs...</p>
-      <div className="mt-8 bg-indigo-100 rounded-full h-32 w-32 flex items-center justify-center mx-auto" style={{height: 120, width: 120}}>
-        <span className="text-6xl">🚀</span>
-      </div>
-      <p className="mt-8 text-lg">{messages[plan]}</p>
+      <p className="text-sm text-gray-500">{question.subtitle}</p>
+      <h1 className="text-3xl font-bold mt-2">{question.title.replace('{selectedPlan}', plan)}</h1>
+
+      {question.emoji && (
+        <div className="mt-8 bg-indigo-100 rounded-full h-32 w-32 flex items-center justify-center mx-auto" style={{height: 120, width: 120}}>
+          <span className="text-6xl">{question.emoji}</span>
+        </div>
+      )}
+
+      <p className="mt-8 text-lg">{question.body.replace('{selectedPlan}', plan)}</p>
+
+      {question.callout && (
+        <div className={`mt-4 p-3 rounded-lg text-sm font-medium flex items-center justify-center
+          ${question.callout.style === 'info' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' : ''}
+          ${question.callout.style === 'success' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : ''}
+        `}>
+          {question.callout.icon && <span className="mr-2">{question.callout.icon}</span>}
+          {question.callout.text}
+        </div>
+      )}
+
       <div className="mt-10">
-      <button
-        onClick={onNext}
-        className="bg-indigo-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-indigo-700 w-full max-w-sm mx-auto" style={{height: 56, maxWidth: 400}}
-      >
-        Book My Onboarding Call
-      </button>
+        <button
+          onClick={onNext}
+          className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 w-full max-w-xs mx-auto block"
+        >
+          {question.buttonText}
+        </button>
       </div>
     </motion.div>
   );
-}
