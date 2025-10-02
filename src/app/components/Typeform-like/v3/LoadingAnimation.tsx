@@ -39,13 +39,13 @@ export default function LoadingAnimation({ onNext, question }: LoadingAnimationP
         <h2 className="text-xl font-semibold">Matching you with remote jobs based on your profile</h2>
         <div className="mt-8 w-full bg-gray-200 rounded-full h-3 mx-auto" style={{width: 300, height: 12}}>
           <motion.div
-            className="bg-yellow-400 h-3 rounded-full"
+            className="bg-indigo-600 h-3 rounded-full"
             initial={{ width: 0 }}
             animate={{ width: "100%" }}
             transition={{ duration: 3, ease: "linear" }}
           />
         </div>
-        <div className="mt-4 text-yellow-500 font-bold text-2xl">
+        <div className="mt-4 text-indigo-600 font-bold text-2xl">
           <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>30%...</motion.span>
           <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}>45%...</motion.span>
           <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}>67%...</motion.span>

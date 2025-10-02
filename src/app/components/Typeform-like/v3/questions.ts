@@ -116,6 +116,60 @@ export const questions = [
     type: "open-ended-challenge",
   },
 
+  // --- USER INFORMATION ---
+  {
+    id: "user_name",
+    type: "text-input",
+    title: "What's your full name?",
+    placeholder: "John Doe",
+    answerKey: "fullName",
+  },
+  {
+    id: "user_email",
+    type: "text-input",
+    title: "What's your email address?",
+    placeholder: "john.doe@example.com",
+    answerKey: "email",
+  },
+  {
+    id: "user_phone",
+    type: "phone-input", // Assuming a phone-input component exists or will be created
+    title: "What's your phone number?",
+    answerKey: "phoneNumber",
+  },
+  {
+    id: "user_hear_about_us",
+    type: "multiple-choice",
+    title: "How did you hear about us?",
+    answerKey: "howHearAboutUs",
+    options: [
+      { value: "linkedin", label: "LinkedIn" },
+      { value: "google", label: "Google Search" },
+      { value: "friend", label: "Friend/Colleague" },
+      { value: "social_media", label: "Other Social Media" },
+      { value: "other", label: "Other" },
+    ],
+  },
+
+  // --- RESUME & COVER LETTER ---
+  {
+    id: "upload_resume",
+    type: "file-upload", // Assuming a file-upload component exists or will be created
+    title: "Please upload your most recent resume.",
+    subtitle: "This helps us tailor our service to you.",
+    answerKey: "resumeFile",
+    fileType: "pdf,doc,docx",
+  },
+  {
+    id: "upload_cover_letter",
+    type: "file-upload", // Assuming a file-upload component exists or will be created
+    title: "Do you have a cover letter you'd like to share? (Optional)",
+    subtitle: "If yes, please upload it here.",
+    answerKey: "coverLetterFile",
+    fileType: "pdf,doc,docx",
+    optional: true,
+  },
+
   // --- PRICING --- 
   {
     type: "service-primer",

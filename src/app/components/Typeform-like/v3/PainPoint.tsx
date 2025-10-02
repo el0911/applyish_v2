@@ -31,7 +31,7 @@ export default function PainPoint({ onNext, question }: PainPointProps) {
         <h1 className="text-2xl font-bold mt-2 text-white">{question.title}</h1>
       </div>
       <div className="mt-8 bg-white rounded-2xl p-10 shadow-md max-w-xl mx-auto">
-        <div className="text-yellow-400 text-6xl">"</div>
+        <div className="text-indigo-600 text-6xl">"</div>
         <p className="text-2xl font-bold text-gray-900">{question.quote}</p>
       </div>
       <div className="mt-8 flex justify-center space-x-6">
@@ -43,7 +43,7 @@ export default function PainPoint({ onNext, question }: PainPointProps) {
         </button>
         <button
           onClick={() => handleAnswer(true)}
-          className="bg-yellow-400 text-white font-semibold py-3 px-8 rounded-lg hover:bg-yellow-500 text-base h-12"
+          className="bg-indigo-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-indigo-700 text-base h-12"
         >
           ✅ Yes
         </button>

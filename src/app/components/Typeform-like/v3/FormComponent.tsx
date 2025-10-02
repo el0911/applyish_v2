@@ -21,6 +21,10 @@ import CalendarBooking from './CalendarBooking';
 import ConfirmationScreen from './ConfirmationScreen';
 import ServicePrimer from './ServicePrimer';
 import TestimonialScreenshots from './TestimonialScreenshots';
+import QuestionComponent from '../Question';
+import PhoneInput from '../PhoneInput';
+import MultipleChoiceQuestion from '../MultipleChoiceQuestion';
+import FileQuestion from '../FileQuestion';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function FormComponent() {
@@ -101,6 +105,14 @@ export default function FormComponent() {
             return <CalendarIntroduction plan={answers.plan_selected} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
         case 'calendar-booking':
             return <CalendarBooking onNext={handleNext} />;
+        case 'text-input':
+            return <QuestionComponent question={currentQuestion} onNext={handleNext} answers={answers} />;
+        case 'phone-input':
+            return <PhoneInput question={currentQuestion} onNext={handleNext} answers={answers} />;
+        case 'multiple-choice':
+            return <MultipleChoiceQuestion question={currentQuestion} onNext={handleNext} answers={answers} />;
+        case 'file-upload':
+            return <FileQuestion question={currentQuestion} onNext={handleNext} answers={answers} />;
         case 'confirmation-screen':
             return <ConfirmationScreen answers={answers} />;
         default:
@@ -110,9 +122,9 @@ export default function FormComponent() {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4">
+    <div className="w-full max-w-4xl mx-auto p-4 h-full flex flex-col overflow-y-auto">
         <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
-            <div className="bg-yellow-400 h-2.5 rounded-full" style={{ width: `${progress}%` }}></div>
+            <div className="bg-indigo-600 h-2.5 rounded-full" style={{ width: `${progress}%` }}></div>
         </div>
         <AnimatePresence mode="wait">
             <motion.div
@@ -121,6 +133,7 @@ export default function FormComponent() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -50 }}
                 transition={{ duration: 0.5 }}
+                className="flex-grow flex items-center justify-center"
             >
                 {renderQuestion()}
             </motion.div>

@@ -26,7 +26,7 @@ export default function ApplicationTimeReality({ onNext, question }: Application
         <p className="text-sm text-gray-500">{question.subtitle}</p>
         <h1 className="text-2xl font-bold mt-2 text-white">{question.title}</h1>
       </div>
-      <div className="mt-8 bg-yellow-100 rounded-full h-32 w-32 flex items-center justify-center mx-auto">
+      <div className="mt-8 bg-indigo-100 rounded-full h-32 w-32 flex items-center justify-center mx-auto">
         <span className="text-6xl">{question.emoji}</span>
       </div>
       <div className="mt-8 space-y-5">
@@ -43,7 +43,7 @@ export default function ApplicationTimeReality({ onNext, question }: Application
       </div>
       <button
         onClick={onNext}
-        className="mt-8 bg-yellow-400 text-white font-bold py-4 px-8 rounded-lg hover:bg-yellow-500 w-full max-w-sm mx-auto block"
+        className="mt-8 bg-indigo-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-indigo-700 w-full max-w-sm mx-auto block"
       >
         CONTINUE
       </button>

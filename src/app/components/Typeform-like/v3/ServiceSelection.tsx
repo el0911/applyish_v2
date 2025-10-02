@@ -78,11 +78,11 @@ export default function ServiceSelection({ onNext }: ServiceSelectionProps) {
         {sortedPlans.map((plan) => (
           <div
             key={plan.id}
-            className={`border rounded-xl p-8 flex flex-col ${plan.recommended ? 'border-yellow-400 border-2 shadow-xl transform md:scale-105' : 'border-gray-300'} ${plan.order}`}
+            className={`border rounded-xl p-8 flex flex-col ${plan.recommended ? 'border-indigo-600 border-2 shadow-xl transform md:scale-105' : 'border-gray-300'}`}
             style={{width: 320, borderRadius: 12, padding: 32}}
           >
             {plan.badge && (
-              <div className="bg-yellow-400 text-white text-xs font-bold rounded-full px-3 py-1 self-center">
+              <div className="bg-indigo-600 text-white text-xs font-bold rounded-full px-3 py-1 self-center">
                 {plan.badge}
               </div>
             )}
@@ -104,7 +104,7 @@ export default function ServiceSelection({ onNext }: ServiceSelectionProps) {
             </ul>
             <button
               onClick={() => handleSelect(plan.id)}
-              className={`mt-auto w-full py-3 rounded-lg font-bold h-12 ${plan.recommended ? 'bg-yellow-400 text-gray-800' : 'bg-white text-gray-800 border-2 border-gray-400'}`}
+              className={`mt-auto w-full py-3 rounded-lg font-bold h-12 ${plan.recommended ? 'bg-indigo-600 text-white' : 'bg-white text-gray-800 border-2 border-gray-400'}`}
             >
               {plan.buttonText}
             </button>

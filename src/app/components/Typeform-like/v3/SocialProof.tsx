@@ -37,7 +37,7 @@ export default function SocialProof({ onNext, question }: SocialProofProps) {
             <p className="mt-4 font-bold text-gray-600">— {question.testimonial.author}</p>
             <div className="flex mt-2">
               {[...Array(question.testimonial.stars)].map((_, i) => (
-                <svg key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                <svg key={i} className="w-5 h-5 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                 </svg>
               ))}
@@ -47,7 +47,7 @@ export default function SocialProof({ onNext, question }: SocialProofProps) {
       </div>
       <button
         onClick={onNext}
-        className="mt-8 bg-yellow-400 text-white font-bold py-4 px-8 rounded-lg hover:bg-yellow-500 w-full max-w-sm mx-auto"
+        className="mt-8 bg-indigo-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-indigo-700 w-full max-w-sm mx-auto"
       >
         CONTINUE
       </button>

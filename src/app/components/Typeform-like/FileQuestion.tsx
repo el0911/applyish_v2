@@ -33,7 +33,7 @@ export default function FileQuestion({ question, onNext, answers }: FileQuestion
   };
 
   return (
-    <div className="w-full max-w-lg">
+    <div className="w-full max-w-lg mx-auto">
       <form onSubmit={handleSubmit}>
         <label className="block text-2xl font-bold mb-4 text-gray-900 dark:text-white">
             {question.title} {question.optional && <span className="text-base font-normal text-gray-500 dark:text-gray-400">(optional)</span>}
@@ -56,7 +56,7 @@ export default function FileQuestion({ question, onNext, answers }: FileQuestion
               Next
             </button>
             {question.optional && (
-                <button type="button" onClick={() => onNext({ [question.id]: null })} className="bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-white font-bold py-2 px-4 rounded">
+                <button type="button" onClick={() => onNext({ [question.id]: null })} className="bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-white font-bold py-3 px-6 rounded-full">
                     Skip
                 </button>
             )}

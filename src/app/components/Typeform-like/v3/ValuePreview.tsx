@@ -58,7 +58,7 @@ export default function ValuePreview({ onNext, question }: ValuePreviewProps) {
       <div className="mt-8">
       <button
         onClick={onNext}
-        className="mt-8 bg-yellow-400 text-white font-bold py-4 px-8 rounded-lg hover:bg-yellow-500 w-full max-w-sm mx-auto"
+        className="mt-8 bg-indigo-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-indigo-700 w-full max-w-sm mx-auto"
       >
         CONTINUE
       </button>

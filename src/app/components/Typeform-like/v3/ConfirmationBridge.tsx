@@ -26,14 +26,14 @@ export default function ConfirmationBridge({ onNext, plan }: ConfirmationBridgeP
       <p className="text-sm text-gray-500">HOW WE HELP</p>
       <h1 className="text-3xl font-bold mt-2">Great choice!</h1>
       <p className="mt-2 text-gray-500">Before we match you with jobs...</p>
-      <div className="mt-8 bg-yellow-100 rounded-full h-32 w-32 flex items-center justify-center mx-auto" style={{height: 120, width: 120}}>
+      <div className="mt-8 bg-indigo-100 rounded-full h-32 w-32 flex items-center justify-center mx-auto" style={{height: 120, width: 120}}>
         <span className="text-6xl">🚀</span>
       </div>
       <p className="mt-8 text-lg">{messages[plan]}</p>
       <div className="mt-10">
       <button
         onClick={onNext}
-        className="bg-yellow-400 text-white font-bold py-4 px-8 rounded-lg hover:bg-yellow-500 w-full max-w-sm mx-auto" style={{height: 56, maxWidth: 400}}
+        className="bg-indigo-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-indigo-700 w-full max-w-sm mx-auto" style={{height: 56, maxWidth: 400}}
       >
         Book My Onboarding Call
       </button>

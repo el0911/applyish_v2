@@ -46,7 +46,7 @@ export default function TimeAvailability({ onNext }: TimeAvailabilityProps) {
             style={{height: 60, maxWidth: 500, margin: 'auto'}}
           >
             <span>{option}</span>
-            {selected === option && <span className="text-yellow-400">✓</span>}
+            {selected === option && <span className="text-indigo-600">✓</span>}
           </div>
         ))}
       </div>

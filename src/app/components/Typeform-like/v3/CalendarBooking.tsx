@@ -71,7 +71,7 @@ export default function CalendarBooking({ onNext }: CalendarBookingProps) {
       </div>
       <button
         onClick={handleBooking}
-        className="mt-8 bg-yellow-400 text-white font-bold py-4 px-8 rounded-lg hover:bg-yellow-500 w-full max-w-sm mx-auto block"
+        className="mt-8 bg-indigo-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-indigo-700 w-full max-w-sm mx-auto block"
         style={{height: 56}}
       >
         Confirm My Booking

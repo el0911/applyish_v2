@@ -2,26 +2,89 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from 'react';
 
 interface ConfirmationScreenProps {
   answers: { [key: string]: any };
 }
 
 export default function ConfirmationScreen({ answers }: ConfirmationScreenProps) {
-  const callDate = new Date(answers.call_datetime);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const formattedDate = callDate.toLocaleDateString("en-US", {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  const handleSubmitToHubSpot = async () => {
+    setIsSubmitting(true);
+    setIsError(false);
+    setErrorMessage('');
 
-  const formattedTime = callDate.toLocaleTimeString("en-US", {
-    hour: 'numeric',
-    minute: '2-digit',
-    timeZoneName: 'short',
-  });
+    const formData = new FormData();
+    for (const key in answers) {
+      const value = answers[key];
+      if (value instanceof File) {
+        formData.append(key, value, value.name);
+      } else if (value !== null && value !== undefined) {
+        formData.append(key, String(value));
+      }
+    }
+
+    try {
+      const response = await fetch('/api/hubspot-submit', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        setIsSuccess(true);
+      } else {
+        const errorData = await response.json();
+        setIsError(true);
+        setErrorMessage(errorData.message || 'An unknown error occurred.');
+      }
+    } catch (error: any) {
+      setIsError(true);
+      setErrorMessage(error.message || 'Network error occurred.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (isSuccess) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -50 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-2xl mx-auto p-4 text-center"
+      >
+        <h1 className="text-3xl font-bold mt-8 text-green-600">Submission Successful!</h1>
+        <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">Thank you for your submission. We will be in touch shortly.</p>
+      </motion.div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -50 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-2xl mx-auto p-4 text-center"
+      >
+        <h1 className="text-3xl font-bold mt-8 text-red-600">Submission Failed!</h1>
+        <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">{errorMessage}</p>
+        <button
+          onClick={handleSubmitToHubSpot}
+          className="mt-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 w-full max-w-xs"
+        >
+          Try Again
+        </button>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
@@ -29,37 +92,29 @@ export default function ConfirmationScreen({ answers }: ConfirmationScreenProps)
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -50 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-lg mx-auto p-4 text-center"
+      className="w-full max-w-2xl mx-auto p-4 text-center"
     >
-      <div className="mt-8 bg-yellow-100 rounded-full h-40 w-40 flex items-center justify-center mx-auto" style={{height: 150, width: 150}}>
-        <span className="text-8xl">🎉</span>
+      <h1 className="text-3xl font-bold mt-8 text-gray-900 dark:text-white">Review Your Information</h1>
+      <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">Please review the details below before submitting.</p>
+
+      <div className="mt-8 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md text-left max-h-96 overflow-y-auto">
+        {Object.entries(answers).map(([key, value]) => (
+          <div key={key} className="mb-2 pb-2 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+            <p className="font-semibold text-gray-700 dark:text-gray-300">{key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())}:</p>
+            <p className="text-gray-900 dark:text-white">{value instanceof File ? value.name : String(value)}</p>
+          </div>
+        ))}
       </div>
-      <h1 className="text-3xl font-bold mt-8">You're all set!</h1>
-      <div className="mt-4 text-lg">
-        <p>Your onboarding call is scheduled for:</p>
-        <p className="font-bold">{formattedDate}</p>
-        <p className="font-bold">{formattedTime}</p>
-        <p className="mt-4">We've sent a confirmation email to:</p>
-        <p className="font-bold">{answers.email}</p>
-      </div>
-      <div className="mt-8 rounded-lg p-6 text-left max-w-md mx-auto" style={{backgroundColor: '#FEF3C7', borderRadius: 12, padding: 24}}>
-        <p className="font-bold">Confirmation email with:</p>
-        <ul className="list-disc list-inside mt-2">
-          <li>Calendar invite (.ics file)</li>
-          <li>What to prepare for your call</li>
-          <li>Details about your {answers.plan_selected} plan</li>
-        </ul>
-      </div>
-      <p className="mt-8 text-lg">We're excited to help you land interviews faster!</p>
-      <div className="mt-4 flex justify-center space-x-4">
-        <button className="bg-white border border-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg hover:bg-gray-100" style={{height: 44}}>
-          Add to Google Calendar
-        </button>
-        <button className="bg-white border border-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg hover:bg-gray-100" style={{height: 44}}>
-          Add to Outlook
+
+      <div className="mt-8">
+        <button
+          onClick={handleSubmitToHubSpot}
+          disabled={isSubmitting}
+          className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 w-full max-w-xs"
+        >
+          {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
       </div>
-      <p className="mt-8 text-sm text-gray-500">Check your email for all the details. See you soon!</p>
     </motion.div>
   );
 }

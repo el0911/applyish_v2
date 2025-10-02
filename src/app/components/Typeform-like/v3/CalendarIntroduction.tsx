@@ -33,7 +33,7 @@ export default function CalendarIntroduction({ onNext, plan }: CalendarIntroduct
       <h1 className="text-3xl font-bold mt-2">You're almost there!</h1>
       <h2 className="text-2xl font-bold mt-4">Book your 15-minute onboarding call</h2>
       <p className="mt-4 text-lg">{messages[plan]}</p>
-      <div className="mt-8 bg-yellow-100 rounded-full h-32 w-32 flex items-center justify-center mx-auto" style={{height: 120, width: 120}}>
+      <div className="mt-8 bg-indigo-100 rounded-full h-32 w-32 flex items-center justify-center mx-auto" style={{height: 120, width: 120}}>
         <span className="text-6xl">🗓️</span>
       </div>
       <div className="mt-8 space-y-4 text-left max-w-md mx-auto">
@@ -51,7 +51,7 @@ export default function CalendarIntroduction({ onNext, plan }: CalendarIntroduct
       <div className="mt-10">
       <button
         onClick={onNext}
-        className="bg-yellow-400 text-white font-bold py-4 px-8 rounded-lg hover:bg-yellow-500 w-full max-w-sm mx-auto" style={{height: 56, maxWidth: 400}}
+        className="bg-indigo-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-indigo-700 w-full max-w-sm mx-auto" style={{height: 56, maxWidth: 400}}
       >
         CHOOSE YOUR TIME
       </button>

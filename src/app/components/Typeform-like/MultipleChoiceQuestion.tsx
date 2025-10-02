@@ -19,11 +19,12 @@ export default function MultipleChoiceQuestion({ question, onNext, answers }: Mu
       <div className="space-y-2">
         {question.options.map((option) => (
           <button
-            key={option}
-            onClick={() => handleSelect(option)}
-            className={`w-full text-left font-semibold py-2 px-4 border rounded shadow transition-colors duration-200 ${selectedOption === option ? 'bg-blue-500 text-white border-blue-500' : 'bg-white hover:bg-gray-100 text-gray-800 border-gray-400 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700'}`}
+            key={option.value}
+            onClick={() => handleSelect(option.value)}
+            className={`w-full text-left font-semibold p-4 border rounded-2xl cursor-pointer flex items-center justify-between transition-colors duration-200 ${selectedOption === option.value ? 'border-indigo-600 border-2' : 'border-gray-300 bg-white hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700'}`}
           >
-            {option}
+            <span className="text-gray-900 dark:text-white">{option.label}</span>
+            {selectedOption === option.value && <span className="text-indigo-600 text-2xl">✓</span>}
           </button>
         ))}
       </div>

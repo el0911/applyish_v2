@@ -32,7 +32,7 @@ export default function SkillsFlexibility({ onNext }: SkillsFlexibilityProps) {
         </button>
         <button
           onClick={() => handleAnswer(true)}
-          className="bg-yellow-400 text-white font-bold py-3 px-8 rounded-lg hover:bg-yellow-500"
+          className="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700"
         >
           ✅ Yes
         </button>

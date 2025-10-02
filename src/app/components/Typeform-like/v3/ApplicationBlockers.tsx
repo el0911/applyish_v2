@@ -46,11 +46,11 @@ export default function ApplicationBlockers({ onNext }: ApplicationBlockersProps
           <div
             key={option}
             onClick={() => handleSelect(option)}
-            className={`border rounded-2xl p-4 text-center cursor-pointer flex items-center justify-between ${selected === option ? 'border-yellow-400 border-2' : 'border-gray-300'}`}
+            className={`border rounded-2xl p-4 text-center cursor-pointer flex items-center justify-between ${selected === option ? 'border-indigo-600 border-2' : 'border-gray-300'}`}
             style={{height: 60, maxWidth: 500, margin: 'auto'}}
           >
             <span>{option}</span>
-            {selected === option && <span className="text-yellow-400">✓</span>}
+            {selected === option && <span className="text-indigo-600">✓</span>}
           </div>
         ))}
       </div>

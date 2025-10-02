@@ -37,7 +37,7 @@ export default function OpenEndedChallenge({ onNext }: OpenEndedChallengeProps) 
       <p className="mt-2 text-sm text-gray-500 text-center">Optional — but helps us personalize your onboarding call</p>
       <button
         onClick={handleNext}
-        className="mt-8 bg-yellow-400 text-white font-bold py-4 px-8 rounded-lg hover:bg-yellow-500 w-full max-w-sm mx-auto block"
+        className="mt-8 bg-indigo-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-indigo-700 w-full max-w-sm mx-auto block"
         style={{height: 56, maxWidth: 400}}
       >
         CONTINUE
