@@ -1,0 +1,41 @@
+
+"use client";
+
+import { motion } from "framer-motion";
+
+interface ProblemValidationProps {
+  onNext: () => void;
+  question: {
+    title: string;
+    subtitle: string;
+    emoji: string;
+    body: string;
+  };
+}
+
+export default function ProblemValidation({ onNext, question }: ProblemValidationProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -50 }}
+      transition={{ duration: 0.5 }}
+      className="w-full max-w-lg mx-auto p-4 text-center"
+    >
+      <p className="text-sm text-gray-500">{question.subtitle}</p>
+      <h1 className="text-2xl font-bold mt-2 text-white">{question.title}</h1>
+      <div className="mt-8 bg-yellow-100 rounded-full h-32 w-32 flex items-center justify-center mx-auto" style={{height: 120, width: 120}}>
+        <span className="text-6xl">{question.emoji}</span>
+      </div>
+      <p className="mt-8 text-lg text-white" style={{fontSize: 18}}>{question.body}</p>
+      <div className="mt-10">
+        <button
+          onClick={onNext}
+          className="bg-yellow-400 text-white font-bold py-4 px-8 rounded-lg hover:bg-yellow-500 w-full max-w-sm mx-auto" style={{height: 56, maxWidth: 400}}
+        >
+          CONTINUE
+        </button>
+      </div>
+    </motion.div>
+  );
+}
