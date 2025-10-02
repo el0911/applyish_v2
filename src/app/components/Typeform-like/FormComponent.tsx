@@ -11,13 +11,12 @@ import PhoneInput from './PhoneInput';
 import Navigation from './Navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Question, WelcomeQuestion, TextQuestion, FileQuestion as FileQuestionType, MultipleChoiceQuestion as MultipleChoiceQuestionType, ThankYouQuestion } from './types';
-import GatingQuestion from './GatingQuestion';
+
 
 export default function FormComponent() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<{[key: string]: string | File | null}>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [hasAcknowledgedPrice, setHasAcknowledgedPrice] = useState(false);
 
   const handleNext = (answer: { [key: string]: string | File | null }) => {
     setAnswers({ ...answers, ...answer });
@@ -30,10 +29,6 @@ export default function FormComponent() {
 
   const handleGoTo = (index: number) => {
     setCurrentQuestionIndex(index);
-  }
-
-  const handleAcknowledge = () => {
-    setHasAcknowledgedPrice(true);
   }
 
   const handleSubmitToHubspot = async (formData: {[key: string]: string | File | null}) => {
@@ -104,10 +99,6 @@ export default function FormComponent() {
           handleNext({});
           return null;
       }
-  }
-
-  if (!hasAcknowledgedPrice) {
-    return <GatingQuestion onNext={handleAcknowledge} />;
   }
 
   return (
