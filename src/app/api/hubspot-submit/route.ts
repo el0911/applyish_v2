@@ -34,10 +34,17 @@ export async function POST(request: Request) {
     { name: "howHearAboutUs", value: fields.find(f => f.name === "howHearAboutUs")?.value || "" },
     { name: "whyLookingForJob", value: fields.find(f => f.name === "whyLookingForJob")?.value || "" },
     { name: "career", value: fields.find(f => f.name === "career")?.value || "" },
-    // { name: "sex", value: fields.find(f => f.name === "gender")?.value || "" },
-    // { name: "race", value: fields.find(f => f.name === "race")?.value || "" },
-    // { name: "veteran_status", value: fields.find(f => f.name === "veteran")?.value || "" },
-    // { name: "disability_status", value: fields.find(f => f.name === "disability")?.value || "" },
+    { name: "pain_linkedin_200apps", value: fields.find(f => f.name === "pain_linkedin_200apps")?.value || "" },
+    { name: "pain_black_hole", value: fields.find(f => f.name === "pain_black_hole")?.value || "" },
+    { name: "pain_ats_filters", value: fields.find(f => f.name === "pain_ats_filters")?.value || "" },
+    { name: "pain_job_site_jumping", value: fields.find(f => f.name === "pain_job_site_jumping")?.value || "" },
+    { name: "time_availability", value: fields.find(f => f.name === "time_availability")?.value || "" },
+    { name: "application_blocker", value: fields.find(f => f.name === "application_blocker")?.value || "" },
+    { name: "open_to_learn", value: fields.find(f => f.name === "open_to_learn")?.value || "" },
+    { name: "biggest_challenge", value: fields.find(f => f.name === "biggest_challenge")?.value || "" },
+    { name: "selectedPlan", value: fields.find(f => f.name === "selectedPlan")?.value || "" },
+    { name: "call_datetime", value: fields.find(f => f.name === "call_datetime")?.value || "" },
+    { name: "Calendly_invitee_urii", value: fields.find(f => f.name === "calendly_event_uri")?.value || "" },
   ];
 
   console.log(mappedFields,fields)
