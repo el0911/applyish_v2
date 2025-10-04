@@ -2,23 +2,14 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from 'react';
+import { CalendarBookingQuestion } from './questionTypes';
 
 // Define types
-interface CalendarConfig {
-  calendlyUrl: string;
-}
-
-interface CalendarBookingQuestion {
-  subtitle: string;
-  title: string;
-  buttonText?: string;
-  calendarConfig: CalendarConfig;
-}
 
 interface CalendarBookingProps {
   onNext: (answer: { [key: string]: string | Date }) => void;
   question: CalendarBookingQuestion;
-  answers: { [key: string]: any };
+  answers: { [key: string]: unknown };
 }
 
 export default function CalendarBooking({ onNext, question, answers }: CalendarBookingProps) {
@@ -36,6 +27,7 @@ export default function CalendarBooking({ onNext, question, answers }: CalendarB
     }
 
     const script = document.createElement('script');
+    // makse sure it fits
     script.src = 'https://assets.calendly.com/assets/external/widget.js';
     script.async = true;
     
@@ -64,13 +56,12 @@ export default function CalendarBooking({ onNext, question, answers }: CalendarB
   useEffect(() => {
     if (!scriptLoaded || !calendlyRef.current || !window.Calendly) return;
 
-    // Build prefill data from previous answers
-    const prefill: any = {};
-    if (answers.fullName) prefill.name = answers.fullName;
-    if (answers.email) prefill.email = answers.email;
+    const prefill: CalendlyPrefill = {};
+    if (answers.fullName) prefill.name = `${answers.fullName}`;
+    if (answers.email) prefill.email = `${answers.email}`;
     if (answers.phoneNumber) {
       prefill.customAnswers = {
-        a1: answers.phoneNumber
+        a1: `${answers.phoneNumber}`
       };
     }
 
@@ -113,9 +104,9 @@ export default function CalendarBooking({ onNext, question, answers }: CalendarB
       className="w-full h-full flex flex-col items-center p-4 sm:p-6 lg:p-8"
     >
       {/* Header */}
-      <div className="w-full max-w-4xl text-center mb-6 sm:mb-8">
+      <div className="w-full max-w-4xl text-center ">
         {question.subtitle && (
-          <p className="text-xs sm:text-sm text-gray-500 mb-2">{question.subtitle}</p>
+          <p className="text-xs sm:text-sm text-gray-500">{question.subtitle}</p>
         )}
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
           {question.title}
@@ -148,22 +139,34 @@ export default function CalendarBooking({ onNext, question, answers }: CalendarB
 
       {/* Info text */}
       <p className="mt-4 text-xs sm:text-sm text-gray-500 text-center max-w-md">
-        Select a time that works best for you. You'll receive a confirmation email after booking.
+        Select a time that works best for you. You&apos;ll receive a confirmation email after booking.
       </p>
     </motion.div>
   );
 }
 
 // TypeScript declaration for Calendly on window object
+interface CalendlyPrefill {
+  name?: string;
+  email?: string;
+  customAnswers?: {
+    a1?: string;
+  };
+}
+
 declare global {
   interface Window {
     Calendly?: {
       initInlineWidget: (options: {
         url: string;
         parentElement: HTMLElement;
-        prefill?: any;
-        utm?: any;
+        prefill?: CalendlyPrefill;
+        utm?: CalendlyUtm;
       }) => void;
     };
   }
+}
+
+interface CalendlyUtm {
+  [key: string]: string;
 }

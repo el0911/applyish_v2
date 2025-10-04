@@ -4,7 +4,7 @@ import { TextQuestion } from './types';
 interface QuestionProps {
   question: TextQuestion;
   onNext: (answer: { [key: string]: string | null }) => void;
-  answers: { [key: string]: string | File | null };
+  answers: { [key: string]: string | number | File | Date | boolean | string[] | undefined | null };
 }
 
 export default function QuestionComponent({ question, onNext, answers }: QuestionProps) {

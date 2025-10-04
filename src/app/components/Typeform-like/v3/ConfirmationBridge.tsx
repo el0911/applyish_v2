@@ -1,13 +1,39 @@
-
 "use client";
 
 import { motion } from "framer-motion";
-import { ConfirmationBridgeQuestion } from '../types';
+
+// Helper to render text that might be highlighted
+const renderText = (text: string | { text: string; highlighted?: boolean }[], plan?: string) => {
+  const replacePlan = (str: string) => plan ? str.replace(/{selectedPlan}/g, plan) : str;
+
+  if (typeof text === 'string') {
+    return replacePlan(text);
+  }
+  if (Array.isArray(text)) {
+    return text.map((segment, index) => (
+      <span key={index} className={segment.highlighted ? "text-indigo-300 font-bold" : ""}>
+        {replacePlan(segment.text)}
+      </span>
+    ));
+  }
+  return null;
+};
 
 interface ConfirmationBridgeProps {
   onNext: () => void;
   plan: string;
-  question: ConfirmationBridgeQuestion;
+  question: {
+    title: string;
+    subtitle: string;
+    emoji?: string;
+    body: { text: string; highlighted?: boolean }[];
+    callout?: {
+      text: { text: string; highlighted?: boolean }[];
+      icon?: string;
+      style: 'info' | 'success';
+    };
+    buttonText: string;
+  };
 }
 
 export default function ConfirmationBridge({ onNext, plan, question }: ConfirmationBridgeProps) {
@@ -20,7 +46,7 @@ export default function ConfirmationBridge({ onNext, plan, question }: Confirmat
       className="w-full max-w-lg mx-auto p-4 text-center"
     >
       <p className="text-sm text-gray-500">{question.subtitle}</p>
-      <h1 className="text-3xl font-bold mt-2">{question.title.replace('{selectedPlan}', plan)}</h1>
+      <h1 className="text-3xl font-bold mt-2 text-white">{question.title.replace('{selectedPlan}', plan)}</h1>
 
       {question.emoji && (
         <div className="mt-8 bg-indigo-100 rounded-full h-32 w-32 flex items-center justify-center mx-auto" style={{height: 120, width: 120}}>
@@ -28,7 +54,7 @@ export default function ConfirmationBridge({ onNext, plan, question }: Confirmat
         </div>
       )}
 
-      <p className="mt-8 text-lg">{question.body.replace('{selectedPlan}', plan)}</p>
+      <p className="mt-8 text-lg text-white">{renderText(question.body, plan)}</p>
 
       {question.callout && (
         <div className={`mt-4 p-3 rounded-lg text-sm font-medium flex items-center justify-center
@@ -36,7 +62,7 @@ export default function ConfirmationBridge({ onNext, plan, question }: Confirmat
           ${question.callout.style === 'success' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : ''}
         `}>
           {question.callout.icon && <span className="mr-2">{question.callout.icon}</span>}
-          {question.callout.text}
+          <p>{renderText(question.callout.text)}</p>
         </div>
       )}
 
@@ -50,3 +76,4 @@ export default function ConfirmationBridge({ onNext, plan, question }: Confirmat
       </div>
     </motion.div>
   );
+}

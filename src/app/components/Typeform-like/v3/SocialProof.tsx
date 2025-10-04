@@ -10,7 +10,7 @@ interface SocialProofProps {
     title: string;
     subtitle: string;
     testimonial: {
-      text: string;
+      text: { text: string; highlighted?: boolean }[];
       author: string;
       stars: number;
       avatar: string;
@@ -28,12 +28,18 @@ export default function SocialProof({ onNext, question }: SocialProofProps) {
       className="w-full max-w-lg mx-auto p-4 text-center"
     >
       <p className="text-sm text-gray-500">{question.subtitle}</p>
-      <h1 className="text-2xl font-bold mt-2">{question.title}</h1>
+      <h1 className="text-2xl font-bold mt-2 text-white">{question.title}</h1>
       <div className="mt-8 rounded-lg p-6 shadow-md max-w-md mx-auto" style={{backgroundColor: '#E0F2F7', borderRadius: 12, padding: 24, maxWidth: 500}}>
         <div className="flex items-start space-x-4">
           <Image src={question.testimonial.avatar} alt={question.testimonial.author} width={50} height={50} className="rounded-full" />
           <div>
-            <p className="text-gray-800">{question.testimonial.text}</p>
+            <p className="text-gray-800">
+              {question.testimonial.text.map((segment, index) => (
+                <span key={index} className={segment.highlighted ? "text-indigo-600 font-bold" : ""}>
+                  {segment.text}
+                </span>
+              ))}
+            </p>
             <p className="mt-4 font-bold text-gray-600">— {question.testimonial.author}</p>
             <div className="flex mt-2">
               {[...Array(question.testimonial.stars)].map((_, i) => (

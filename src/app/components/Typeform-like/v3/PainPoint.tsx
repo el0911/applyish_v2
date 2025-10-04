@@ -9,7 +9,7 @@ interface PainPointProps {
     id: string;
     title: string;
     subtitle: string;
-    quote: string;
+    quote: { text: string; highlighted?: boolean }[];
   };
 }
 
@@ -31,8 +31,14 @@ export default function PainPoint({ onNext, question }: PainPointProps) {
         <h1 className="text-2xl font-bold mt-2 text-white">{question.title}</h1>
       </div>
       <div className="mt-8 bg-white rounded-2xl p-10 shadow-md max-w-xl mx-auto">
-        <div className="text-indigo-600 text-6xl">"</div>
-        <p className="text-2xl font-bold text-gray-900">{question.quote}</p>
+        <div className="text-indigo-600 text-6xl">&quot;</div>
+        <p className="text-2xl font-bold text-gray-900">
+          {question.quote.map((segment, index) => (
+            <span key={index} className={segment.highlighted ? "text-indigo-600" : ""}>
+              {segment.text}
+            </span>
+          ))}
+        </p>
       </div>
       <div className="mt-8 flex justify-center space-x-6">
         <button

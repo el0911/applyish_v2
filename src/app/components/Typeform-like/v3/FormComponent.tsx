@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import { FormData } from '../types';
 import { questions } from './questions';
+import { Question } from './questionTypes';
 import PainPoint from './PainPoint';
 import ProblemValidation from './ProblemValidation';
 import SocialProof from './SocialProof';
@@ -15,10 +16,10 @@ import TimeAvailability from './TimeAvailability';
 import ApplicationBlockers from './ApplicationBlockers';
 import SkillsFlexibility from './SkillsFlexibility';
 import OpenEndedChallenge from './OpenEndedChallenge';
-import LoadingAnimation from './LoadingAnimation';
+import FindingJobsAnimation from './FindingJobsAnimation';
 import CalendarIntroduction from './CalendarIntroduction';
 import CalendarBooking from './CalendarBooking';
-import ConfirmationScreen from './ConfirmationScreen';
+import ThankYouScreen from './ThankYouScreen';
 import ServicePrimer from './ServicePrimer';
 import TestimonialScreenshots from './TestimonialScreenshots';
 import QuestionComponent from '../Question';
@@ -26,13 +27,16 @@ import PhoneInput from '../PhoneInput';
 import MultipleChoiceQuestion from '../MultipleChoiceQuestion';
 import FileQuestion from '../FileQuestion';
 import { motion, AnimatePresence } from 'framer-motion';
+import LoadingAnimation from './LoadingAnimation';
+import ConfirmationScreen from './ConfirmationScreen';
+import HowItWorks from './HowItWorks';
 
 export default function FormComponent() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<FormData>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  
 
-  const handleNext = (answer: { [key: string]: any }) => {
+  const handleNext = (answer: { [key: string]: string | number | File | Date | boolean | string[] | undefined | null }) => {
     setAnswers({ ...answers, ...answer });
     setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
@@ -65,12 +69,12 @@ export default function FormComponent() {
   }, [currentQuestionIndex, answers]);
 
 
-  const currentQuestion: any = questions[currentQuestionIndex];
+  const currentQuestion: Question = questions[currentQuestionIndex];
   const progress = Math.round(((currentQuestionIndex + 1) / (questions.length)) * 100);
 
   const renderQuestion = () => {
     if (!currentQuestion) {
-        return <ConfirmationScreen answers={answers} />;
+        return <ThankYouScreen />;
     }
     switch (currentQuestion.type) {
         case 'pain-point':
@@ -83,6 +87,8 @@ export default function FormComponent() {
             return <ApplicationTimeReality question={currentQuestion} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
         case 'value-preview':
             return <ValuePreview question={currentQuestion} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
+        case 'how-it-works':
+            return <HowItWorks question={currentQuestion} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
         case 'service-primer':
             return <ServicePrimer question={currentQuestion} onNext={handleNext} />;
         case 'service-selection':
@@ -90,7 +96,7 @@ export default function FormComponent() {
         case 'testimonial-screenshots':
             return <TestimonialScreenshots question={currentQuestion} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
         case 'confirmation-bridge':
-            return <ConfirmationBridge question={currentQuestion} plan={answers.plan_selected} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
+            return <ConfirmationBridge question={currentQuestion} plan={(answers.plan_selected as string) || ''} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
         case 'time-availability':
             return <TimeAvailability onNext={handleNext} />;
         case 'application-blockers':
@@ -101,11 +107,15 @@ export default function FormComponent() {
             return <OpenEndedChallenge onNext={handleNext} />;
         case 'loading-animation':
             return <LoadingAnimation question={currentQuestion} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
+        case 'finding-jobs-animation':
+            return <FindingJobsAnimation question={currentQuestion} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
         case 'calendar-introduction':
-            return <CalendarIntroduction question={currentQuestion} plan={answers.plan_selected} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
+            return <CalendarIntroduction question={currentQuestion} plan={(answers.plan_selected as string) || ''} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
         case 'calendar-booking':
             return <CalendarBooking question={currentQuestion} answers={answers} onNext={handleNext} />;
-        case 'text-input':
+        case 'confirmation-screen':
+            return <ConfirmationScreen answers={answers} />;
+        case 'text':
             return <QuestionComponent question={currentQuestion} onNext={handleNext} answers={answers} />;
         case 'phone-input':
             return <PhoneInput question={currentQuestion} onNext={handleNext} answers={answers} />;
@@ -113,8 +123,6 @@ export default function FormComponent() {
             return <MultipleChoiceQuestion question={currentQuestion} onNext={handleNext} answers={answers} />;
         case 'file-upload':
             return <FileQuestion question={currentQuestion} onNext={handleNext} answers={answers} />;
-        case 'confirmation-screen':
-            return <ConfirmationScreen answers={answers} />;
         default:
           handleNext({});
           return null;

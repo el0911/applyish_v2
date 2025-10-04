@@ -1,69 +1,71 @@
-
 "use client";
 
 import { motion } from "framer-motion";
-import Image from 'next/image';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface LoadingAnimationProps {
   onNext: () => void;
   question: {
-    testimonial: {
-      text: string;
-      author: string;
-      stars: number;
-      avatar: string;
-      trustpilot_stars: string;
-    };
+    title: string;
+    subtitle: string;
   };
 }
 
 export default function LoadingAnimation({ onNext, question }: LoadingAnimationProps) {
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      onNext();
-    }, 3000);
-    return () => clearTimeout(timer);
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(onNext, 500);
+          return 100;
+        }
+        return prev + 1;
+      });
+    }, 30);
+
+    return () => clearInterval(interval);
   }, [onNext]);
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -50 }}
       transition={{ duration: 0.5 }}
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+      className="w-full max-w-2xl mx-auto p-4 text-center"
     >
-      <div className="bg-white rounded-2xl p-10 shadow-2xl max-w-lg w-full text-center" style={{maxWidth: 500, padding: 40, borderRadius: 16}}>
-        <h2 className="text-xl font-semibold">Matching you with remote jobs based on your profile</h2>
-        <div className="mt-8 w-full bg-gray-200 rounded-full h-3 mx-auto" style={{width: 300, height: 12}}>
-          <motion.div
-            className="bg-indigo-600 h-3 rounded-full"
-            initial={{ width: 0 }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 3, ease: "linear" }}
+      <h2 className="text-2xl font-bold text-white">{question.title}</h2>
+      <p className="text-lg text-gray-400">{question.subtitle}</p>
+      <div className="relative mt-8 w-64 h-64 mx-auto">
+        <motion.svg
+          className="absolute top-0 left-0 w-full h-full"
+          viewBox="0 0 100 100"
+        >
+          <motion.circle
+            cx="50"
+            cy="50"
+            r="45"
+            stroke="#374151"
+            strokeWidth="10"
+            fill="transparent"
           />
-        </div>
-        <div className="mt-4 text-indigo-600 font-bold text-2xl">
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>30%...</motion.span>
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}>45%...</motion.span>
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}>67%...</motion.span>
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}>89%...</motion.span>
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.5 }}>100%</motion.span>
-        </div>
-      </div>
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-full max-w-2xl px-4">
-        <div className="mt-12 bg-white rounded-lg p-6 shadow-md max-w-2xl mx-auto" style={{maxWidth: 700, padding: 24}}>
-            <p className="text-sm text-gray-500 text-center mb-4">HOW WE HELP</p>
-            <div className="flex items-start space-x-4">
-                <Image src={question.testimonial.avatar} alt={question.testimonial.author} width={60} height={60} className="rounded-full" />
-                <div>
-                <p className="font-bold">{question.testimonial.author} wrote a review for Applyish</p>
-                <Image src={question.testimonial.trustpilot_stars} alt="Trustpilot stars" width={150} height={30} />
-                <p className="mt-4 text-gray-800 text-left">{question.testimonial.text}</p>
-                </div>
-            </div>
+          <motion.circle
+            cx="50"
+            cy="50"
+            r="45"
+            stroke="#4f46e5"
+            strokeWidth="10"
+            fill="transparent"
+            strokeDasharray="283"
+            strokeDashoffset={283 - (progress / 100) * 283}
+            transform="rotate(-90 50 50)"
+          />
+        </motion.svg>
+        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+          <p className="text-5xl font-bold text-white">{Math.round(progress)}%</p>
         </div>
       </div>
     </motion.div>

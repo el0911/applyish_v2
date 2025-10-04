@@ -9,7 +9,7 @@ interface ApplicationTimeRealityProps {
     title: string;
     subtitle: string;
     emoji: string;
-    points: string[];
+    points: { text: string; highlighted?: boolean }[][];
   };
 }
 
@@ -37,7 +37,13 @@ export default function ApplicationTimeReality({ onNext, question }: Application
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <p className="text-lg text-white">{point}</p>
+            <p className="text-lg text-white">
+              {point.map((segment, index) => (
+                <span key={index} className={segment.highlighted ? "text-indigo-300 font-bold" : ""}>
+                  {segment.text}
+                </span>
+              ))}
+            </p>
           </div>
         ))}
       </div>

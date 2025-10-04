@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import countriesData from '../../lib/countries.json';
 import parsePhoneNumberFromString, { CountryCode } from 'libphonenumber-js';
-import { TextQuestion } from './types';
+import { PhoneInputQuestion } from './v3/questionTypes';
 import Image from 'next/image';
 
 interface PhoneInputProps {
-  question: TextQuestion;
+  question: PhoneInputQuestion;
   onNext: (answer: { [key: string]: string }) => void;
-  answers: { [key: string]: string | File | null };
+  answers: { [key: string]: string | number | File | Date | boolean | string[] | undefined | null };
 }
 
 interface Country {

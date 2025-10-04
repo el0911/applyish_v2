@@ -3,7 +3,7 @@ import { MultipleChoiceQuestion as MultipleChoiceQuestionType } from './types';
 interface MultipleChoiceQuestionProps {
   question: MultipleChoiceQuestionType;
   onNext: (answer: { [key: string]: string }) => void;
-  answers: { [key: string]: string | File | null };
+  answers: { [key: string]: string | number | File | Date | boolean | string[] | undefined | null };
 }
 
 export default function MultipleChoiceQuestion({ question, onNext, answers }: MultipleChoiceQuestionProps) {

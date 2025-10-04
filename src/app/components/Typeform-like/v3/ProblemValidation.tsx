@@ -9,7 +9,7 @@ interface ProblemValidationProps {
     title: string;
     subtitle: string;
     emoji: string;
-    body: string;
+    body: { text: string; highlighted?: boolean }[];
   };
 }
 
@@ -27,7 +27,13 @@ export default function ProblemValidation({ onNext, question }: ProblemValidatio
       <div className="mt-8 bg-indigo-100 rounded-full h-32 w-32 flex items-center justify-center mx-auto" style={{height: 120, width: 120}}>
         <span className="text-6xl">{question.emoji}</span>
       </div>
-      <p className="mt-8 text-lg text-white" style={{fontSize: 18}}>{question.body}</p>
+      <p className="mt-8 text-lg text-white" style={{fontSize: 18}}>
+        {question.body.map((segment, index) => (
+          <span key={index} className={segment.highlighted ? "text-indigo-300 font-bold" : ""}>
+            {segment.text}
+          </span>
+        ))}
+      </p>
       <div className="mt-10">
         <button
           onClick={onNext}

@@ -1,13 +1,35 @@
-
 "use client";
 
 import { motion } from "framer-motion";
-import { CalendarIntroductionQuestion } from '../types';
+
+// Helper to render text that might be highlighted
+const renderText = (text: string | { text: string; highlighted?: boolean }[], plan?: string) => {
+  const replacePlan = (str: string) => plan ? str.replace(/{selectedPlan}/g, plan) : str;
+
+  if (typeof text === 'string') {
+    return replacePlan(text);
+  }
+  if (Array.isArray(text)) {
+    return text.map((segment, index) => (
+      <span key={index} className={segment.highlighted ? "text-indigo-300 font-bold" : ""}>
+        {replacePlan(segment.text)}
+      </span>
+    ));
+  }
+  return null;
+};
 
 interface CalendarIntroductionProps {
   onNext: () => void;
   plan: string;
-  question: CalendarIntroductionQuestion;
+  question: {
+    title: string;
+    subtitle: string;
+    emoji?: string;
+    body: { text: string; highlighted?: boolean }[];
+    expectations: string[];
+    buttonText: string;
+  };
 }
 
 export default function CalendarIntroduction({ onNext, plan, question }: CalendarIntroductionProps) {
@@ -20,7 +42,7 @@ export default function CalendarIntroduction({ onNext, plan, question }: Calenda
       className="w-full max-w-lg mx-auto p-4 text-center"
     >
       <p className="text-sm text-gray-500">{question.subtitle}</p>
-      <h1 className="text-3xl font-bold mt-2">{question.title}</h1>
+      <h1 className="text-3xl font-bold mt-2 text-white">{question.title}</h1>
 
       {question.emoji && (
         <div className="mt-8 bg-indigo-100 rounded-full h-32 w-32 flex items-center justify-center mx-auto" style={{height: 120, width: 120}}>
@@ -28,7 +50,7 @@ export default function CalendarIntroduction({ onNext, plan, question }: Calenda
         </div>
       )}
 
-      <p className="mt-8 text-lg">{question.body.replace('{selectedPlan}', plan)}</p>
+      <p className="mt-8 text-lg text-white">{renderText(question.body, plan)}</p>
 
       <div className="mt-8 space-y-4 text-left max-w-md mx-auto">
         {question.expectations.map((item, i) => (
@@ -38,7 +60,7 @@ export default function CalendarIntroduction({ onNext, plan, question }: Calenda
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <p className="text-lg">{item.replace('{selectedPlan}', plan)}</p>
+            <p className="text-lg text-white">{item.replace('{selectedPlan}', plan)}</p>
           </div>
         ))}
       </div>
@@ -53,3 +75,4 @@ export default function CalendarIntroduction({ onNext, plan, question }: Calenda
       </div>
     </motion.div>
   );
+}

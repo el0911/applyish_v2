@@ -25,7 +25,7 @@ export default function OpenEndedChallenge({ onNext }: OpenEndedChallengeProps) 
     >
       <div className="text-center">
         <p className="text-sm text-gray-500">HOW WE HELP</p>
-        <h1 className="text-2xl font-bold mt-2">What's your biggest job search challenge right now?</h1>
+        <h1 className="text-2xl font-bold mt-2">What&apos;s your biggest job search challenge right now?</h1>
       </div>
       <textarea
         value={challenge}

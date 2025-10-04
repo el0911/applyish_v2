@@ -12,6 +12,8 @@ export interface WelcomeQuestion extends BaseQuestion {
 
 export interface TextQuestion extends BaseQuestion {
   type: 'text' | 'email' | 'phone';
+  id: string;
+  title: string;
 }
 
 export interface FileQuestion extends BaseQuestion {
@@ -20,7 +22,10 @@ export interface FileQuestion extends BaseQuestion {
 
 export interface MultipleChoiceQuestion extends BaseQuestion {
   type: 'multiple-choice';
-  options: string[];
+  options: {
+    value:string,
+    label:string
+  }[];
 }
 
 export interface ThankYouQuestion extends BaseQuestion {
@@ -31,6 +36,7 @@ export interface ThankYouQuestion extends BaseQuestion {
 export type Question = WelcomeQuestion | TextQuestion | FileQuestion | MultipleChoiceQuestion | ThankYouQuestion;
 
 export interface FormData {
+  [key: string]: string | number | File | Date | boolean | string[] | undefined | null;
   // Pain points (Steps 1, 3, 6, 7)
   pain_linkedin_200apps?: boolean;
   pain_black_hole?: boolean;

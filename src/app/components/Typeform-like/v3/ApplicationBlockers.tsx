@@ -39,7 +39,7 @@ export default function ApplicationBlockers({ onNext }: ApplicationBlockersProps
     >
       <div className="text-center">
         <p className="text-sm text-gray-500">HOW WE HELP</p>
-        <h1 className="text-2xl font-bold mt-2">What's the biggest blocker in your job application process?</h1>
+        <h1 className="text-2xl font-bold mt-2">What&apos;s the biggest blocker in your job application process?</h1>
       </div>
       <div className="mt-8 space-y-4">
         {options.map((option) => (
