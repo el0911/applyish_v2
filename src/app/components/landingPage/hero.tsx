@@ -142,6 +142,10 @@ const HeroSection: FC = () => {
                                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </Button>
                             </div>
+                            <div className="mt-4 text-center lg:text-left text-sm text-gray-600 flex items-center justify-center lg:justify-start">
+                                <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
+                                <span>100% Money-Back Guarantee. If you don&apos;t get interviews, you don&apos;t pay.</span>
+                            </div>
                         </div>
 
                         {/* RIGHT: Tuned Scalable Visual Component */}
