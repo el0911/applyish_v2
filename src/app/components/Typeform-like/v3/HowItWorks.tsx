@@ -25,8 +25,8 @@ export default function HowItWorks({ onNext, question }: HowItWorksProps) {
       transition={{ duration: 0.5 }}
       className="w-full max-w-2xl mx-auto p-4 text-center"
     >
-      <p className="text-sm text-gray-500">{question.subtitle}</p>
-      <h1 className="text-3xl font-bold mt-2 text-white">{question.title}</h1>
+      <p className="text-sm text-gray-600 dark:text-gray-300">{question.subtitle}</p>
+      <h1 className="text-3xl font-bold mt-2 text-gray-900 dark:text-white">{question.title}</h1>
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
         {question.steps.map((step, index) => (
           <div key={index} className="flex items-start space-x-4">
@@ -34,8 +34,8 @@ export default function HowItWorks({ onNext, question }: HowItWorksProps) {
               {step.number}
             </div>
             <div>
-              <h3 className="text-xl font-bold text-white text-left">{step.title}</h3>
-              <p className="mt-1 text-gray-400 text-left">{step.description}</p>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white text-left">{step.title}</h3>
+              <p className="mt-1 text-gray-600 dark:text-gray-400 text-left">{step.description}</p>
             </div>
           </div>
         ))}

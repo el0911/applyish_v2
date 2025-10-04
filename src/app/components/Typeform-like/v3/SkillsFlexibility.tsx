@@ -20,9 +20,9 @@ export default function SkillsFlexibility({ onNext }: SkillsFlexibilityProps) {
       transition={{ duration: 0.5 }}
       className="w-full max-w-lg mx-auto p-4 text-center"
     >
-      <p className="text-sm text-gray-500">HOW WE HELP</p>
-      <h1 className="text-2xl font-bold mt-2">Open to learn new skills if the role requires it?</h1>
-      <p className="mt-2 text-gray-500 italic">To move forward, specify</p>
+      <p className="text-sm text-gray-600 dark:text-gray-300">HOW WE HELP</p>
+      <h1 className="text-2xl font-bold mt-2 text-gray-900 dark:text-white">Open to learn new skills if the role requires it?</h1>
+      <p className="mt-2 text-gray-600 dark:text-gray-300 italic">To move forward, specify</p>
       <div className="mt-8 flex justify-center space-x-4">
         <button
           onClick={() => handleAnswer(false)}

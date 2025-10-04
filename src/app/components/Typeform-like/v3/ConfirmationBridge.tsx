@@ -11,7 +11,7 @@ const renderText = (text: string | { text: string; highlighted?: boolean }[], pl
   }
   if (Array.isArray(text)) {
     return text.map((segment, index) => (
-      <span key={index} className={segment.highlighted ? "text-indigo-300 font-bold" : ""}>
+      <span key={index} className={segment.highlighted ? "text-indigo-600 dark:text-indigo-300 font-bold" : ""}>
         {replacePlan(segment.text)}
       </span>
     ));
@@ -45,8 +45,8 @@ export default function ConfirmationBridge({ onNext, plan, question }: Confirmat
       transition={{ duration: 0.5 }}
       className="w-full max-w-lg mx-auto p-4 text-center"
     >
-      <p className="text-sm text-gray-500">{question.subtitle}</p>
-      <h1 className="text-3xl font-bold mt-2 text-white">{question.title.replace('{selectedPlan}', plan)}</h1>
+      <p className="text-sm text-gray-600 dark:text-gray-300">{question.subtitle}</p>
+      <h1 className="text-3xl font-bold mt-2 text-gray-900 dark:text-white">{question.title.replace('{selectedPlan}', plan)}</h1>
 
       {question.emoji && (
         <div className="mt-8 bg-indigo-100 rounded-full h-32 w-32 flex items-center justify-center mx-auto" style={{height: 120, width: 120}}>
@@ -54,7 +54,7 @@ export default function ConfirmationBridge({ onNext, plan, question }: Confirmat
         </div>
       )}
 
-      <p className="mt-8 text-lg text-white">{renderText(question.body, plan)}</p>
+      <p className="mt-8 text-lg text-gray-900 dark:text-white">{renderText(question.body, plan)}</p>
 
       {question.callout && (
         <div className={`mt-4 p-3 rounded-lg text-sm font-medium flex items-center justify-center

@@ -23,8 +23,8 @@ export default function ApplicationTimeReality({ onNext, question }: Application
       className="w-full max-w-lg mx-auto p-4"
     >
       <div className="text-center">
-        <p className="text-sm text-gray-500">{question.subtitle}</p>
-        <h1 className="text-2xl font-bold mt-2 text-white">{question.title}</h1>
+        <p className="text-sm text-gray-600 dark:text-gray-300">{question.subtitle}</p>
+        <h1 className="text-2xl font-bold mt-2 text-gray-900 dark:text-white">{question.title}</h1>
       </div>
       <div className="mt-8 bg-indigo-100 rounded-full h-32 w-32 flex items-center justify-center mx-auto">
         <span className="text-6xl">{question.emoji}</span>
@@ -37,9 +37,9 @@ export default function ApplicationTimeReality({ onNext, question }: Application
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <p className="text-lg text-white">
+            <p className="text-lg text-gray-900 dark:text-white">
               {point.map((segment, index) => (
-                <span key={index} className={segment.highlighted ? "text-indigo-300 font-bold" : ""}>
+                <span key={index} className={segment.highlighted ? "text-indigo-600 dark:text-indigo-300 font-bold" : ""}>
                   {segment.text}
                 </span>
               ))}

@@ -36,8 +36,8 @@ export default function ServicePrimer({ onNext, question }: ServicePrimerProps) 
       className="w-full max-w-lg mx-auto p-4"
     >
       <div className="text-center">
-        <p className="text-sm text-gray-500">{question.subtitle}</p>
-        <h1 className="text-2xl font-bold mt-2">{question.title}</h1>
+        <p className="text-sm text-gray-600 dark:text-gray-300">{question.subtitle}</p>
+        <h1 className="text-2xl font-bold mt-2 text-gray-900 dark:text-white">{question.title}</h1>
       </div>
       <div className="mt-8 space-y-4">
         {question.options.map((option, index) => (
@@ -47,10 +47,10 @@ export default function ServicePrimer({ onNext, question }: ServicePrimerProps) 
             className={`border rounded-2xl p-4 cursor-pointer flex items-start ${selected === option.value ? 'border-yellow-400 border-2' : 'border-gray-300'}`}
             style={{maxWidth: 500, margin: 'auto'}}
           >
-            <div className="flex-shrink-0 w-8 text-lg font-bold">{index + 1}.</div>
+            <div className="flex-shrink-0 w-8 text-lg font-bold text-gray-900 dark:text-white">{index + 1}.</div>
             <div className="flex-grow">
-              <h3 className="font-bold">{option.title}</h3>
-              <p className="text-sm text-gray-600">{option.description}</p>
+              <h3 className="font-bold text-gray-900 dark:text-white">{option.title}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{option.description}</p>
             </div>
             {selected === option.value && <div className="flex-shrink-0 w-8 text-yellow-400 text-2xl">✓</div>}
           </div>

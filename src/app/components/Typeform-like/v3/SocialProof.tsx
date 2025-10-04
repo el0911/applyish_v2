@@ -27,8 +27,8 @@ export default function SocialProof({ onNext, question }: SocialProofProps) {
       transition={{ duration: 0.5 }}
       className="w-full max-w-lg mx-auto p-4 text-center"
     >
-      <p className="text-sm text-gray-500">{question.subtitle}</p>
-      <h1 className="text-2xl font-bold mt-2 text-white">{question.title}</h1>
+      <p className="text-sm text-gray-600 dark:text-gray-300">{question.subtitle}</p>
+      <h1 className="text-2xl font-bold mt-2 text-gray-900 dark:text-white">{question.title}</h1>
       <div className="mt-8 rounded-lg p-6 shadow-md max-w-md mx-auto" style={{backgroundColor: '#E0F2F7', borderRadius: 12, padding: 24, maxWidth: 500}}>
         <div className="flex items-start space-x-4">
           <Image src={question.testimonial.avatar} alt={question.testimonial.author} width={50} height={50} className="rounded-full" />

@@ -2,6 +2,7 @@ export interface BaseQuestion {
   type: string;
   id: string;
   title: string;
+  subtitle?: string;
   optional?: boolean;
 }
 

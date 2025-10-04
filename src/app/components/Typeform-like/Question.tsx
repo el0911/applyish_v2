@@ -18,14 +18,15 @@ export default function QuestionComponent({ question, onNext, answers }: Questio
   return (
     <div className="w-full max-w-lg mx-auto">
       <form onSubmit={handleSubmit}>
-        <label className="block text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+        <label className="block text-2xl font-bold mb-2 text-gray-900 dark:text-white">
             {question.title} {question.optional && <span className="text-base font-normal text-gray-500 dark:text-gray-400">(optional)</span>}
         </label>
+        {question.subtitle && <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">{question.subtitle}</p>}
         <input
           type={question.type}
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600"
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400"
           required={!question.optional}
         />
         <div className="mt-4 flex justify-center space-x-4">

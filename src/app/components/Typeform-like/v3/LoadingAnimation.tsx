@@ -37,8 +37,8 @@ export default function LoadingAnimation({ onNext, question }: LoadingAnimationP
       transition={{ duration: 0.5 }}
       className="w-full max-w-2xl mx-auto p-4 text-center"
     >
-      <h2 className="text-2xl font-bold text-white">{question.title}</h2>
-      <p className="text-lg text-gray-400">{question.subtitle}</p>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{question.title}</h2>
+      <p className="text-lg text-gray-600 dark:text-gray-400">{question.subtitle}</p>
       <div className="relative mt-8 w-64 h-64 mx-auto">
         <motion.svg
           className="absolute top-0 left-0 w-full h-full"
@@ -65,7 +65,7 @@ export default function LoadingAnimation({ onNext, question }: LoadingAnimationP
           />
         </motion.svg>
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-          <p className="text-5xl font-bold text-white">{Math.round(progress)}%</p>
+          <p className="text-5xl font-bold text-gray-900 dark:text-white">{Math.round(progress)}%</p>
         </div>
       </div>
     </motion.div>

@@ -10,7 +10,7 @@ const renderText = (text: string | { text: string; highlighted?: boolean }[]) =>
     return text;
   }
   return text.map((segment, index) => (
-    <span key={index} className={segment.highlighted ? "text-indigo-300 font-bold" : ""}>
+    <span key={index} className={segment.highlighted ? "text-indigo-600 dark:text-indigo-300 font-bold" : ""}>
       {segment.text}
     </span>
   ));
@@ -44,9 +44,9 @@ export default function ValuePreview({ onNext, question }: ValuePreviewProps) {
       transition={{ duration: 0.5 }}
       className="w-full max-w-2xl mx-auto p-4 text-center"
     >
-      <p className="text-sm text-gray-500">{question.subtitle}</p>
-      <h1 className="text-3xl font-bold mt-2 text-white">{renderText(question.title)}</h1>
-      <p className="mt-4 text-lg text-white">{renderText(question.body)}</p>
+      <p className="text-sm text-gray-600 dark:text-gray-300">{question.subtitle}</p>
+      <h1 className="text-3xl font-bold mt-2 text-gray-900 dark:text-white">{renderText(question.title)}</h1>
+      <p className="mt-4 text-lg text-gray-900 dark:text-white">{renderText(question.body)}</p>
       <div className="mt-8">
         {question.emoji ? (
           <span className="text-8xl">{question.emoji}</span>
@@ -54,7 +54,7 @@ export default function ValuePreview({ onNext, question }: ValuePreviewProps) {
           <Image src={question.image} alt={typeof question.title === 'string' ? question.title : ''} width={700} height={600} className="mx-auto w-4/5" />
         ) : null}
       </div>
-      {question.bottomText && <p className="mt-10 text-sm text-gray-500">{renderText(question.bottomText)}</p>}
+      {question.bottomText && <p className="mt-10 text-sm text-gray-600 dark:text-gray-300">{renderText(question.bottomText)}</p>}
       {question.testimonial && (
         <div className="mt-12 bg-white rounded-lg p-6 shadow-md max-w-2xl mx-auto">
           <div className="flex items-start space-x-4">

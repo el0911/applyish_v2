@@ -106,9 +106,9 @@ export default function CalendarBooking({ onNext, question, answers }: CalendarB
       {/* Header */}
       <div className="w-full max-w-4xl text-center ">
         {question.subtitle && (
-          <p className="text-xs sm:text-sm text-gray-500">{question.subtitle}</p>
+          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">{question.subtitle}</p>
         )}
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
           {question.title}
         </h1>
       </div>
@@ -119,7 +119,7 @@ export default function CalendarBooking({ onNext, question, answers }: CalendarB
           <div className="absolute inset-0 flex items-center justify-center bg-gray-50 rounded-lg">
             <div className="flex flex-col items-center gap-3">
               <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
-              <p className="text-gray-600 text-sm">Loading calendar...</p>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">Loading calendar...</p>
             </div>
           </div>
         )}
@@ -138,7 +138,7 @@ export default function CalendarBooking({ onNext, question, answers }: CalendarB
       </div>
 
       {/* Info text */}
-      <p className="mt-4 text-xs sm:text-sm text-gray-500 text-center max-w-md">
+      <p className="mt-4 text-xs sm:text-sm text-gray-600 dark:text-gray-300 text-center max-w-md">
         Select a time that works best for you. You&apos;ll receive a confirmation email after booking.
       </p>
     </motion.div>

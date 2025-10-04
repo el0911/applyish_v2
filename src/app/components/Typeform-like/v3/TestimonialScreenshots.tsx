@@ -22,8 +22,8 @@ export default function TestimonialScreenshots({ onNext, question }: Testimonial
       transition={{ duration: 0.5 }}
       className="w-full max-w-lg mx-auto p-4 text-center"
     >
-      <p className="text-sm text-gray-500">{question.subtitle}</p>
-      <h1 className="text-3xl font-bold mt-2   text-white ">{question.title}</h1>
+      <p className="text-sm text-gray-600 dark:text-gray-300">{question.subtitle}</p>
+      <h1 className="text-3xl font-bold mt-2 text-gray-900 dark:text-white">{question.title}</h1>
 
       <div className="mt-8 flex overflow-x-auto snap-x snap-mandatory space-x-4 pb-4 scrollbar-hide">
         {interviewImages.map((src, index) => (

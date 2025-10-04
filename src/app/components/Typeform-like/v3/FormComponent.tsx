@@ -154,7 +154,7 @@ export default function FormComponent() {
             )}
         </div>
         <div className="text-center mt-4">
-          <a href="/privacy" target="_blank" className="text-sm text-gray-500">Privacy Policy</a>
+          <a href="/privacy" target="_blank" className="text-sm text-gray-600 dark:text-gray-300">Privacy Policy</a>
         </div>
     </div>
   )
