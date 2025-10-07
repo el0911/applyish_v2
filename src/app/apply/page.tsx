@@ -1,12 +1,12 @@
-"use client"
-import FormComponent from '../components/Typeform-like/v3/FormComponent';
-import useSprig from '@/hooks/useSprig'
+import React from 'react';
 
-export default function ApplyPage() {
-  useSprig()
+const ApplyPage = () => {
   return (
-    <div className="flex items-center justify-center h-screen overflow-hidden bg-gray-100 dark:bg-gray-900">
-      <FormComponent />
+    <div>
+      <h1>Apply Page</h1>
+      <p>This page is under construction.</p>
     </div>
   );
-}
+};
+
+export default ApplyPage;

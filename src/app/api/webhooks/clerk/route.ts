@@ -2,6 +2,7 @@ import { Webhook } from 'svix'
 import { WebhookEvent } from '@clerk/nextjs/server'
 import { headers } from 'next/headers'
 import prisma from '@/lib/prisma'
+import { clerkClient } from '@clerk/nextjs/server';
 
 export async function POST(req: Request) {
   const secret = process.env.SIGNING_SECRET
@@ -36,6 +37,29 @@ export async function POST(req: Request) {
         name: `${first_name} ${last_name}`,
       },
     })
+
+    await clerkClient.users.updateUser(id, {
+      publicMetadata: {
+        userType: 'applicant'
+      }
+    });
+  }
+
+  if (event.type === 'user.updated') {
+    const { id, public_metadata } = event.data;
+
+    const user = await prisma.user.findUnique({
+      where: { clerkId: id },
+    });
+
+    if (user) {
+      await prisma.user.update({
+        where: { clerkId: id },
+        data: {
+          type: public_metadata.userType as any,
+        },
+      });
+    }
   }
 
   return new Response('OK')
