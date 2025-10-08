@@ -5,6 +5,7 @@ import logoImg from "../../logo.png";
 import vaImg from "../../va.png";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 
 const HeroSection: FC = () => {
     const floatingCards = [
@@ -132,16 +133,7 @@ const HeroSection: FC = () => {
                                     <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-orange-600 rounded-full"></span>
                                 </span>.
                             </p>
-                            <div className="mt-10 flex justify-center lg:justify-start">
-                                <Button
-                                    onClick={() => { window.location.href = "/apply"; }}
-                                    size="lg"
-                                    className="bg-indigo-600 text-white px-10 py-6 min-h-[60px] font-semibold shadow-lg border border-indigo-600 hover:bg-indigo-700 hover:scale-105 transition-all duration-300 group"
-                                >
-                                    Get Me Interviews
-                                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                </Button>
-                            </div>
+                             
                             <div className="mt-4 text-center lg:text-left text-sm text-gray-600 flex items-center justify-center lg:justify-start">
                                 <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                                 <span>100% Money-Back Guarantee. If you don&apos;t get interviews, you don&apos;t pay.</span>
