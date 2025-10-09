@@ -11,20 +11,6 @@ datasource db {
   url      = env("DATABASE_URL") // uses connection pooling
 }
 
- 
-enum UserType {
-  applicant
-  career_coach
-}
- 
-model User {
-  id              String             @id @default(cuid())
-  clerkId         String             @unique
-  email           String             @unique
-  name            String?
-  type            UserType           @default(applicant)
-  linkedInAccount LinkedInAccount?
-}
 
 model LinkedInAccount {
   id         String   @id @default(cuid())
@@ -45,6 +31,8 @@ model S3File {
   s3Identifier String 
   active       Boolean  @default(true)  
   jobLink      String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model ApplicationCount {
@@ -55,7 +43,6 @@ model ApplicationCount {
   count       Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-
   @@unique([username, weekOfYear, year])
 }
 
@@ -64,6 +51,69 @@ model HealthChecks{
   username    String
 
   isAlive     Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum UserType {
+  client
+  career_coach
+}
+ 
+model User {
+  id              String             @id @default(cuid())
+  clerkId         String?             @unique
+  email           String             @unique
+  name            String?
+  type            UserType           @default(client)
+  linkedInAccount LinkedInAccount?
+  careerCoach     CareerCoach? 
+  client          Client? 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model CareerCoach {
+  id          String    @id @default(cuid()) 
+  name        String
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+  clients     Client[] // A career coach can have multiple clients
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Client {
+  id          String    @id @default(cuid())
+  name        String
+  email       String    @unique
+  linkedin    String?
+  notes       String?
+  instanceUrl String?
+  chartData   Json?     // Store as JSON
+  totalJobs   Int       @default(0)
+  weekJobs    Int       @default(0)
+  avgJobs     Int       @default(0)
+  coachId     String // Foreign key to User (coach)
+  userId     String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+  coach       CareerCoach   @relation(fields: [coachId], references: [id])
+  processes   Process[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum ProcessState{
+  processing
+  failed
+  success
+}
+
+model Process{
+  id          String    @id @default(cuid())
+  status      ProcessState
+  clientId    String
+  client      Client @relation(fields: [clientId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

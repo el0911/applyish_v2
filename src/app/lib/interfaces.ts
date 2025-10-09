@@ -1,0 +1,30 @@
+
+export type IChartData = {
+    day: string;
+    applications: number;
+};
+
+export type IClientStatus = 'creating' | 'ready' | 'active';
+
+export type IClient = {
+    id: number;
+    name: string;
+    email: string;
+    linkedin?: string;
+    notes?: string;
+    status: IClientStatus;
+    instanceUrl: string | null;
+    addedAt: string;
+    chartData: IChartData[];
+    totalJobs: number;
+    weekJobs: number;
+    avgJobs: number;
+};
+
+export type IClientCardProps = {
+    client: IClient;
+    onCopyUrl: (url: string) => void;
+    onOpenInstance: (url: string) => void;
+    compact?: boolean;
+};
+

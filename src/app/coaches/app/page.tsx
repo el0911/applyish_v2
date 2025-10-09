@@ -4,6 +4,7 @@ import { Menu, X, Users, Settings, Home } from 'lucide-react';
 import DashboardOverview from '../pages/dashboard.page';
 import ClientsManagement from '../pages/clients.page';
 import SettingsPage from '../pages/Settings.page';
+import { IClient } from '@/app/lib/interfaces';
 
 // Layout Component
 type DashboardLayoutProps = {
@@ -97,7 +98,7 @@ function DashboardLayout({ children, activeNav, setActiveNav }: DashboardLayoutP
  
 
 // Sample data generator
-const generateChartData = () => {
+export const generateChartData = () => {
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     return days.map(day => ({
         day,
@@ -105,7 +106,7 @@ const generateChartData = () => {
     }));
 };
 
-const generateSampleClients = (): Client[] => {
+export const generateSampleClients = (): IClient[] => {
     const chartData1 = generateChartData();
     const chartData2 = generateChartData();
     const chartData3 = generateChartData();
@@ -199,31 +200,10 @@ const generateSampleClients = (): Client[] => {
     ];
 };
 
-type ChartData = {
-    day: string;
-    applications: number;
-};
-
-type ClientStatus = 'creating' | 'ready' | 'active';
-
-type Client = {
-    id: number;
-    name: string;
-    email: string;
-    linkedin?: string;
-    notes?: string;
-    status: ClientStatus;
-    instanceUrl: string | null;
-    addedAt: string;
-    chartData: ChartData[];
-    totalJobs: number;
-    weekJobs: number;
-    avgJobs: number;
-};
-
+ 
 export default function CoachesDashboard() {
   const [activeNav, setActiveNav] = useState('dashboard');
-    const [clients, setClients] = useState<Client[]>(generateSampleClients());
+    const [clients, setClients] = useState<IClient[]>(generateSampleClients());
 
   const renderContent = () => {
     switch (activeNav) {
@@ -232,7 +212,7 @@ export default function CoachesDashboard() {
           throw new Error('Function not implemented.');
         } } />;
       case 'clients':
-        return <ClientsManagement />;
+        return <ClientsManagement  clients={clients} setClients={setClients}/>;
       case 'settings':
         return <SettingsPage />;
       default:
