@@ -5,8 +5,6 @@ import { createAwsInstanceForCoachClients } from '@/app/lib/aws.service';
 
 const prisma = new PrismaClient();
 
-const createAwsInstanceForCoachClients = async (clientUserId: string) => {}
-
 
 export async function POST(req: NextRequest) {
     try {
@@ -148,6 +146,27 @@ export async function POST(req: NextRequest) {
         });
 
         newUser.client.status = 'processing';
+
+        // Generate a unique instance name
+        const instanceName = `applyish-automation-${newUser.client.id.substring(0, 8)}-${Math.floor(Math.random() * 10000)}`;
+
+        // Call createAwsInstanceForCoachClients
+        try {
+            await createAwsInstanceForCoachClients({
+                clientUserId: newUser.id,
+                s3Identifier: newUser.client.id, // Using client ID as s3Identifier
+                jobLink: '', // No jobLink available here
+                instanceName: instanceName,
+            });
+            // Optionally update client with instance details if needed
+            // await prisma.client.update({
+            //     where: { id: newUser.client.id },
+            //     data: { instanceUrl: '...' }
+            // });
+        } catch (awsError) {
+            console.error('Failed to create AWS instance for new user/client:', awsError);
+            // Handle error, maybe update client status to 'failed_instance_creation'
+        }
 
         return NextResponse.json({
             message: 'Clients created successfully',
