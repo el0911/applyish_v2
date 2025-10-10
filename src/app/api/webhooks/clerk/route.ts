@@ -20,9 +20,9 @@ export async function POST(req: Request) {
     if (event.type === 'user.created') {
       const { id, email_addresses, first_name, last_name, unsafe_metadata } = event.data;
 
-      // Read the user type from metadata, defaulting to 'applicant'
-      const userType = (unsafe_metadata?.type as 'career_coach' | 'applicant') || 'applicant';
-      console.dir( event.data, { depth: null } );
+      // Read the user type from metadata, defaulting to 'client'
+      const userType = (unsafe_metadata?.type as 'career_coach' | 'client') || 'client';
+
       // Securely update the user's public metadata so we can use it in JWT claims
       await client.users.updateUser(id, {
         publicMetadata: {
@@ -30,21 +30,41 @@ export async function POST(req: Request) {
         },
       });
 
+      const name = `${first_name} ${last_name}`;
+      const email = email_addresses[0].email_address;
+
+      const createData: any = {
+        clerkId: id,
+        email: email,
+        name: name,
+        type: userType,
+      };
+
+      if (userType === 'career_coach') {
+        createData.careerCoach = {
+          create: {
+            name: name,
+          },
+        };
+      } else {
+        createData.client = {
+          create: {
+            name: name,
+            email: email,
+          },
+        };
+      }
+
       // Save the user and their type to your own database
       await prisma.user.upsert({
-        where: { 
+        where: {
           clerkId: id,
           email: email_addresses[0].email_address,
          },
         update: {
           type: userType,
         },
-        create: {
-          clerkId: id,
-          email: email_addresses[0].email_address,
-          name: `${first_name} ${last_name}`,
-          type: userType,
-        },
+        create: createData,
       });
     }
 

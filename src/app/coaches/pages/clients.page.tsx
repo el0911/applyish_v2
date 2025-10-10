@@ -53,7 +53,7 @@ function ClientsManagement(
 
         setIsLoading(true);
         try {
-            const newClient = await createSingleClient<IClient>({
+            const {newClient} = await createSingleClient<IClient>({
                 name: formData.name,
                 email: formData.email,
                 linkedin: formData.linkedin,
@@ -65,7 +65,7 @@ function ClientsManagement(
 
             const clientWithChart: IClient = {
                 ...newClient,
-                status: 'creating',
+                status: 'processing',
                 instanceUrl: null,
                 addedAt: new Date().toISOString(),
                 chartData,
@@ -76,7 +76,7 @@ function ClientsManagement(
 
             setClients(prev => [clientWithChart, ...prev]);
             setFormData({ name: '', email: '', linkedin: '', notes: '' });
-            showNotification('Client added successfully!');
+            showNotification("Great news! We're setting up your client's LinkedIn automation. This process usually takes a moment, and their LinkedIn access will be ready to use for the next 4 hours. We'll let you know when it's all set!");
 
 
         } catch (error) {
@@ -135,7 +135,7 @@ function ClientsManagement(
                     const newClient: IClient = {
                         id: Date.now() + idx,
                         ...client,
-                        status: 'creating',
+                        status: 'processing',
                         instanceUrl: null,
                         addedAt: new Date().toISOString(),
                         chartData,
@@ -148,7 +148,7 @@ function ClientsManagement(
                 }, idx * 500);
             });
 
-            showNotification('CSV imported successfully!');
+            showNotification("Great news! We're setting up your clients' LinkedIn automation from the CSV file. This process usually takes a moment, and their LinkedIn access will be ready to use for the next 4 hours. We'll let you know when it's all set!");
             setCsvFile(null);
         }, 1000);
     };
@@ -164,8 +164,8 @@ function ClientsManagement(
     return (
         <div className="max-w-7xl mx-auto p-6 bg-gray-50 min-h-screen">
             {showToast && (
-                <div className="fixed top-6 right-6 z-50 bg-gray-900 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 animate-in slide-in-from-top duration-300">
-                    <CheckCircle className="w-5 h-5 text-green-400" />
+                <div className="fixed top-6 right-6 z-50 bg-blue-600 text-white px-6 py-4 shadow-lg flex items-center gap-3 animate-in slide-in-from-top duration-300">
+                    <Clock className="w-5 h-5 text-white" />
                     <p className="font-medium">{toastMessage}</p>
                 </div>
             )}

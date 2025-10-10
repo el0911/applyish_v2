@@ -57,9 +57,9 @@ export const postData = async <T>(endpoint: string, data: any): Promise<T> => {
 
 
 // create a client
-export const createSingleClient = async <T>( data: any): Promise<IClient> => {
+export const createSingleClient = async <T>( data: any): Promise<{newClient : IClient}> => {
   try {
-    const response = await apiService.post<IClient>('/coaches/clients/create-single-client', data);
+    const response = await apiService.post<{newClient : IClient}>('/coaches/clients/create-single-client', data);
     return response.data;
   } catch (error) {
     console.error(`Error posting data:`, error);
@@ -67,5 +67,17 @@ export const createSingleClient = async <T>( data: any): Promise<IClient> => {
   }
 };
 
+// load clients for a coach
+export const fetchClientsForCoach = async (): Promise<{clients:IClient[]}> => {
+    try {
+        // get the clients for a coach
+        const response = await apiService.get<{clients:IClient[]}>(`/coaches/clients/load`);
+        return response.data;
+    }
+    catch (error){
+        console.error('Error fetching clients')
+        throw error
+    }
+}
 
 export default apiService;

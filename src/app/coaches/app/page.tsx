@@ -1,10 +1,11 @@
 "use client";
-import React, { useState, ReactNode, Dispatch, SetStateAction } from 'react';
+import React, { useState, ReactNode, Dispatch, SetStateAction, useEffect } from 'react';
 import { Menu, X, Users, Settings, Home } from 'lucide-react';
 import DashboardOverview from '../pages/dashboard.page';
 import ClientsManagement from '../pages/clients.page';
 import SettingsPage from '../pages/Settings.page';
 import { IClient } from '@/app/lib/interfaces';
+import { fetchClientsForCoach } from '@/app/lib/api.service';
 
 // Layout Component
 type DashboardLayoutProps = {
@@ -35,15 +36,14 @@ function DashboardLayout({ children, activeNav, setActiveNav }: DashboardLayoutP
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 bg-gray-900 text-white transform transition-transform duration-300 ease-in-out ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } md:translate-x-0 md:static`}
+        className={`fixed inset-y-0 left-0 z-40 w-64 bg-gray-900 text-white transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          } md:translate-x-0 md:static`}
       >
         <div className="flex flex-col h-full">
           <div className="p-6">
             <h1 className="text-2xl font-bold">Coach Admin</h1>
           </div>
-          
+
           <nav className="flex-1 px-3">
             {navItems.map((item) => (
               <button
@@ -52,15 +52,13 @@ function DashboardLayout({ children, activeNav, setActiveNav }: DashboardLayoutP
                   setActiveNav(item.id);
                   setSidebarOpen(false);
                 }}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1 group ${
-                  activeNav === item.id
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1 group ${activeNav === item.id
                     ? 'bg-blue-600 text-white'
                     : 'hover:bg-gray-800 text-gray-300'
-                }`}
+                  }`}
               >
-                <item.icon className={`w-5 h-5 ${
-                  activeNav === item.id ? 'text-white' : 'text-gray-400 group-hover:text-white'
-                }`} />
+                <item.icon className={`w-5 h-5 ${activeNav === item.id ? 'text-white' : 'text-gray-400 group-hover:text-white'
+                  }`} />
                 <span className="font-medium">{item.name}</span>
               </button>
             ))}
@@ -95,7 +93,7 @@ function DashboardLayout({ children, activeNav, setActiveNav }: DashboardLayoutP
     </div>
   );
 }
- 
+
 
 // Sample data generator
 export const generateChartData = () => {
@@ -111,7 +109,7 @@ export const generateSampleClients = (): IClient[] => {
     const chartData2 = generateChartData();
     const chartData3 = generateChartData();
     const chartData4 = generateChartData();
-    
+
     return [
         {
             id: 1,
@@ -161,7 +159,7 @@ export const generateSampleClients = (): IClient[] => {
             email: 'james.wilson@example.com',
             linkedin: 'https://linkedin.com/in/jameswilson',
             notes: 'Sales executive targeting SaaS companies',
-            status: 'creating',
+            status: 'processing',
             instanceUrl: null,
             addedAt: '2025-10-07T11:45:00Z',
             chartData: chartData4,
@@ -200,25 +198,35 @@ export const generateSampleClients = (): IClient[] => {
     ];
 };
 
- 
+
 export default function CoachesDashboard() {
   const [activeNav, setActiveNav] = useState('dashboard');
-    const [clients, setClients] = useState<IClient[]>(generateSampleClients());
+  const [clients, setClients] = useState<IClient[]>([]);
+
+
+  useEffect(() => {
+    const getClients = async () => {
+      const { clients: fetchedClients } = await fetchClientsForCoach()
+      setClients(fetchedClients)
+    }
+
+    getClients()
+  }, [])
 
   const renderContent = () => {
     switch (activeNav) {
       case 'dashboard':
         return <DashboardOverview clients={clients} setActiveNav={function (nav: string): void {
           throw new Error('Function not implemented.');
-        } } />;
+        }} />;
       case 'clients':
-        return <ClientsManagement  clients={clients} setClients={setClients}/>;
+        return <ClientsManagement clients={clients} setClients={setClients} />;
       case 'settings':
         return <SettingsPage />;
       default:
         return <DashboardOverview clients={clients} setActiveNav={function (nav: string): void {
           throw new Error('Function not implemented.');
-        } } />;
+        }} />;
     }
   };
 

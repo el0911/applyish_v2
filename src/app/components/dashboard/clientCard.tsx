@@ -25,21 +25,21 @@ function ClientCard({ client, onCopyUrl, onOpenInstance, compact = false }: Clie
 
     const getStatusBadge = () => {
         switch (client.status) {
-            case 'creating':
+            case 'processing':
                 return (
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-semibold">
                         <Loader2 className="w-3 h-3 animate-spin" />
                         Creating
                     </span>
                 );
-            case 'ready':
+            case 'failed':
                 return (
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
                         <CheckCircle className="w-3 h-3" />
                         Ready
                     </span>
                 );
-            case 'active':
+            case 'success':
                 return (
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-semibold">
                         <Activity className="w-3 h-3" />
@@ -66,7 +66,7 @@ function ClientCard({ client, onCopyUrl, onOpenInstance, compact = false }: Clie
                 
                 <div className="flex items-center justify-between">
                     {getStatusBadge()}
-                    {client.status === 'active' && (
+                    {client.status === 'success' && (
                         <span className="text-xs text-gray-600 font-medium">
                             {client.totalJobs} jobs
                         </span>
@@ -125,7 +125,7 @@ function ClientCard({ client, onCopyUrl, onOpenInstance, compact = false }: Clie
                     )}
                 </div>
 
-                {client.status === 'active' && (
+                {client.status === 'success' && (
                     <button
                         onClick={() => setExpanded(!expanded)}
                         className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm mt-4 transition-colors"
@@ -145,7 +145,7 @@ function ClientCard({ client, onCopyUrl, onOpenInstance, compact = false }: Clie
                 )}
             </div>
 
-            {expanded && client.status === 'active' && (
+            {expanded && client.status === 'success' && (
                 <div className="border-t border-gray-200 bg-gray-50 p-5 animate-in slide-in-from-top duration-300">
                     <div className="space-y-4">
                         <div className="grid grid-cols-3 gap-4">

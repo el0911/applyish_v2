@@ -4,7 +4,7 @@ export type IChartData = {
     applications: number;
 };
 
-export type IClientStatus = 'creating' | 'ready' | 'active';
+export type IClientStatus = 'processing' | 'failed' | 'success';
 
 export type IClient = {
     id: number;
