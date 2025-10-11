@@ -1,4 +1,4 @@
-import { LightsailClient, CreateInstancesFromInstanceSnapshotCommand } from "@aws-sdk/client-lightsail";
+import { LightsailClient, CreateInstancesFromSnapshotCommand, GetInstanceCommand,OpenInstancePublicPortsCommand } from "@aws-sdk/client-lightsail";
 import jwt from 'jsonwebtoken';
 
 // Helper to encode data into a JWT token
@@ -14,24 +14,28 @@ interface UserDataPayload {
 }
 
 interface CreateLightsailInstanceParams {
-  clientUserId: string; // The ID of the user associated with the client
   s3Identifier: string; // From user_data.get('s3Identifier', '')
   jobLink: string;     // From user_data.get('jobLink', '')
   instanceName: string; // The generated instance name
+  process_id : string; // The process id to associate with the instance
 }
 
+// Helper function to wait for a specified duration
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 export const createAwsInstanceForCoachClients = async ({
-  clientUserId,
   s3Identifier,
   jobLink,
   instanceName,
+  process_id
 }: CreateLightsailInstanceParams) => {
+
   const lightsailClient = new LightsailClient({
     region: process.env.AWS_REGION || "us-east-1", // Default to us-east-1 if not set
   });
 
   const snapshotName = process.env.LIGHTSAIL_SNAPSHOT_NAME;
-  const availabilityZone = process.env.AWS_AVAILABILITY_ZONE || "us-east-1a"; // Default AZ
+  const availabilityZone = process.env.AWS_REGION + 'c' ; // Default AZ
   const bundleId = process.env.LIGHTSAIL_BUNDLE_ID; // e.g., 'nano_2_0'
 
   if (!snapshotName || !bundleId) {
@@ -40,8 +44,9 @@ export const createAwsInstanceForCoachClients = async ({
   }
 
   const dataDictEncoded = encodeJwt({ s3_identifier: s3Identifier, jobLink: jobLink });
-  const instanceNameEncoded = encodeJwt({ instance_name: instanceName });
-
+  const instanceNameEncoded = encodeJwt({ instance_name: instanceName,process_id });
+  // SESSION_FOLDER_PATH is the path am saving the user sessions to
+  const SESSION_FOLDER_PATH = `${s3Identifier}`;
   const userDataScript = `#!/bin/bash
 set -ex
 echo "Starting userData script" > /tmp/userdata.log 2>&1
@@ -55,23 +60,31 @@ fi
 
 echo "Docker Compose installed successfully" >> /tmp/userdata.log 2>&1
 echo "Setting up environment variables..." >> /tmp/userdata.log 2>&1
-export USER_DATA="${dataDictEncoded}"
-export JOB_LIST_LINKEDIN_URL="${jobLink}"
 
-export GOOGLE_API_KEY="${process.env.GOOGLE_API_KEY || ''}"
 
-export API_URL="${process.env.NEXT_PUBLIC_API_URL || "https://www.applyish.com/api"}"
+echo  "USER_DATA"=${dataDictEncoded} >> /home/ec2-user/applyish_automation/.env
+echo  "API_AUTH_HEADER"=${instanceNameEncoded} >> /home/ec2-user/applyish_automation/.env
+echo  "API_URL"=${process.env.NEXT_PUBLIC_API_URL} >> /home/ec2-user/applyish_automation/.env
+echo  "AWS_DEFAULT_REGION"=${process.env.AWS_REGION} >> /home/ec2-user/applyish_automation/.env
+echo  "SESSION_FOLDER_PATH"=${SESSION_FOLDER_PATH} >> /home/ec2-user/applyish_automation/.env
+echo  "BETTERSTACK_TOKEN"=${process.env.BETTERSTACK_TOKEN || ''} >> /home/ec2-user/applyish_automation/.env
+echo  "INSTANCE_NAME"=${instanceName} >> /home/ec2-user/applyish_automation/.env
+
+# Create session folder if it doesn't exist
+
+
+export API_URL="${process.env.NEXT_PUBLIC_API_URL || "https://213784971ac8.ngrok-free.app/api"}"
 export API_AUTH_HEADER="${instanceNameEncoded}"
-export MAX_BEFORE_KILL="${process.env.MAX_BEFORE_KILL || 3}"
 
-export LLM_API_KEY="${process.env.OPEN_AI_KEY || ''}"
-export LLM_MODEL="${process.env.LLM_MODEL || "gpt-4o"}"
+export AWS_DEFAULT_REGION="${process.env.AWS_DEFAULT_REGION || "us-east-1"}"
+
+export SESSION_FOLDER_PATH="${SESSION_FOLDER_PATH}"
+
+export INSTANCE_NAME="${instanceName}"
 
 export PATH=$PATH:/home/ec2-user/.local/bin
 
 export BETTERSTACK_TOKEN="${process.env.BETTERSTACK_TOKEN || ''}"
-export USER_ID="${s3Identifier}"            
-export RUN_ID="${process.env.RUN_ID || "STAGE_x"}"             
 echo "Environment variables set successfully" >> /tmp/userdata.log 2>&1
 
 echo "Moving to the applyish_automation directory..." >> /tmp/userdata.log 2>&1
@@ -83,7 +96,7 @@ docker compose up --detach --no-build >> /tmp/userdata.log 2>&1
 echo "userData script finished" >> /tmp/userdata.log 2>&1
 `;
 
-  const createInstanceCommand = new CreateInstancesFromInstanceSnapshotCommand({
+  const createInstanceCommand = new CreateInstancesFromSnapshotCommand({
     instanceNames: [instanceName],
     availabilityZone: availabilityZone,
     instanceSnapshotName: snapshotName,
@@ -92,12 +105,47 @@ echo "userData script finished" >> /tmp/userdata.log 2>&1
   });
 
   try {
-    console.log(`Creating Lightsail instance '${instanceName}' for client '${clientUserId}'...`);
+    console.log(`Creating Lightsail instance '${instanceName}' for client '${s3Identifier}'...`);
     const response = await lightsailClient.send(createInstanceCommand);
     console.log(`Lightsail instance creation initiated:`, response);
-    return response;
+
+    // Polling to get instance details and public IP
+    let instanceDetails;
+    let publicIpAddress = null;
+    const maxAttempts = 20; // Max 20 attempts, 10 seconds each = 200 seconds (approx 3.3 minutes)
+    let attempts = 0;
+
+    while (attempts < maxAttempts && !publicIpAddress) {
+      attempts++;
+
+      try {
+        const getInstanceCommand = new GetInstanceCommand({ instanceName: instanceName });
+        const getInstanceResponse = await lightsailClient.send(getInstanceCommand);
+        instanceDetails = getInstanceResponse.instance;
+
+        if (instanceDetails && instanceDetails.state && instanceDetails.state.name === 'running') {
+          publicIpAddress = instanceDetails.publicIpAddress;
+          console.log(`Instance '${instanceName}' is running. Public IP: ${publicIpAddress}`);
+        } else {
+          console.log(`Instance '${instanceName}' state: ${instanceDetails?.state?.name || 'unknown'}. Attempt ${attempts}/${maxAttempts}`);
+        }
+      } catch (getInstanceError: any) {
+        if (getInstanceError.name === 'NotFoundException') {
+          console.log(`Instance '${instanceName}' not yet found. Attempt ${attempts}/${maxAttempts}`);
+        } else {
+          console.error(`Error getting instance details for '${instanceName}':`, getInstanceError);
+        }
+        await sleep(5000); // Wait for 10 seconds
+      }
+    }
+
+    if (!publicIpAddress) {
+      throw new Error(`Failed to get public IP for instance '${instanceName}' after ${maxAttempts} attempts.`);
+    }
+
+    return { ...response, publicIpAddress }; // Return original response plus public IP
   } catch (error) {
-    console.error(`Error creating Lightsail instance '${instanceName}':`, error);
+    console.error(`Error creating or getting details for Lightsail instance '${instanceName}':`, error);
     throw error;
   }
 };

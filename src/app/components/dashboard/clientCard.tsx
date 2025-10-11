@@ -34,9 +34,9 @@ function ClientCard({ client, onCopyUrl, onOpenInstance, compact = false }: Clie
                 );
             case 'failed':
                 return (
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
-                        <CheckCircle className="w-3 h-3" />
-                        Ready
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-semibold">
+                        <X className="w-3 h-3" />
+                        Failed
                     </span>
                 );
             case 'success':

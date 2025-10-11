@@ -1,7 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
+import {  NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { currentUser } from '@clerk/nextjs/server';
-import { create } from 'domain';
 
 const prisma = new PrismaClient();
 

@@ -82,29 +82,33 @@ export async function POST(req: NextRequest) {
                             }
                         }
                     },
+                    include: { processes: true, coaches: true },
                 });
 
                 newClient.status = 'processing';
 
                 // Generate a unique instance name
-                const instanceName = `applyish-automation-${newClient.id.substring(0, 8)}-${Math.floor(Math.random() * 10000)}`;
+                const instanceName = `applyish-automation-${newClient.id}`;
 
                 // Call createAwsInstanceForCoachClients
                 try {
-                    await createAwsInstanceForCoachClients({
-                        clientUserId: newClient.userId,
+                   const instanceObject =  await createAwsInstanceForCoachClients({
                         s3Identifier: newClient.id, // Using client ID as s3Identifier
                         jobLink: '', // No jobLink available here
-                        instanceName: instanceName,
+                        instanceName: instanceName,//used to identify the instance so i can spin it down
+                        process_id : newClient.processes[0]?.id || '', // Pass the process
                     });
-                    // Optionally update client with instance details if needed
-                    // await prisma.client.update({
-                    //     where: { id: newClient.id },
-                    //     data: { instanceUrl: '...' }
-                    // });
+                    // Update client with instance details
+                    if (instanceObject?.publicIpAddress) {
+                        await prisma.client.update({
+                            where: { id: newClient.id },
+                            data: { instanceUrl: `http://${instanceObject.publicIpAddress}:6080` }
+                        });
+                    }
                 } catch (awsError) {
                     console.error('Failed to create AWS instance for client:', awsError);
                     // Handle error, maybe update client status to 'failed_instance_creation'
+                    return NextResponse.json({ error: 'Failed to create AWS instance for client' }, { status: 500 });
                 }
                 
                 return NextResponse.json({
@@ -152,17 +156,19 @@ export async function POST(req: NextRequest) {
 
         // Call createAwsInstanceForCoachClients
         try {
-            await createAwsInstanceForCoachClients({
-                clientUserId: newUser.id,
+            const instanceObject =  await createAwsInstanceForCoachClients({
+                process_id: newUser.client.processes[0]?.id || '', // Pass the process
                 s3Identifier: newUser.client.id, // Using client ID as s3Identifier
                 jobLink: '', // No jobLink available here
                 instanceName: instanceName,
             });
-            // Optionally update client with instance details if needed
-            // await prisma.client.update({
-            //     where: { id: newUser.client.id },
-            //     data: { instanceUrl: '...' }
-            // });
+            // Update client with instance details
+            if (instanceObject?.publicIpAddress) {
+                await prisma.client.update({
+                    where: { id: newUser.client.id },
+                    data: { instanceUrl: `http://${instanceObject.publicIpAddress}:6080` }
+                });
+            }
         } catch (awsError) {
             console.error('Failed to create AWS instance for new user/client:', awsError);
             // Handle error, maybe update client status to 'failed_instance_creation'
