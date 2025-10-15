@@ -6,7 +6,7 @@ export default function SignInPage() {
     <div className="flex items-center justify-center h-screen overflow-hidden bg-gray-100 dark:bg-gray-900">
       <SignIn
           signUpUrl="/coaches/sign-up?type=career_coach"
-          redirectUrl="/coaches"
+          redirectUrl="/coaches/app"
           transferable={false}
       />
     </div>

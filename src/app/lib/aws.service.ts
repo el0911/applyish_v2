@@ -7,11 +7,11 @@ const encodeJwt = (payload: object): string => {
   return jwt.sign(payload, secret, { expiresIn: '4h' }); // Token expires in 4 hours
 };
 
-interface UserDataPayload {
-  s3Identifier: string;
-  jobLink: string;
-  instanceName: string;
-}
+// interface UserDataPayload {
+//   s3Identifier: string;
+//   jobLink: string;
+//   instanceName: string;
+// }
 
 interface CreateLightsailInstanceParams {
   s3Identifier: string; // From user_data.get('s3Identifier', '')
@@ -133,8 +133,8 @@ echo "userData script finished" >> /tmp/userdata.log 2>&1
         } else {
           console.log(`Instance '${instanceName}' state: ${instanceDetails?.state?.name || 'unknown'}. Attempt ${attempts}/${maxAttempts}`);
         }
-      } catch (getInstanceError: any) {
-        if (getInstanceError.name === 'NotFoundException') {
+      } catch (getInstanceError ) {
+        if (getInstanceError === 'NotFoundException') {
           console.log(`Instance '${instanceName}' not yet found. Attempt ${attempts}/${maxAttempts}`);
         } else {
           console.error(`Error getting instance details for '${instanceName}':`, getInstanceError);

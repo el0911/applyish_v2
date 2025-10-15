@@ -1,11 +1,9 @@
 import { FC } from "react";
-import { Button } from "../ui/button";
-import { ArrowRight, CheckCircle, Zap, Check } from "lucide-react";
+import {  CheckCircle, Zap, Check } from "lucide-react";
 import logoImg from "../../logo.png";
 import vaImg from "../../va.png";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 
 const HeroSection: FC = () => {
     const floatingCards = [

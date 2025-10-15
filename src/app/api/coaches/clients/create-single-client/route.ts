@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Client, PrismaClient } from '@prisma/client';
+import { Client, PrismaClient,Process,CareerCoach } from '@prisma/client';
 import { currentUser } from '@clerk/nextjs/server';
 import { createAwsInstanceForCoachClients } from '@/app/lib/aws.service';
 
 const prisma = new PrismaClient();
-type ClientWithRelationsAndStatus  = Client & { processes: any[], coaches: any[], status?: string };
+type ClientWithRelationsAndStatus  = Client & { processes: Process[], coaches: CareerCoach[], status?: string };
 
 export async function POST(req: NextRequest) {
     try {

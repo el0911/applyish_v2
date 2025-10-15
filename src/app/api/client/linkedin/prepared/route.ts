@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
-import { shutDownLightsailInstance } from '@/app/lib/aws.service';
+// import { shutDownLightsailInstance } from '@/app/lib/aws.service';
 
 const prisma = new PrismaClient();
 
@@ -18,7 +18,7 @@ export async function PATCH(request: Request) {
         const decoded = jwt.verify(token, process.env.JWT_SECRET as Secret) as JwtPayload;
 
         // check if the decoded has the server secret and it matches the env variable
-        const conversation_secret = decoded.conversation_secret;
+        // const conversation_secret = decoded.conversation_secret;
 
         console.log('Decoded token:', decoded);
 

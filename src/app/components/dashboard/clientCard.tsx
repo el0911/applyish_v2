@@ -1,13 +1,13 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Menu, X, Upload, Plus, Users, Settings, Home, Activity, Calendar, TrendingUp, ChevronDown, ChevronUp, Copy, ExternalLink, Loader2, CheckCircle, Clock, BarChart3, ArrowRight } from 'lucide-react';
-import React, { useState, useEffect, ChangeEvent, DragEvent } from 'react';
+import {  X, ChevronDown, ChevronUp, Copy, ExternalLink, Loader2, CheckCircle, Clock} from 'lucide-react';
+import React, { useState} from 'react';
 import { IClient } from '@/app/lib/interfaces';
 
 
 interface ClientCardProps {
     client: IClient;
     onCopyUrl: (url: string) => void;
-    onOpenInstance: (url: string) => void;
+    onOpenInstance: (url:string) => void;
     compact?: boolean;
 }
 
@@ -29,7 +29,7 @@ function ClientCard({ client, onCopyUrl, onOpenInstance, compact = false }: Clie
                 return (
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-semibold">
                         <Loader2 className="w-3 h-3 animate-spin" />
-                        Creating
+                        Processing
                     </span>
                 );
             case 'failed':
@@ -39,11 +39,18 @@ function ClientCard({ client, onCopyUrl, onOpenInstance, compact = false }: Clie
                         Failed
                     </span>
                 );
-            case 'success':
+            case 'ready':
                 return (
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-semibold">
-                        <Activity className="w-3 h-3" />
-                        Active
+                        <CheckCircle className="w-3 h-3" />
+                        Ready
+                    </span>
+                );
+            case 'success':
+                return (
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
+                        <CheckCircle className="w-3 h-3" />
+                        Success
                     </span>
                 );
             default:
@@ -91,7 +98,7 @@ function ClientCard({ client, onCopyUrl, onOpenInstance, compact = false }: Clie
                 </div>
 
                 <div className="flex gap-3">
-                    {client.instanceUrl ? (
+                    {client.status === 'ready' && client.instanceUrl ? (
                         <>
                             <button
                                 onClick={handleCopy}
@@ -114,15 +121,15 @@ function ClientCard({ client, onCopyUrl, onOpenInstance, compact = false }: Clie
                                 className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium"
                             >
                                 <ExternalLink className="w-4 h-4" />
-                                Open
+                                Open to Validate
                             </button>
                         </>
-                    ) : (
+                    ) : client.status === 'processing' ? (
                         <div className="px-4 py-2 bg-gray-100 text-gray-500 rounded-lg text-sm font-medium text-center">
                             <Clock className="w-4 h-4 mx-auto mb-1" />
                             Preparing...
                         </div>
-                    )}
+                    ): null}
                 </div>
 
                 {client.status === 'success' && (

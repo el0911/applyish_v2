@@ -1,6 +1,6 @@
-import { Webhook } from 'svix'
-import { WebhookEvent, clerkClient } from '@clerk/nextjs/server'
-import { headers } from 'next/headers'
+// import { Webhook } from 'svix'
+import {  clerkClient } from '@clerk/nextjs/server'
+// import { headers } from 'next/headers'
 import prisma from '@/lib/prisma'
 import { verifyWebhook } from "@clerk/backend/webhooks";
 
@@ -33,7 +33,14 @@ export async function POST(req: Request) {
       const name = `${first_name} ${last_name}`;
       const email = email_addresses[0].email_address;
 
-      const createData: any = {
+      const createData : {
+        clerkId: string;
+        email: string;
+        name: string;
+        type: 'career_coach' | 'client';
+        careerCoach?: { create: { name: string } };
+        client?: { create: { name: string; email: string } };
+      } = {
         clerkId: id,
         email: email,
         name: name,

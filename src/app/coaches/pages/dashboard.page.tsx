@@ -5,10 +5,10 @@ import React from 'react';
 type Client = {
   id: string | number;
   name: string;
-  status: 'active' | 'ready' | 'creating' | string;
+  status:  'ready' | 'success' | 'failed' | 'processing';
   totalJobs: number;
   weekJobs: number;
-  [key: string]: any;
+  [key: string]: string | number | 'active' | 'ready' | 'creating' | undefined | null | object;
 };
 
 type DashboardOverviewProps = {
@@ -25,9 +25,9 @@ const ClientCard: React.FC<{
 }> = () => null;
 
 const DashboardOverview: React.FC<DashboardOverviewProps> = ({ clients, setActiveNav }) => {
-  const activeClients = clients.filter((c: Client) => c.status === 'active');
+  const activeClients = clients.filter((c: Client) => c.status === 'success' );
   const readyClients = clients.filter((c: Client) => c.status === 'ready');
-  const creatingClients = clients.filter((c: Client) => c.status === 'creating');
+  const creatingClients = clients.filter((c: Client) => c.status === 'processing');
   
   const totalApplications = activeClients.reduce((sum: number, c: Client) => sum + c.totalJobs, 0);
   const avgPerClient = activeClients.length > 0 ? Math.round(totalApplications / activeClients.length) : 0;
@@ -51,7 +51,7 @@ const DashboardOverview: React.FC<DashboardOverviewProps> = ({ clients, setActiv
     <div className="max-w-7xl mx-auto">
       <div className="mb-8">
         <h2 className="text-3xl font-bold text-gray-900">Dashboard Overview</h2>
-        <p className="text-gray-600 mt-1">Welcome back! Here's what's happening today</p>
+        <p className="text-gray-600 mt-1">{`Welcome back! Here's what's happening today`}</p>
       </div>
 
       {/* Stats Grid */}

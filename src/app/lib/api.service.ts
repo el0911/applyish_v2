@@ -44,20 +44,20 @@ apiService.interceptors.response.use(
   }
 );
 
-// Sample POST request function
-export const postData = async <T>(endpoint: string, data: any): Promise<T> => {
-  try {
-    const response = await apiService.post<T>(endpoint, data);
-    return response.data;
-  } catch (error) {
-    console.error(`Error posting data to ${endpoint}:`, error);
-    throw error;
-  }
-};
+// // Sample POST request function
+// export const postData = async <T>(endpoint: string, data: any): Promise<T> => {
+//   try {
+//     const response = await apiService.post<T>(endpoint, data);
+//     return response.data;
+//   } catch (error) {
+//     console.error(`Error posting data to ${endpoint}:`, error);
+//     throw error;
+//   }
+// };
 
 
 // create a client
-export const createSingleClient = async <T>( data: any): Promise<{newClient : IClient}> => {
+export const createSingleClient = async (data: {name: string, email: string, linkedin?: string, notes?: string}): Promise<{newClient : IClient}> => {
   try {
     const response = await apiService.post<{newClient : IClient}>('/coaches/clients/create-single-client', data);
     return response.data;

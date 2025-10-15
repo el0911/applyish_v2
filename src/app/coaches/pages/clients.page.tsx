@@ -1,10 +1,9 @@
 import React, { useState, useEffect, ChangeEvent, DragEvent } from 'react';
-import { Menu, X, Upload, Plus, Users, Settings, Home, Activity, Calendar, TrendingUp, ChevronDown, ChevronUp, Copy, ExternalLink, Loader2, CheckCircle, Clock, BarChart3, ArrowRight } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Upload, Plus, Users, Loader2, Clock } from 'lucide-react';
 import ClientCard from '@/app/components/dashboard/clientCard';
 import { IClient } from '@/app/lib/interfaces';
-import { generateChartData } from '../app/page';
-import { createSingleClient } from '@/app/lib/api.service';
+import { createSingleClient, fetchClientsForCoach } from '@/app/lib/api.service';
+import { generateChartData } from '@/app/lib/utils';
 
 
 
@@ -31,6 +30,25 @@ function ClientsManagement(
     const [csvFile, setCsvFile] = useState<File | null>(null);
     const [isDragging, setIsDragging] = useState(false);
 
+    useEffect(() => {
+        const processingClients = clients.some(client => client.status === 'processing');
+
+        if (!processingClients) {
+            return;
+        }
+
+        const interval = setInterval(async () => {
+            try {
+                const { clients: updatedClients } = await fetchClientsForCoach();
+                setClients(updatedClients);
+            } catch (error) {
+                console.error('Failed to fetch updated clients:', error);
+            }
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, [clients, setClients]);
+
 
     const showNotification = (message: string) => {
         setToastMessage(message);
@@ -53,7 +71,7 @@ function ClientsManagement(
 
         setIsLoading(true);
         try {
-            const {newClient} = await createSingleClient<IClient>({
+            const {newClient} = await createSingleClient({
                 name: formData.name,
                 email: formData.email,
                 linkedin: formData.linkedin,
@@ -190,7 +208,7 @@ function ClientsManagement(
                             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600" />
                         )}
                     </button>
-                    <button
+                    {/* <button
                         onClick={() => setActiveTab('csv')}
                         className={`flex items-center gap-2 px-6 py-4 font-semibold transition-colors relative ${activeTab === 'csv'
                                 ? 'text-blue-600'
@@ -202,7 +220,7 @@ function ClientsManagement(
                         {activeTab === 'csv' && (
                             <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600" />
                         )}
-                    </button>
+                    </button> */}
                 </div>
 
                 <div className="p-6">

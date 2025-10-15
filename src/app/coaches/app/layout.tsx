@@ -12,9 +12,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <header className="flex items-center justify-between p-4 border-b">
         <div>
           {/* Add your logo or app name here */}
-          <h1>My App</h1>
+          <h1 className="text-black">Applyish</h1>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center">
           <SignedIn>
             {/* Mount the UserButton component to show the signed-in user's profile, including logout */}
             <UserButton afterSignOutUrl="/" />
@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </SignedOut>
         </div>
       </header>
-      <main className="container mx-auto p-4">{children}</main>
+      <main className="">{children}</main>
     </>
   );
 }

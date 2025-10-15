@@ -18,8 +18,7 @@ module.exports = {
         'card-background': '#ffffff',
       },
       backgroundImage: {
-        'radial-gradient': 'radial-gradient(ellipse 80% 80% at 50% -20%, rgba(120, 119, 198, 0.3), rgba(255, 255, 255, 0))',
-      },
+       },
       keyframes: {
         'confetti-fall': {
           '0%': { transform: 'translateY(-100vh) rotate(0deg)', opacity: '0' },
