@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { Client, PrismaClient } from '@prisma/client';
 import { currentUser } from '@clerk/nextjs/server';
 import { createAwsInstanceForCoachClients } from '@/app/lib/aws.service';
 
 const prisma = new PrismaClient();
-
+type ClientWithRelationsAndStatus  = Client & { processes: any[], coaches: any[], status?: string };
 
 export async function POST(req: NextRequest) {
     try {
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
                     return NextResponse.json({ error: 'Client already exists for this coach' }, { status: 400 });
                 } else {
                     // connect the client to this coach
-                    const newClient = await prisma.client.update({
+                    const newClient : Client & {status?:string} = await prisma.client.update({
                         where: { id: existingUser.client.id },
                         data: {
                             coaches:{
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
                 }
             } else {
                 // create a client for the existing user
-                const newClient = await prisma.client.create({
+                const newClient :  ClientWithRelationsAndStatus  = await prisma.client.create({
                     data: {
                         name,
                         email,
@@ -122,7 +122,7 @@ export async function POST(req: NextRequest) {
 
 
         // create user for the client and a connected process
-        const newUser = await prisma.user.create({
+        const newUser  = await prisma.user.create({
             data: {
                 email,
                 type: 'client',
@@ -145,11 +145,16 @@ export async function POST(req: NextRequest) {
                 },
             },
             include: {
-                client: true,
+                client: {
+                    include: { processes: true, coaches: true }
+                },
             },
         });
 
-        newUser.client.status = 'processing';
+        if (!newUser.client){
+            throw new Error('Failed to create client for the user');
+        }
+
 
         // Generate a unique instance name
         const instanceName = `applyish-automation-${newUser.client.id.substring(0, 8)}-${Math.floor(Math.random() * 10000)}`;
@@ -173,10 +178,11 @@ export async function POST(req: NextRequest) {
             console.error('Failed to create AWS instance for new user/client:', awsError);
             // Handle error, maybe update client status to 'failed_instance_creation'
         }
-
+        const client:Client &{status? :string} =  newUser.client
+        client.status = 'processing';
         return NextResponse.json({
             message: 'Clients created successfully',
-            newClient: newUser.client
+            newClient: client
         }, { status: 200 });
     } catch (error) {
         console.error('CSV upload error:', error);

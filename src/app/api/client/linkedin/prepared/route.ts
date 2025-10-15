@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
+import { shutDownLightsailInstance } from '@/app/lib/aws.service';
 
 const prisma = new PrismaClient();
 
@@ -9,8 +10,9 @@ const prisma = new PrismaClient();
 export async function PATCH(request: Request) {
 
     try {
-        const token = request.headers.get('Authorization')?.split(' ')[1];
+        const token = request.headers.get('Authorization')
 
+        console.log( token);
         if (!token) return new NextResponse('Unauthorized', { status: 401 });
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET as Secret) as JwtPayload;
@@ -18,7 +20,9 @@ export async function PATCH(request: Request) {
         // check if the decoded has the server secret and it matches the env variable
         const conversation_secret = decoded.conversation_secret;
 
-        if (conversation_secret !== process.env['CONVERSATION_SECRET']) return new NextResponse('Unauthorized', { status: 401 });
+        console.log('Decoded token:', decoded);
+
+        // if (conversation_secret !== process.env['CONVERSATION_SECRET']) return new NextResponse('Unauthorized', { status: 401 });
 
         // get the data from the decoded token
 
@@ -41,8 +45,9 @@ export async function PATCH(request: Request) {
 
         await prisma.process.update({
             where: { id: process_id },
-            data: { status: 'completed' }
+            data: { status: 'ready' }
         });
+
         //  return a simple success response
 
         return NextResponse.json({ success: true });

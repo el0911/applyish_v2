@@ -1,4 +1,4 @@
-import { LightsailClient, CreateInstancesFromSnapshotCommand, GetInstanceCommand,OpenInstancePublicPortsCommand } from "@aws-sdk/client-lightsail";
+import { LightsailClient, CreateInstancesFromSnapshotCommand, GetInstanceCommand, StopInstanceCommand, DeleteInstanceCommand } from "@aws-sdk/client-lightsail";
 import jwt from 'jsonwebtoken';
 
 // Helper to encode data into a JWT token
@@ -17,7 +17,7 @@ interface CreateLightsailInstanceParams {
   s3Identifier: string; // From user_data.get('s3Identifier', '')
   jobLink: string;     // From user_data.get('jobLink', '')
   instanceName: string; // The generated instance name
-  process_id : string; // The process id to associate with the instance
+  process_id: string; // The process id to associate with the instance
 }
 
 // Helper function to wait for a specified duration
@@ -35,7 +35,7 @@ export const createAwsInstanceForCoachClients = async ({
   });
 
   const snapshotName = process.env.LIGHTSAIL_SNAPSHOT_NAME;
-  const availabilityZone = process.env.AWS_REGION + 'c' ; // Default AZ
+  const availabilityZone = process.env.AWS_REGION + 'c'; // Default AZ
   const bundleId = process.env.LIGHTSAIL_BUNDLE_ID; // e.g., 'nano_2_0'
 
   if (!snapshotName || !bundleId) {
@@ -44,7 +44,7 @@ export const createAwsInstanceForCoachClients = async ({
   }
 
   const dataDictEncoded = encodeJwt({ s3_identifier: s3Identifier, jobLink: jobLink });
-  const instanceNameEncoded = encodeJwt({ instance_name: instanceName,process_id });
+  const instanceNameEncoded = encodeJwt({ instance_name: instanceName, process_id });
   // SESSION_FOLDER_PATH is the path am saving the user sessions to
   const SESSION_FOLDER_PATH = `${s3Identifier}`;
   const userDataScript = `#!/bin/bash
@@ -64,11 +64,12 @@ echo "Setting up environment variables..." >> /tmp/userdata.log 2>&1
 
 echo  "USER_DATA"=${dataDictEncoded} >> /home/ec2-user/applyish_automation/.env
 echo  "API_AUTH_HEADER"=${instanceNameEncoded} >> /home/ec2-user/applyish_automation/.env
-echo  "API_URL"=${process.env.NEXT_PUBLIC_API_URL} >> /home/ec2-user/applyish_automation/.env
-echo  "AWS_DEFAULT_REGION"=${process.env.AWS_REGION} >> /home/ec2-user/applyish_automation/.env
+echo  "API_URL"=${'https://d48fbf2fdc12.ngrok-free.app/api'} >> /home/ec2-user/applyish_automation/.env
 echo  "SESSION_FOLDER_PATH"=${SESSION_FOLDER_PATH} >> /home/ec2-user/applyish_automation/.env
 echo  "BETTERSTACK_TOKEN"=${process.env.BETTERSTACK_TOKEN || ''} >> /home/ec2-user/applyish_automation/.env
 echo  "INSTANCE_NAME"=${instanceName} >> /home/ec2-user/applyish_automation/.env
+echo  "S3_AWS_ACCESS_KEY_ID"=${process.env.S3_AWS_ACCESS_KEY_ID || ''} >> /home/ec2-user/applyish_automation/.env
+echo  "S3_AWS_SECRET_ACCESS_KEY"=${process.env.S3_AWS_SECRET_ACCESS_KEY || ''} >> /home/ec2-user/applyish_automation/.env
 
 # Create session folder if it doesn't exist
 
@@ -76,7 +77,6 @@ echo  "INSTANCE_NAME"=${instanceName} >> /home/ec2-user/applyish_automation/.env
 export API_URL="${process.env.NEXT_PUBLIC_API_URL || "https://213784971ac8.ngrok-free.app/api"}"
 export API_AUTH_HEADER="${instanceNameEncoded}"
 
-export AWS_DEFAULT_REGION="${process.env.AWS_DEFAULT_REGION || "us-east-1"}"
 
 export SESSION_FOLDER_PATH="${SESSION_FOLDER_PATH}"
 
@@ -123,6 +123,10 @@ echo "userData script finished" >> /tmp/userdata.log 2>&1
         const getInstanceResponse = await lightsailClient.send(getInstanceCommand);
         instanceDetails = getInstanceResponse.instance;
 
+        if (instanceDetails) {
+          console.log(`Fetched instance details for '${instanceName}':`, instanceDetails.publicIpAddress);
+          publicIpAddress = instanceDetails.publicIpAddress;
+        }
         if (instanceDetails && instanceDetails.state && instanceDetails.state.name === 'running') {
           publicIpAddress = instanceDetails.publicIpAddress;
           console.log(`Instance '${instanceName}' is running. Public IP: ${publicIpAddress}`);
@@ -146,6 +150,38 @@ echo "userData script finished" >> /tmp/userdata.log 2>&1
     return { ...response, publicIpAddress }; // Return original response plus public IP
   } catch (error) {
     console.error(`Error creating or getting details for Lightsail instance '${instanceName}':`, error);
+    throw error;
+  }
+};
+
+
+export const shutDownLightsailInstance = async (instanceName: string, deleteInstance: boolean = true) => {
+  const lightsailClient = new LightsailClient({
+    region: process.env.AWS_REGION || "us-east-1",
+  });
+
+  try {
+    console.log(`Shutting down Lightsail instance '${instanceName}'...`);
+
+    if (deleteInstance) {
+      // Permanently delete the instance
+      const deleteCommand = new DeleteInstanceCommand({
+        instanceName: instanceName,
+      });
+      await lightsailClient.send(deleteCommand);
+      console.log(`Instance '${instanceName}' deleted successfully.`);
+    } else {
+      // Just stop the instance (can be restarted later)
+      const stopCommand = new StopInstanceCommand({
+        instanceName: instanceName,
+      });
+      await lightsailClient.send(stopCommand);
+      console.log(`Instance '${instanceName}' stopped successfully.`);
+    }
+
+    return true;
+  } catch (error) {
+    console.error(`Error shutting down Lightsail instance '${instanceName}':`, error);
     throw error;
   }
 };
