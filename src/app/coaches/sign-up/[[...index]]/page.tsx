@@ -7,8 +7,10 @@ export default function SignUpPage() {
       <SignUp
         unsafeMetadata={{ type: 'career_coach' }}
         signInUrl="/coaches/sign-in"
-        redirectUrl="/coaches/app"
+        afterSignUpUrl="/coaches/app"  // <-- add this
+        afterSignInUrl="/coaches/app"  // <-- cover both cases
       />
+
     </div>
   );
 }
