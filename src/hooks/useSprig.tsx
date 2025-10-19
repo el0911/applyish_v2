@@ -39,6 +39,16 @@ const useSprig = () => {
       document.head.appendChild(gaConfigScript);
     }
 
+    if (!document.getElementById('vtag-ai-js')) {
+      const instantlyScript = document.createElement('script');
+      instantlyScript.id = 'vtag-ai-js';
+      instantlyScript.src = 'https://r2.leadsy.ai/tag.js';
+      instantlyScript.async = true;
+      instantlyScript.setAttribute('data-pid', '12GKj6Uxobr63rOw6');
+      instantlyScript.setAttribute('data-version', '062024');
+
+      document.head.appendChild(instantlyScript);
+    }
     // No cleanup: analytics should persist across SPA transitions
 
   }, []); // Runs once on mount
