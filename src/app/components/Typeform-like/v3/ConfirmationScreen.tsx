@@ -4,6 +4,18 @@ import { motion } from "framer-motion";
 import { ConfirmationScreenQuestion } from "./questionTypes";
 import { useState, useRef } from "react";
 
+// Helper to render text that might be highlighted
+const renderText = (text: string | { text: string; highlighted?: boolean }[]) => {
+  if (typeof text === 'string') {
+    return text;
+  }
+  return text.map((segment, index) => (
+    <span key={index} className={segment.highlighted ? "text-indigo-600 dark:text-indigo-300 font-bold" : ""}>
+      {segment.text}
+    </span>
+  ));
+};
+
 interface ConfirmationScreenProps {
   answers: { [key: string]: unknown };
   question: ConfirmationScreenQuestion;
@@ -92,7 +104,7 @@ export default function ConfirmationScreen({ answers, question, onNext }: Confir
       className="w-full max-w-2xl mx-auto p-4 text-center"
     >
       <div className="text-5xl mb-4">{question.emoji}</div>
-      <h1 className="text-3xl font-bold mt-2 text-gray-900 dark:text-white">{question.title}</h1>
+      <h1 className="text-3xl font-bold mt-2 text-gray-900 dark:text-white">{renderText(question.title)}</h1>
       
       <div className="mt-6 text-lg text-gray-700 dark:text-gray-300">
         <p>{question.confirmationMessage.dateLabel} <strong>{new Date(answers.call_datetime as string).toLocaleString()}</strong></p>
@@ -150,7 +162,7 @@ export default function ConfirmationScreen({ answers, question, onNext }: Confir
                   </div>
                 )}
                 {step.cta && step.action && step.cta !== "Upload Resume" && (
-                  <button onClick={() => handleAction(step.action)} className="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700">
+                  <button onClick={() => handleAction(step.action as string)} className="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700">
                     {step.cta}
                   </button>
                 )}

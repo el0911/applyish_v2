@@ -187,7 +187,7 @@ interface ConfirmationBridgeQuestion extends BaseQuestion {
   buttonText: string;
 }
 
-export interface ConfirmationScreenQuestion extends BaseQuestion {
+export  interface ConfirmationScreenQuestion extends BaseQuestion {
   type: "confirmation-screen";
   confirmationMessage: {
     dateLabel: string;

@@ -3,18 +3,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-// Helper to render text that might be highlighted
-const renderText = (text: string | { text: string; highlighted?: boolean }[]) => {
-  if (typeof text === 'string') {
-    return text;
-  }
-  return text.map((segment, index) => (
-    <span key={index} className={segment.highlighted ? "text-indigo-600 dark:text-indigo-300 font-bold" : ""}>
-      {segment.text}
-    </span>
-  ));
-};
-
 interface HowItWorksProps {
   onNext: () => void;
   question: {

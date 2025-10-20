@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useRef, useState, useEffect, Key } from "react";
+import { useRef, useState, useEffect } from "react";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { SocialProofQuestion } from "./questionTypes";
 

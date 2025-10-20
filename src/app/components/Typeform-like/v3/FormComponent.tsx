@@ -37,8 +37,10 @@ export default function FormComponent() {
   const [answers, setAnswers] = useState<FormData>({});
   
 
-  const handleNext = (answer: { [key: string]: string | number | File | Date | boolean | string[] | undefined | null }) => {
-    setAnswers({ ...answers, ...answer });
+  const handleNext = (answer?: { [key: string]: string | number | File | Date | boolean | string[] | undefined | null }) => {
+    if (answer) {
+      setAnswers({ ...answers, ...answer });
+    }
     setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 
@@ -127,7 +129,7 @@ export default function FormComponent() {
         case 'file-upload':
             return <FileQuestion question={currentQuestion} onNext={handleNext} answers={answers} />;
         case 'thank-you-custom':
-            return <ThankYouScreen question={currentQuestion} />;
+            return <ThankYouScreen  />;
         default:
           handleNext({});
           return null;
