@@ -21,5 +21,5 @@ export const interviewImages: string[] = [
   "https://res.cloudinary.com/immotal/image/upload/v1758220069/Screenshot_2025-09-09-13-27-07-159_com.google.android.gm_gmxmkx.jpg",
   "https://res.cloudinary.com/immotal/image/upload/v1758220068/Screenshot_2025-09-09-13-24-17-015_com.google.android.gm_f9svpk.jpg",
   "https://res.cloudinary.com/immotal/image/upload/v1758220069/Screenshot_2025-09-09-13-27-23-252_com.google.android.gm_xybjju.jpg",
-  "https://res.cloudinary.com/immotal/image/upload/v1758220068/Screenshot_2025-09-09-13-10-40-233_com.google.android.gm_radney.jpg"
+  "https.cloudinary.com/immotal/image/upload/v1758220068/Screenshot_2025-09-09-13-10-40-233_com.google.android.gm_radney.jpg"
 ];

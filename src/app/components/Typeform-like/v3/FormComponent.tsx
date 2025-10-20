@@ -7,7 +7,7 @@ import { questions } from './questions';
 import { Question } from './questionTypes';
 import PainPoint from './PainPoint';
 import ProblemValidation from './ProblemValidation';
-import SocialProof from './SocialProof';
+import Testimonials from './Testimonials';
 import ApplicationTimeReality from './ApplicationTimeReality';
 import ValuePreview from './ValuePreview';
 import ServiceSelection from './ServiceSelection';
@@ -28,6 +28,7 @@ import MultipleChoiceQuestion from '../MultipleChoiceQuestion';
 import FileQuestion from '../FileQuestion';
 import { motion, AnimatePresence } from 'framer-motion';
 import LoadingAnimation from './LoadingAnimation';
+import EmailQuestion from './EmailQuestion';
 import ConfirmationScreen from './ConfirmationScreen';
 import HowItWorks from './HowItWorks';
 
@@ -51,12 +52,12 @@ export default function FormComponent() {
 
     if (urlStep) {
       const step = parseInt(urlStep, 10);
-      if (!isNaN(step) && step < questions.length) {
+      if (!isNaN(step) && step <= questions.length) {
         setCurrentQuestionIndex(step - 1);
       }
     } else if (savedProgress) {
       const { current_step, data } = JSON.parse(savedProgress);
-      if (current_step < questions.length - 1) {
+      if (current_step < questions.length) {
         setCurrentQuestionIndex(current_step);
         setAnswers(data);
       }
@@ -82,7 +83,7 @@ export default function FormComponent() {
         case 'problem-validation':
           return <ProblemValidation question={currentQuestion} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
         case 'social-proof':
-            return <SocialProof question={currentQuestion} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
+            return <Testimonials question={currentQuestion} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
         case 'application-time-reality':
             return <ApplicationTimeReality question={currentQuestion} onNext={() => setCurrentQuestionIndex(currentQuestionIndex + 1)} />;
         case 'value-preview':
@@ -114,15 +115,19 @@ export default function FormComponent() {
         case 'calendar-booking':
             return <CalendarBooking question={currentQuestion} answers={answers} onNext={handleNext} />;
         case 'confirmation-screen':
-            return <ConfirmationScreen answers={answers} />;
+            return <ConfirmationScreen question={currentQuestion} answers={answers} onNext={handleNext} />;
         case 'text':
             return <QuestionComponent question={currentQuestion} onNext={handleNext} answers={answers} />;
+        case 'email':
+            return <EmailQuestion question={currentQuestion} onNext={handleNext} />;
         case 'phone-input':
             return <PhoneInput question={currentQuestion} onNext={handleNext} answers={answers} />;
         case 'multiple-choice':
             return <MultipleChoiceQuestion question={currentQuestion} onNext={handleNext} answers={answers} />;
         case 'file-upload':
             return <FileQuestion question={currentQuestion} onNext={handleNext} answers={answers} />;
+        case 'thank-you-custom':
+            return <ThankYouScreen question={currentQuestion} />;
         default:
           handleNext({});
           return null;
@@ -147,7 +152,7 @@ export default function FormComponent() {
             </motion.div>
         </AnimatePresence>
         <div className="mt-8 flex justify-center">
-            {currentQuestionIndex > 0 && currentQuestion?.type !== 'confirmation-screen' && (
+            {currentQuestionIndex > 0 && currentQuestion?.type !== 'confirmation-screen' && currentQuestion?.type !== 'thank-you-custom' && (
                 <button onClick={handleBack} className="bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-white font-bold py-2 px-4 rounded">
                     Back
                 </button>

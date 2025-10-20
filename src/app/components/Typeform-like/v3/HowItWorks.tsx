@@ -1,6 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
+
+// Helper to render text that might be highlighted
+const renderText = (text: string | { text: string; highlighted?: boolean }[]) => {
+  if (typeof text === 'string') {
+    return text;
+  }
+  return text.map((segment, index) => (
+    <span key={index} className={segment.highlighted ? "text-indigo-600 dark:text-indigo-300 font-bold" : ""}>
+      {segment.text}
+    </span>
+  ));
+};
 
 interface HowItWorksProps {
   onNext: () => void;
@@ -13,6 +26,10 @@ interface HowItWorksProps {
       description: string;
     }[];
     emoji: string;
+    screenshots?: {
+      title: string;
+      images: string[];
+    };
   };
 }
 
@@ -23,7 +40,7 @@ export default function HowItWorks({ onNext, question }: HowItWorksProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -50 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-2xl mx-auto p-4 text-center"
+      className="w-full max-w-4xl mx-auto p-4 text-center"
     >
       <p className="text-sm text-gray-600 dark:text-gray-300">{question.subtitle}</p>
       <h1 className="text-3xl font-bold mt-2 text-gray-900 dark:text-white">{question.title}</h1>
@@ -40,6 +57,18 @@ export default function HowItWorks({ onNext, question }: HowItWorksProps) {
           </div>
         ))}
       </div>
+
+      {question.screenshots && (
+        <div className="mt-12">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{question.screenshots.title}</h2>
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {question.screenshots.images.map((src, index) => (
+              <Image key={index} src={src} alt={`Screenshot ${index + 1}`} width={400} height={300} className="rounded-lg shadow-md" />
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="mt-10">
         <button
           onClick={onNext}

@@ -10,6 +10,7 @@ interface ProblemValidationProps {
     subtitle: string;
     emoji: string;
     body: { text: string; highlighted?: boolean }[];
+    bottomText?: { text: string; highlighted?: boolean }[];
   };
 }
 
@@ -34,6 +35,15 @@ export default function ProblemValidation({ onNext, question }: ProblemValidatio
           </span>
         ))}
       </p>
+      {question.bottomText && (
+        <p className="mt-4 text-lg text-gray-700 dark:text-gray-300">
+          {question.bottomText.map((segment, index) => (
+            <span key={index} className={segment.highlighted ? "text-indigo-600 dark:text-indigo-300 font-bold" : ""}>
+              {segment.text}
+            </span>
+          ))}
+        </p>
+      )}
       <div className="mt-10">
         <button
           onClick={onNext}

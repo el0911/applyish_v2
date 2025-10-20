@@ -22,9 +22,10 @@ interface ProblemValidationQuestion extends BaseQuestion {
   subtitle: string;
   emoji: string;
   body: { text: string; highlighted?: boolean }[];
+  bottomText?: { text: string; highlighted?: boolean }[];
 }
 
-interface SocialProofQuestion extends BaseQuestion {
+export interface SocialProofQuestion extends BaseQuestion {
   type: "social-proof";
   title: string;
   subtitle: string;
@@ -33,6 +34,11 @@ interface SocialProofQuestion extends BaseQuestion {
     author: string;
     stars: number;
     avatar: string;
+    trustpilot_stars?: string;
+  };
+  screenshots?: {
+    title: string;
+    images: string[];
   };
 }
 
@@ -56,6 +62,7 @@ interface ValuePreviewQuestion extends BaseQuestion {
       avatar: string;
       trustpilot_stars: string;
     };
+  bulletPoints?: { text: string; highlighted?: boolean }[][];
 }
 
 interface HowItWorksQuestion extends BaseQuestion {
@@ -68,6 +75,17 @@ interface HowItWorksQuestion extends BaseQuestion {
     title: string;
     description: string;
   }[];
+  testimonial?: {
+    text: { text: string; highlighted?: boolean }[];
+    author: string;
+    stars: number;
+    avatar: string;
+    trustpilot_stars: string;
+  };
+  screenshots?: {
+    title: string;
+    images: string[];
+  };
 }
 
 interface TestimonialScreenshotsQuestion extends BaseQuestion {
@@ -149,6 +167,11 @@ export interface CalendarBookingQuestion extends BaseQuestion {
     type: string;
     calendlyUrl: string;
   };
+  helperText?: string;
+  callout?: {
+    text: { text: string; highlighted?: boolean }[];
+    style: 'info' | 'success';
+  };
 }
 
 interface ConfirmationBridgeQuestion extends BaseQuestion {
@@ -164,7 +187,7 @@ interface ConfirmationBridgeQuestion extends BaseQuestion {
   buttonText: string;
 }
 
-interface ConfirmationScreenQuestion extends BaseQuestion {
+export interface ConfirmationScreenQuestion extends BaseQuestion {
   type: "confirmation-screen";
   confirmationMessage: {
     dateLabel: string;
@@ -181,6 +204,15 @@ interface ConfirmationScreenQuestion extends BaseQuestion {
     action: string;
   }[];
   footer: string;
+  nextSteps?: {
+    title: string;
+    items: {
+      text: string;
+      subtext: string;
+      cta: string | null;
+      action: string | null;
+    }[];
+  };
 }
 
 interface TextInputQuestion extends BaseQuestion {
@@ -190,6 +222,18 @@ interface TextInputQuestion extends BaseQuestion {
   placeholder: string;
   answerKey: string;
   required: boolean;
+}
+
+export interface EmailQuestion extends BaseQuestion {
+  type: "email";
+  id: string;
+  title: string;
+  subtitle: string;
+  placeholder: string;
+  answerKey: string;
+  required: boolean;
+  helperText?: string;
+  valueProps?: string[];
 }
 
 export interface PhoneInputQuestion extends BaseQuestion {
@@ -277,8 +321,17 @@ export type Question =
   | ConfirmationBridgeQuestion
   | ConfirmationScreenQuestion
   | TextInputQuestion
+  | EmailQuestion
   | PhoneInputQuestion
   | MultipleChoiceQuestionType
   | FileUploadQuestion
   | ServicePrimerQuestion
-  | ServiceSelectionQuestion;
+  | ServiceSelectionQuestion
+  | ThankYouCustomQuestion;
+
+interface ThankYouCustomQuestion extends BaseQuestion {
+  type: "thank-you-custom";
+  title: string;
+  description: string;
+  emoji?: string;
+}

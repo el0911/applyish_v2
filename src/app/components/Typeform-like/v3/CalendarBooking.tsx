@@ -12,6 +12,18 @@ interface CalendarBookingProps {
   answers: { [key: string]: unknown };
 }
 
+// Helper to render text that might be highlighted
+const renderText = (text: string | { text: string; highlighted?: boolean }[]) => {
+  if (typeof text === 'string') {
+    return text;
+  }
+  return text.map((segment, index) => (
+    <span key={index} className={segment.highlighted ? "text-indigo-600 dark:text-indigo-300 font-bold" : ""}>
+      {segment.text}
+    </span>
+  ));
+};
+
 export default function CalendarBooking({ onNext, question, answers }: CalendarBookingProps) {
   const calendlyRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -106,11 +118,18 @@ export default function CalendarBooking({ onNext, question, answers }: CalendarB
       {/* Header */}
       <div className="w-full max-w-4xl text-center ">
         {question.subtitle && (
-          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">{question.subtitle}</p>
+          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">{question.subtitle.replace("{selectedPlan}", answers.selectedPlan as string)}</p>
         )}
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
           {question.title}
         </h1>
+        {question.callout && (
+          <div className={`mt-4 p-4 rounded-lg ${question.callout.style === 'info' ? 'bg-blue-100' : 'bg-green-100'}`}>
+            <p className={`${question.callout.style === 'info' ? 'text-blue-800' : 'text-green-800'}`}>
+              {renderText(question.callout.text)}
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Calendly Widget Container */}
@@ -129,7 +148,7 @@ export default function CalendarBooking({ onNext, question, answers }: CalendarB
           className="w-full rounded-lg overflow-hidden shadow-lg"
           style={{
             minHeight: '650px',
-            height: 'calc(100vh - 250px)',
+            height: 'calc(100vh - 350px)',
             maxHeight: '900px'
           }}
         >
@@ -138,9 +157,7 @@ export default function CalendarBooking({ onNext, question, answers }: CalendarB
       </div>
 
       {/* Info text */}
-      <p className="mt-4 text-xs sm:text-sm text-gray-600 dark:text-gray-300 text-center max-w-md">
-        Select a time that works best for you. You&apos;ll receive a confirmation email after booking.
-      </p>
+      {question.helperText && <p className="mt-4 text-xs sm:text-sm text-gray-600 dark:text-gray-300 text-center max-w-md">{question.helperText}</p>}
     </motion.div>
   );
 }

@@ -32,6 +32,7 @@ interface ValuePreviewProps {
       avatar: string;
       trustpilot_stars: string;
     };
+    bulletPoints?: { text: string; highlighted?: boolean }[][];
   };
 }
 
@@ -47,6 +48,16 @@ export default function ValuePreview({ onNext, question }: ValuePreviewProps) {
       <p className="text-sm text-gray-600 dark:text-gray-300">{question.subtitle}</p>
       <h1 className="text-3xl font-bold mt-2 text-gray-900 dark:text-white">{renderText(question.title)}</h1>
       <p className="mt-4 text-lg text-gray-900 dark:text-white">{renderText(question.body)}</p>
+      {question.bulletPoints && (
+        <ul className="mt-6 text-left max-w-md mx-auto space-y-2">
+          {question.bulletPoints.map((point, index) => (
+            <li key={index} className="flex items-start">
+              <span className="text-indigo-500 mr-2">✓</span>
+              <p className="text-gray-900 dark:text-white">{renderText(point)}</p>
+            </li>
+          ))}
+        </ul>
+      )}
       <div className="mt-8">
         {question.emoji ? (
           <span className="text-8xl">{question.emoji}</span>

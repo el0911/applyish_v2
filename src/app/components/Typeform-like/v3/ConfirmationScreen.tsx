@@ -1,109 +1,87 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from 'react';
+import { ConfirmationScreenQuestion } from "./questionTypes";
+import { useState, useRef } from "react";
 
 interface ConfirmationScreenProps {
   answers: { [key: string]: unknown };
+  question: ConfirmationScreenQuestion;
+  onNext: () => void;
 }
 
-export default function ConfirmationScreen({ answers }: ConfirmationScreenProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+export default function ConfirmationScreen({ answers, question, onNext }: ConfirmationScreenProps) {
+  const [file, setFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    console.log('ConfirmationScreen rendered');
-  }, []);
-
-  const formatFieldName = (key: string) => {
-    return key
-      .replace(/_/g, ' ')
-      .replace(/([A-Z])/g, ' $1')
-      .replace(/^./, (str) => str.toUpperCase());
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedFile = e.target.files[0];
+      const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+      if (allowedTypes.includes(selectedFile.type)) {
+        setFile(selectedFile);
+        setUploadError(null);
+      } else {
+        setFile(null);
+        setUploadError('Please upload a PDF, DOC, or DOCX file.');
+      }
+    }
   };
 
-  const handleSubmitToHubSpot = async () => {
-    console.log('handleSubmitToHubSpot called');
-    setIsSubmitting(true);
-    setIsError(false);
-    setErrorMessage('');
+  const handleUpload = async () => {
+    if (!file) {
+      setUploadError('Please select a file to upload.');
+      return;
+    }
 
-    const formData = new FormData();
+    setUploading(true);
+    setUploadError(null);
+
+    const hubspotFormData = new FormData();
+
+    // Append all existing answers to the FormData
     for (const key in answers) {
-      const value = answers[key];
-      if (value instanceof File) {
-        formData.append(key, value, value.name);
-      } else if (value !== null && value !== undefined) {
-        formData.append(key, String(value));
+      if (Object.prototype.hasOwnProperty.call(answers, key)) {
+        const value = answers[key];
+        if (value !== undefined && value !== null) {
+          if (typeof value === 'object' && !(value instanceof File)) {
+            hubspotFormData.append(key, JSON.stringify(value));
+          } else {
+            hubspotFormData.append(key, String(value));
+          }
+        }
       }
     }
 
-    console.log('Submitting formData:', formData);
+    // Append the resume file
+    hubspotFormData.append('resume', file);
 
     try {
       const response = await fetch('/api/hubspot-submit', {
         method: 'POST',
-        body: formData,
+        body: hubspotFormData,
       });
 
-      console.log('HubSpot API response:', response);
-
       if (response.ok) {
-        setIsSuccess(true);
+        onNext(); // Advance to the next step (Thank You screen)
       } else {
         const errorData = await response.json();
-        console.error('HubSpot API error:', errorData);
-        setIsError(true);
-        setErrorMessage(errorData.message || 'An unknown error occurred.');
+        setUploadError(errorData.message || 'File upload failed.');
       }
-    } catch (error: unknown) {
-      console.error('Fetch error:', error);
-      setIsError(true);
-      setErrorMessage(error instanceof Error ? error.message : 'Network error occurred.');
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      setUploadError('An unexpected error occurred during upload.');
     } finally {
-      setIsSubmitting(false);
+      setUploading(false);
     }
   };
 
-  if (isSuccess) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -50 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-2xl mx-auto p-4 text-center"
-      >
-        <h1 className="text-3xl font-bold mt-8 text-green-600">Submission Successful!</h1>
-        <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">Thank you for your submission. We will be in touch shortly.</p>
-      </motion.div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -50 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-2xl mx-auto p-4 text-center"
-      >
-        <h1 className="text-3xl font-bold mt-8 text-red-600">Submission Failed!</h1>
-        <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">{errorMessage}</p>
-        <button
-          onClick={handleSubmitToHubSpot}
-          className="mt-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 w-full max-w-xs"
-        >
-          Try Again
-        </button>
-      </motion.div>
-    );
-  }
-
-  const filteredKeys = ['calendarConfig', 'calendlyUrl', 'booking'];
+  const handleAction = (action: string) => {
+    // Handle actions like 'google-calendar', 'outlook-calendar', 'email-upload-link'
+    console.log("Action triggered:", action);
+  };
 
   return (
     <motion.div
@@ -113,52 +91,86 @@ export default function ConfirmationScreen({ answers }: ConfirmationScreenProps)
       transition={{ duration: 0.5 }}
       className="w-full max-w-2xl mx-auto p-4 text-center"
     >
-      <h1 className="text-3xl font-bold mt-8 text-gray-900 dark:text-white">Review Your Information</h1>
-      <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">Please review the details below before submitting.</p>
+      <div className="text-5xl mb-4">{question.emoji}</div>
+      <h1 className="text-3xl font-bold mt-2 text-gray-900 dark:text-white">{question.title}</h1>
+      
+      <div className="mt-6 text-lg text-gray-700 dark:text-gray-300">
+        <p>{question.confirmationMessage.dateLabel} <strong>{new Date(answers.call_datetime as string).toLocaleString()}</strong></p>
+        <p>{question.confirmationMessage.emailLabel} <strong>{answers.email as string}</strong></p>
+      </div>
 
-      <div className="mt-8 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md text-left max-h-96 overflow-y-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {Object.entries(answers)
-            .filter(([key]) => !filteredKeys.includes(key))
-            .map(([key, value]) => {
-              if (typeof value === 'boolean' && !value) {
-                return null;
-              }
-              if(value === null){
-                return null
-              }
-              if (key.includes('calendly') || key.includes('datetime')){
-                return null
-              }
-              return (
-                <div key={key} className="mb-2 pb-2 border-b border-gray-200 dark:border-gray-700 last:border-b-0 md:col-span-2 grid grid-cols-2 gap-4">
-                  <p className="font-semibold text-gray-700 dark:text-gray-300">{formatFieldName(key)}:</p>
-                  <div className="text-gray-900 dark:text-white">
-                    {typeof value === 'boolean' && value ? (
-                      <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    ) : value instanceof File ? (
-                      value.name
-                    ) : (
-                      String(value)
-                    )}
-                  </div>
+      <div className="mt-8 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg text-left">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white">{question.whatYouReceive.title}</h2>
+        <ul className="mt-4 space-y-2">
+          {question.whatYouReceive.items.map((item, index) => (
+            <li key={index} className="flex items-start">
+              <span className="text-green-500 mr-2">✓</span>
+              <p className="text-gray-700 dark:text-gray-300">{item.replace("{selectedPlan}", answers.selectedPlan as string)}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {question.nextSteps && (
+        <div className="mt-8 text-left">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">{question.nextSteps.title}</h2>
+          <div className="mt-4 space-y-4">
+            {question.nextSteps.items.map((step, index) => (
+              <div key={index} className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg flex items-center justify-between">
+                <div>
+                  <p className="font-semibold text-gray-900 dark:text-white">{step.text}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{step.subtext}</p>
                 </div>
-              );
-            })}
+                {step.cta === "Upload Resume" && (
+                  <div className="flex flex-col items-center">
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={handleFileChange}
+                      accept=".pdf,.doc,.docx"
+                      className="hidden"
+                      id="resume-upload"
+                    />
+                    <label
+                      htmlFor="resume-upload"
+                      className="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 cursor-pointer"
+                    >
+                      {file ? file.name : step.cta}
+                    </label>
+                    {file && (
+                      <button
+                        onClick={handleUpload}
+                        disabled={uploading}
+                        className="mt-2 bg-green-500 text-white font-bold py-1 px-3 rounded-lg hover:bg-green-600 disabled:opacity-50"
+                      >
+                        {uploading ? 'Uploading...' : 'Confirm Upload'}
+                      </button>
+                    )}
+                    {uploadError && <p className="text-red-500 text-sm mt-2">{uploadError}</p>}
+                  </div>
+                )}
+                {step.cta && step.action && step.cta !== "Upload Resume" && (
+                  <button onClick={() => handleAction(step.action)} className="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700">
+                    {step.cta}
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className="mt-8">
-        <button
-          onClick={handleSubmitToHubSpot}
-          disabled={isSubmitting}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 w-full max-w-xs"
-        >
-          {isSubmitting ? 'Submitting...' : 'Submit'}
-        </button>
-      </div>
+      {/* Commented out optional calendar buttons */}
+      {/* <div className="mt-8">
+        {question.optionalButtons.map((button, index) => (
+          <button key={index} onClick={() => handleAction(button.action)} className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg mx-2">
+            {button.label}
+          </button>
+        ))}
+      </div> */}
+
+      <p className="mt-8 text-gray-600 dark:text-gray-400">{question.footer}</p>
+
     </motion.div>
   );
 }
