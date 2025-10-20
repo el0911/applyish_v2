@@ -1,5 +1,7 @@
 import { FC } from "react";
-import {  CheckCircle, Zap, Check } from "lucide-react";
+import {  CheckCircle, Zap, Check, ArrowRight } from "lucide-react";
+import { Button } from "../ui/button";
+import Link from "next/link";
 import logoImg from "../../logo.png";
 import vaImg from "../../va.png";
 import { motion } from "framer-motion";
@@ -135,6 +137,14 @@ const HeroSection: FC = () => {
                             <div className="mt-4 text-center lg:text-left text-sm text-gray-600 flex items-center justify-center lg:justify-start">
                                 <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                                 <span>100% Money-Back Guarantee. If you don&apos;t get interviews, you don&apos;t pay.</span>
+                            </div>
+                            <div className="mt-8 flex justify-center lg:justify-start">
+                                <Link href="/apply" passHref>
+                                    <Button size="lg" className="bg-indigo-600 text-white px-10 py-6 text-lg min-h-[60px] font-semibold shadow-lg border border-indigo-600 hover:bg-indigo-700 hover:scale-105 transition-all duration-300 flex items-center">
+                                        Start Your Job Search Today
+                                        <ArrowRight className="ml-2 w-5 h-5" />
+                                    </Button>
+                                </Link>
                             </div>
                         </div>
 
