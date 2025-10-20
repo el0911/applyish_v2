@@ -45,7 +45,7 @@ const useSprig = () => {
       instantlyScript.src = 'https://r2.leadsy.ai/tag.js';
       instantlyScript.async = true;
       instantlyScript.setAttribute('data-pid', '12GKj6Uxobr63rOw6');
-      instantlyScript.setAttribute('data-version', '062024');
+      instantlyScript.setAttribute('data-version',  `${process.env.NEXT_PUBLIC_INSTANTLY}`);
 
       document.head.appendChild(instantlyScript);
     }

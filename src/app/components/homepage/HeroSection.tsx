@@ -34,7 +34,7 @@ export function HeroSection() {
             </h1>
             
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Job searching is exhausting. You're spending 2-3 hours per application, customizing resumes, writing cover letters, and filling out repetitive forms—only to hear nothing back. Applyish automates the tedious parts of job applications so you can apply to more opportunities in less time and actually get interviews.
+             {`Job searching is exhausting. You're spending 2-3 hours per application, customizing resumes, writing cover letters, and filling out repetitive forms—only to hear nothing back. Applyish automates the tedious parts of job applications so you can apply to more opportunities in less time and actually get interviews.`}
             </p>
             
             <div className="space-y-3">
