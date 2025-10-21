@@ -3,7 +3,7 @@ import { Upload, Plus, Users, Loader2, Clock } from 'lucide-react';
 import ClientCard from '@/app/components/dashboard/clientCard';
 import { IClient } from '@/app/lib/interfaces';
 import { createSingleClient, fetchClientsForCoach } from '@/app/lib/api.service';
-import { generateChartData } from '@/app/lib/utils';
+// import { generateChartData } from '@/app/lib/utils';
 
 
 
@@ -78,17 +78,16 @@ function ClientsManagement(
                 notes: formData.notes
             });
 
-            const chartData = generateChartData();
-            const totalJobs = chartData.reduce((sum, d) => sum + d.applications, 0);
+            const totalJobs = 0
 
             const clientWithChart: IClient = {
                 ...newClient,
                 status: 'processing',
                 instanceUrl: null,
                 addedAt: new Date().toISOString(),
-                chartData,
+                chartData : [],
                 totalJobs,
-                weekJobs: chartData.slice(-7).reduce((sum, d) => sum + d.applications, 0),
+                weekJobs: 0,
                 avgJobs: Math.round(totalJobs / 7)
             };
 
@@ -133,42 +132,42 @@ function ClientsManagement(
     };
 
     const handleCsvUpload = () => {
-        if (!csvFile) {
-            showNotification('Please select a CSV file first');
-            return;
-        }
-        showNotification(`Processing ${csvFile.name}...`);
+        // if (!csvFile) {
+        //     showNotification('Please select a CSV file first');
+        //     return;
+        // }
+        // showNotification(`Processing ${csvFile.name}...`);
 
-        setTimeout(() => {
-            const mockClients = [
-                { name: 'Alice Johnson', email: 'alice@example.com', linkedin: '', notes: 'Imported from CSV' },
-                { name: 'Bob Smith', email: 'bob@example.com', linkedin: '', notes: 'Imported from CSV' },
-            ];
+        // setTimeout(() => {
+        //     const mockClients = [
+        //         { name: 'Alice Johnson', email: 'alice@example.com', linkedin: '', notes: 'Imported from CSV' },
+        //         { name: 'Bob Smith', email: 'bob@example.com', linkedin: '', notes: 'Imported from CSV' },
+        //     ];
 
-            mockClients.forEach((client, idx) => {
-                setTimeout(() => {
-                    const chartData = generateChartData();
-                    const totalJobs = chartData.reduce((sum, d) => sum + d.applications, 0);
+        //     mockClients.forEach((client, idx) => {
+        //         setTimeout(() => {
+        //             const chartData = client.chartData
+        //             const totalJobs = chartData.reduce((sum, d) => sum + d.count, 0);
 
-                    const newClient: IClient = {
-                        id: Date.now() + idx,
-                        ...client,
-                        status: 'processing',
-                        instanceUrl: null,
-                        addedAt: new Date().toISOString(),
-                        chartData,
-                        totalJobs,
-                        weekJobs: chartData.slice(-7).reduce((sum, d) => sum + d.applications, 0),
-                        avgJobs: Math.round(totalJobs / 7)
-                    };
+        //             const newClient: IClient = {
+        //                 id: Date.now() + idx,
+        //                 ...client,
+        //                 status: 'processing',
+        //                 instanceUrl: null,
+        //                 addedAt: new Date().toISOString(),
+        //                 chartData,
+        //                 totalJobs,
+        //                 weekJobs: chartData.slice(-7).reduce((sum, d) => sum + d.count, 0),
+        //                 avgJobs: Math.round(totalJobs / 7)
+        //             };
 
-                    setClients(prev => [newClient, ...prev]);
-                }, idx * 500);
-            });
+        //             setClients(prev => [newClient, ...prev]);
+        //         }, idx * 500);
+        //     });
 
-            showNotification("Great news! We're setting up your clients' LinkedIn automation from the CSV file. This process usually takes a moment, and their LinkedIn access will be ready to use for the next 4 hours. We'll let you know when it's all set!");
-            setCsvFile(null);
-        }, 1000);
+        //     showNotification("Great news! We're setting up your clients' LinkedIn automation from the CSV file. This process usually takes a moment, and their LinkedIn access will be ready to use for the next 4 hours. We'll let you know when it's all set!");
+        //     setCsvFile(null);
+        // }, 1000);
     };
 
     const handleCopyUrl = (url: string) => {
