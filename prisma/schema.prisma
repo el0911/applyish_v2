@@ -19,7 +19,6 @@ model LinkedInAccount {
   tokens     Json
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-
   @@index([userId])
 }
 
@@ -37,19 +36,19 @@ model S3File {
 
 model ApplicationCount {
   id          String   @id @default(cuid())
-  username    String
+  clientId    String
+  client      Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
   weekOfYear  Int
   year        Int
   count       Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  @@unique([username, weekOfYear, year])
+  @@unique([clientId, weekOfYear, year])
 }
 
 model HealthChecks{
   id          String   @id @default(cuid())
   username    String
-
   isAlive     Boolean
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -89,15 +88,12 @@ model Client {
   email       String    @unique
   linkedin    String?
   notes       String?
-  instanceUrl String?
-  chartData   Json?     // Store as JSON
-  totalJobs   Int       @default(0)
-  weekJobs    Int       @default(0)
-  avgJobs     Int       @default(0)
-  userId     String   @unique
+  instanceUrl String? 
+  userId      String   @unique
   user        User     @relation(fields: [userId], references: [id])
   coaches     CareerCoach[]
   processes   Process[]
+  applications ApplicationCount[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

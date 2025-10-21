@@ -15,7 +15,10 @@ export type IClient = {
     status: IClientStatus;
     instanceUrl: string | null;
     addedAt: string;
-    chartData: IChartData[];
+    chartData: {
+        weekOfYear : number
+        count:number
+    }[]
     totalJobs: number;
     weekJobs: number;
     avgJobs: number;

@@ -8,10 +8,10 @@ export function cn(...inputs: ClassValue[]) {
 
 // Sample data generator
 export const generateChartData = () => {
-    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    return days.map(day => ({
-        day,
-        applications: Math.floor(Math.random() * 15) + 3
+    const weeks = Array.from({ length: 7 }, (_, i) => `Week ${i + 1}`); // Generates 'Week 1', 'Week 2', ..., 'Week 7'
+    return weeks.map(week => ({
+        day: week, // Keeping 'day' key for compatibility with existing chart components
+        applications: Math.floor(Math.random() * 51) + 10 // Random applications between 10 and 60 for weekly data
     }));
 };
 

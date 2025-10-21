@@ -3,14 +3,14 @@ import prisma from '@/lib/prisma';
 
 export async function POST(req: Request) {
   try {
-    const { username } = await req.json();
+    const { clientId } = await req.json();
 
-    if (!username) {
+    if (!clientId) {
       return new NextResponse('Username is required', { status: 400 });
     }
 
     const account = await prisma.s3File.findFirst({
-      where: { s3Identifier: username },
+      where: { s3Identifier: clientId },
     });
 
     if(account == null) {
@@ -26,8 +26,8 @@ export async function POST(req: Request) {
 
     let applicationCount = await prisma.applicationCount.findUnique({
       where: {
-        username_weekOfYear_year: {
-          username,
+        clientId_weekOfYear_year: {
+          clientId,
           weekOfYear,
           year,
         },
@@ -37,8 +37,8 @@ export async function POST(req: Request) {
     if (applicationCount) {
       applicationCount = await prisma.applicationCount.update({
         where: {
-          username_weekOfYear_year: {
-            username,
+          clientId_weekOfYear_year: {
+            clientId,
             weekOfYear,
             year,
           },
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
     } else {
       applicationCount = await prisma.applicationCount.create({
         data: {
-          username,
+          clientId,
           weekOfYear,
           year,
           count: 1,

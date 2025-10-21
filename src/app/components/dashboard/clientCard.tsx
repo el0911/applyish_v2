@@ -176,11 +176,12 @@ function ClientCard({ client, onCopyUrl, onOpenInstance, compact = false }: Clie
                                 <LineChart data={client.chartData}>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                                     <XAxis 
-                                        dataKey="day" 
+                                        dataKey="weekOfYear" 
                                         tick={{ fill: '#6b7280', fontSize: 12 }}
                                         stroke="#e5e7eb"
                                     />
                                     <YAxis 
+                                        dataKey={'count'}
                                         tick={{ fill: '#6b7280', fontSize: 12 }}
                                         stroke="#e5e7eb"
                                     />

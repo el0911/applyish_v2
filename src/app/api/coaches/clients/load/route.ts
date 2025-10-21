@@ -1,5 +1,5 @@
-import {  NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { NextResponse } from 'next/server';
+import { ApplicationCount, PrismaClient } from '@prisma/client';
 import { currentUser } from '@clerk/nextjs/server';
 
 const prisma = new PrismaClient();
@@ -19,7 +19,8 @@ export async function GET() {
             return new NextResponse('Invalid user', { status: 404 });
         }
 
-
+        // const today = new Date()
+        // today.setDate(today.getDay() - 7)
         // to do l
         const clients = await prisma.client.findMany({
             where: {
@@ -28,6 +29,13 @@ export async function GET() {
                 },
             },
             include: {
+                applications: {
+                    // where: {
+                    //     createdAt: {
+                    //         gte: today
+                    //     }
+                    // }
+                },
                 processes: {
                     orderBy: { createdAt: 'desc' },
                     take: 1,
@@ -37,7 +45,7 @@ export async function GET() {
             orderBy: { createdAt: 'desc' },
         });
 
-             
+
         interface Process {
             id: string;
             createdAt: Date;
@@ -63,14 +71,23 @@ export async function GET() {
             status: string | null;
         }
 
-        return NextResponse.json<{ clients: ClientResponse[] }>({
-            clients: clients.map((client: Client): ClientResponse => {
+
+        return NextResponse.json<{
+            clients: (ClientResponse & {
+            chartData:  ApplicationCount[];
+            })[];
+        }>({
+            clients: clients.map((client) => {
                 return {
                     ...client,
-                    status: client.processes[0].status || null,
+                    status: client.processes[0]?.status || null,
+                    chartData: client.processes[0]?.status === 'ready'
+                        ? client.applications // Or fill with actual data
+                        : [],
                 };
             }),
         }, { status: 200 });
+
     } catch (error) {
         console.error('Error loading clients:', error);
         return new NextResponse('Internal Server Error', { status: 500 });
