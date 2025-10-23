@@ -64,7 +64,7 @@ echo "Setting up environment variables..." >> /tmp/userdata.log 2>&1
 
 echo  "USER_DATA"=${dataDictEncoded} >> /home/ec2-user/applyish_automation/.env
 echo  "API_AUTH_HEADER"=${instanceNameEncoded} >> /home/ec2-user/applyish_automation/.env
-echo  "API_URL"=${'https://www.applyish.com/api'} >> /home/ec2-user/applyish_automation/.env
+echo  "API_URL"=${process.env.NEXT_PUBLIC_API_URL} >> /home/ec2-user/applyish_automation/.env
 echo  "SESSION_FOLDER_PATH"=${SESSION_FOLDER_PATH} >> /home/ec2-user/applyish_automation/.env
 echo  "BETTERSTACK_TOKEN"=${process.env.BETTERSTACK_TOKEN || ''} >> /home/ec2-user/applyish_automation/.env
 echo  "INSTANCE_NAME"=${instanceName} >> /home/ec2-user/applyish_automation/.env

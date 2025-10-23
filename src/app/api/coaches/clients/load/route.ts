@@ -30,11 +30,7 @@ export async function GET() {
             },
             include: {
                 applications: {
-                    // where: {
-                    //     createdAt: {
-                    //         gte: today
-                    //     }
-                    // }
+                    orderBy: { createdAt: 'desc' },
                 },
                 processes: {
                     orderBy: { createdAt: 'desc' },

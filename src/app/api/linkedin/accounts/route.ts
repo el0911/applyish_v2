@@ -50,7 +50,7 @@ export async function GET(req: Request) {
     return NextResponse.json({
       accounts: accounts.map((client) => {
         return {
-          client_id: client.id
+          client_Id: client.id
         }
       })
     });

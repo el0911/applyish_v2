@@ -47,7 +47,7 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 // ...existing code...
 
-const oneTimeDownloadUrl = async (s3_identifier: string) => {
+const oneTimeDownloadUrl = async (client_id: string) => {
   try {
     const s3Client = new S3Client({
       region: process.env.AWS_REGION,
@@ -59,7 +59,7 @@ const oneTimeDownloadUrl = async (s3_identifier: string) => {
 
     const command = new GetObjectCommand({
       Bucket: process.env.AWS_S3_BUCKET,
-      Key: s3_identifier,
+      Key: client_id,
     });
 
     // Generate a one-time download URL valid for 15 minutes
@@ -79,23 +79,24 @@ export async function GET(req: Request) {
   const token = req.headers.get('Authorization')?.split(' ')[1];
 
   try {
+    console.log({token})
     // use the token from the request header to get the linkeind tokkens
     // todo encrypt the tokens when transferring them over the network
     if (!token) return new NextResponse('Unauthorized', { status: 401 });
   
     const decoded = jwt.verify(token, process.env.JWT_SECRET as Secret) as JwtPayload;
-    const {s3_identifier} = decoded;
+    const {client_Id} = decoded;
 
-    console.log('s3_identifier', s3_identifier);
+    console.log('client_id', client_Id);
     console.log('decoded', decoded);
-    if (!s3_identifier) return new NextResponse('Unauthorized', { status: 401 });
+    if (!client_Id) return new NextResponse('Unauthorized', { status: 401 });
 
     // fetch the tokens from the database
-    const s3_connector = await prisma.s3File.findFirst({
-      where: { s3Identifier: s3_identifier },
+    const client = await prisma.client.findFirst({
+      where: { id: client_Id },
     });
 
-    if (!s3_connector) {
+    if (!client) {
       // 204 No Content indicates “we have nothing for you yet”
       return new NextResponse(null, { status: 204 });
     }
@@ -103,11 +104,11 @@ export async function GET(req: Request) {
     // now we have link lets make a one time donwload url to the folder 
 
 
-    const downloadUrl = await oneTimeDownloadUrl(s3_connector.s3Identifier);
+    const downloadUrl = await oneTimeDownloadUrl(`${client_Id}.zip`);
 
 
     // Return the saved tokens
-    return NextResponse.json({ s3_download_link:downloadUrl, job_link: s3_connector.jobLink });
+    return NextResponse.json({ s3_download_link:`${downloadUrl}` });
     
    
   } catch (error) {
