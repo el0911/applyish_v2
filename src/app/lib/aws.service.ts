@@ -64,7 +64,7 @@ echo "Setting up environment variables..." >> /tmp/userdata.log 2>&1
 
 echo  "USER_DATA"=${dataDictEncoded} >> /home/ec2-user/applyish_automation/.env
 echo  "API_AUTH_HEADER"=${instanceNameEncoded} >> /home/ec2-user/applyish_automation/.env
-echo  "API_URL"=${process.env.NEXT_PUBLIC_API_URL} >> /home/ec2-user/applyish_automation/.env
+echo  "API_URL"=${process.env.API_URL} >> /home/ec2-user/applyish_automation/.env
 echo  "SESSION_FOLDER_PATH"=${SESSION_FOLDER_PATH} >> /home/ec2-user/applyish_automation/.env
 echo  "BETTERSTACK_TOKEN"=${process.env.BETTERSTACK_TOKEN || ''} >> /home/ec2-user/applyish_automation/.env
 echo  "INSTANCE_NAME"=${instanceName} >> /home/ec2-user/applyish_automation/.env
@@ -73,18 +73,8 @@ echo  "S3_AWS_SECRET_ACCESS_KEY"=${process.env.S3_AWS_SECRET_ACCESS_KEY || ''} >
 
 # Create session folder if it doesn't exist
 
-
-export API_URL="${process.env.NEXT_PUBLIC_API_URL || "https://213784971ac8.ngrok-free.app/api"}"
-export API_AUTH_HEADER="${instanceNameEncoded}"
-
-
-export SESSION_FOLDER_PATH="${SESSION_FOLDER_PATH}"
-
-export INSTANCE_NAME="${instanceName}"
-
 export PATH=$PATH:/home/ec2-user/.local/bin
 
-export BETTERSTACK_TOKEN="${process.env.BETTERSTACK_TOKEN || ''}"
 echo "Environment variables set successfully" >> /tmp/userdata.log 2>&1
 
 echo "Moving to the applyish_automation directory..." >> /tmp/userdata.log 2>&1
