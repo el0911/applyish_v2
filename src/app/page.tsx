@@ -60,35 +60,40 @@
 
 "use client"
 
-import React from 'react'
-import HeroSection from './components/landingPage/hero'
-import SocialProofSection from './components/landingPage/SocialProofSection'
-import HowItWorksSection from './components/landingPage/HowItWorksSection'
-import InterviewShowcase from './components/landingPage/InterviewShowcase'
-import TestimonialsSection from './components/landingPage/TestimonialsSection'
-import ObjectionHandling from './components/landingPage/ObjectionHandling'
-import PricingSection from './components/landingPage/pricingSection'
-import FinalCTA from './components/landingPage/FinalCTA'
-import useSprig from '@/hooks/useSprig'
 
-const IframeComponent = () => {
-  useSprig()
+import { BenefitsSection } from "./components/homepage/BenefitsSection";
+import { CTASection } from "./components/homepage/CTASection";
+import { FAQSection } from "./components/homepage/FAQSection";
+import { FeaturesSection } from "./components/homepage/FeaturesSection";
+// import React from 'react'
+// import HeroSection from './components/landingPage/hero'
+// import SocialProofSection from './components/landingPage/SocialProofSection'
+// import HowItWorksSection from './components/landingPage/HowItWorksSection'
+// import InterviewShowcase from './components/landingPage/InterviewShowcase'
+// import TestimonialsSection from './components/landingPage/TestimonialsSection'
+// import ObjectionHandling from './components/landingPage/ObjectionHandling'
+// import PricingSection from './components/landingPage/pricingSection'
+// import FinalCTA from './components/landingPage/FinalCTA'
+// import useSprig from '@/hooks/useSprig'
 
-  return (
-    <div className="bg-white">
-      <HeroSection />
-      <SocialProofSection />
-      <HowItWorksSection />
-      <InterviewShowcase />
-      <TestimonialsSection />
-      <ObjectionHandling />
-      <PricingSection />
-      <FinalCTA />
-    </div>
-  )
-}
+// const IframeComponent = () => {
+//   useSprig()
 
-export default IframeComponent
+//   return (
+//     <div className="bg-white">
+//       <HeroSection />
+//       <SocialProofSection />
+//       <HowItWorksSection />
+//       <InterviewShowcase />
+//       <TestimonialsSection />
+//       <ObjectionHandling />
+//       <PricingSection />
+//       <FinalCTA />
+//     </div>
+//   )
+// }
+
+// export default IframeComponent
 
 // "use client"
 // import React from 'react';
@@ -215,3 +220,29 @@ export default IframeComponent
 // };
 
 // export default LayoutComponent;
+
+
+import { HeroSection } from "./components/homepage/HeroSection";
+import { HowItWorksSection } from "./components/homepage/HowItWorksSection";
+import { PricingSection } from "./components/homepage/PricingSection";
+import { ProblemSection } from "./components/homepage/ProblemSection";
+import { SolutionSection } from "./components/homepage/SolutionSection";
+import { TestimonialsSection } from "./components/homepage/TestimonialsSection";
+ 
+
+export default function HomePage() {
+  return (
+    <>
+      <HeroSection />
+      <ProblemSection />
+      <SolutionSection />
+      <HowItWorksSection />
+      <FeaturesSection />
+      <BenefitsSection />
+      <TestimonialsSection />
+      <PricingSection />
+      <FAQSection />
+      <CTASection />  
+    </>
+  );
+}

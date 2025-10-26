@@ -6,6 +6,8 @@ import type { Metadata } from 'next'
 import { ClerkProvider, 
   // UserButton
 } from '@clerk/nextjs'
+import { BrowserRouter as Router} from "react-router-dom";
+
 // import Image from 'next/image'
 
 
@@ -32,8 +34,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
+     <Router>
     <ClerkProvider>
-      <html lang="en" className="dark">
+      <html lang="en">
         <head />
         <body className="flex flex-col">
         {/* <header className="flex items-center justify-between p-4">
@@ -45,5 +48,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </body>
       </html>
     </ClerkProvider>
+    </Router>
   )
 }
