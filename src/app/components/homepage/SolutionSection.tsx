@@ -1,5 +1,7 @@
-import {  Zap, Brain, Shield } from "lucide-react";
+import {  Zap, Brain, Shield, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 export function SolutionSection() {
   return (
@@ -12,18 +14,18 @@ export function SolutionSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl mb-6">
-            One platform. Complete automation.
+            Why Choose Applyish? The Superior Job Application Service
           </h2>
           <p className="text-xl text-muted-foreground">
-            From job discovery to application submission, we handle everything so you can focus on preparing for interviews.
+            Our experts manually manage the entire job application process for you. We use tailored resumes and ATS-optimized strategies designed specifically to boost your interview chances. When you choose our job application service, you get:
           </p>
         </motion.div>
         
         <div className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto">
           {[
-            { icon: Zap, title: "Lightning Fast", description: "What used to take 2-3 hours now takes 5-10 minutes. Apply to 10x more jobs without sacrificing quality." },
-            { icon: Brain, title: "Smart Customization", description: "Every application is tailored to match specific job requirements, keywords, and company culture." },
-            { icon: Shield, title: "ATS Optimized", description: "Beat applicant tracking systems with proper formatting and keyword optimization." }
+            { icon: Brain, title: "Real Human Expertise", description: "Real professionals apply to jobs on your behalf, ensuring accuracy, proper formatting, and customized submissions every time." },
+            { icon: Shield, title: "The Results Guarantee", description: "100% Money-Back Guarantee – if we don't get you interviews, you don't pay. That's how confident we are in our job application service." },
+            { icon: Zap, title: "Freedom from Fatigue", description: "Say goodbye to job search burnout and rejection fatigue. We handle the repetitive work so you can focus on preparing for success." }
           ].map((item, index) => (
             <motion.div 
               key={index}
@@ -43,6 +45,19 @@ export function SolutionSection() {
             </motion.div>
           ))}
         </div>
+        
+        <motion.div 
+          className="mt-16 text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <Link href="/apply">
+            <Button size="lg" className="text-base px-8 bg-accent text-accent-foreground hover:bg-accent/90">
+              Start your job application journey with Applyish today! <ArrowRight className="ml-2 w-4 h-4" />
+            </Button>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

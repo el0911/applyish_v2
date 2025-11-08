@@ -1,36 +1,38 @@
-import { Clock, FileX, TrendingDown, Frown, AlertCircle, Target } from "lucide-react";
+import { Clock, FileX, TrendingDown, Frown, AlertCircle, Target, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 const problems = [
   {
     icon: Clock,
-    title: "Hours Wasted on Each Application",
-    description: "The average job seeker spends 2-3 hours per application. With dozens of applications needed to land one interview, that's weeks of your life spent on repetitive data entry, resume formatting, and cover letter customization."
+    title: "Hours Wasted on Every Application",
+    description: "The average job seeker spends 2–3 hours per application, a staggering amount of time spent on simple data entry and reformatting documents. Multiply that by dozens of jobs, and you’ve lost weeks to repetitive, soul-crushing tasks that lead nowhere. This time could be better spent networking, practicing interviews, or upskilling."
   },
   {
     icon: FileX,
-    title: "Applications Disappearing Into the Void",
-    description: "You click submit and then... nothing. 75% of job applications never get seen by a human. You're spending hours crafting the perfect application only to be filtered out by ATS systems before anyone reads your qualifications."
+    title: "Applications Disappearing Into the Void (The ATS Filter)",
+    description: "Over 75% of applications are auto-rejected by ATS systems (Applicant Tracking Software) before a human even looks at them. These algorithms look for perfect keyword matches and specific formatting, essentially creating a digital gatekeeper that screens out qualified candidates just because their resume wasn't perfectly formatted for the machine. Your excellent experience never gets a chance to shine."
   },
   {
     icon: TrendingDown,
-    title: "Low Response Rates Killing Your Motivation",
-    description: "After sending out 50, 100, or even 200 applications, you're lucky to hear back from 5% of employers. The constant rejection and silence is demoralizing and makes it harder to stay motivated in your job search."
-  },
-  {
-    icon: Frown,
-    title: "Job Search Burnout is Real",
-    description: "Between customizing resumes, writing cover letters, filling out forms, and tracking applications, job searching becomes a full-time job itself. The mental exhaustion and burnout make it even harder to perform well in the interviews you do get."
+    title: "Low Response Rates Killing Motivation",
+    description: "After submitting 100 applications, hearing back from only a tiny fraction (often less than 5%) of employers is crushing to your morale. The silence after all that effort feels like constant, systemic rejection. This low return on your massive investment of time makes it nearly impossible to maintain the necessary focus and optimism to land a great role."
   },
   {
     icon: AlertCircle,
-    title: "Missing Out on Great Opportunities",
-    description: "By the time you finish applying to one job, three more perfect opportunities have come and gone. You can't keep up with the volume of postings, and great jobs get filled before you can even submit your application."
+    title: "The Risk of Critical Mistakes",
+    description: "When you rush through dozens of online forms, it's easy to make a small error—a typo, an incorrect date, or a missed required field. One small mistake on a key application can immediately disqualify you from consideration, regardless of your qualifications. This hidden risk turns every application into a high-stakes, stressful editing job."
   },
   {
     icon: Target,
-    title: "Can't Track What's Working",
-    description: "You're applying everywhere but have no idea which strategies work. Without proper tracking and analytics, you can't optimize your approach, resulting in wasted effort on the wrong types of applications or companies."
+    title: "Missing Out on \"Hidden\" Jobs",
+    description: "Relying solely on major job boards means you're competing with thousands of other candidates for the same listings. The best, most desirable roles are often filled through direct sourcing, company career pages, or professional networks—they are never publicly posted on aggregators. Without dedicated effort, you miss the crucial 60-70% of the job market that is often referred to as the \"hidden job market.\""
+  },
+  {
+    icon: Frown,
+    title: "Job Search Burnout Is Real",
+    description: "The cycle of constant rejection, endless forms, and zero constructive feedback creates severe fatigue. You’re forced to manage job tracking spreadsheets, customize cover letters repeatedly, and deal with technical glitches on corporate career sites. You’re completely drained long before you even secure the next critical interview. Job search burnout means you're operating below your best when it matters most."
   }
 ];
 
@@ -45,10 +47,10 @@ export function ProblemSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl mb-6">
-            The job application process is broken
+            The Job Application Process Is Broken (And It’s Costing You Time, Money & Opportunities)
           </h2>
           <p className="text-xl text-muted-foreground">
-            Job seekers waste hundreds of hours on repetitive tasks that AI can do better.
+            That’s where Applyish, one of the most effective job application services, comes in. We offer a comprehensive job application service to fix what’s broken and help you finally get real interview invites, not automated rejections.
           </p>
         </motion.div>
         
@@ -71,6 +73,22 @@ export function ProblemSection() {
             );
           })}
         </div>
+        
+        <motion.div 
+          className="mt-16 text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <p className="text-xl text-muted-foreground mb-4">
+            Ready to Stop Applying Alone? Let real professionals handle the applications while you focus on landing the job.
+          </p>
+          <Link href="/apply">
+            <Button size="lg" className="text-base px-8 bg-accent text-accent-foreground hover:bg-accent/90">
+              Get Started with Applyish Today <ArrowRight className="ml-2 w-4 h-4" />
+            </Button>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

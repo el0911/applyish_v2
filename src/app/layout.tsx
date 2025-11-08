@@ -6,17 +6,17 @@ import type { Metadata } from 'next'
 import { ClerkProvider, 
   // UserButton
 } from '@clerk/nextjs'
-import { BrowserRouter as Router} from "react-router-dom";
+
 
 // import Image from 'next/image'
 
 
 export const metadata: Metadata = {
-  title: 'Applyish – Your Job Hunt Assistant',
-  description: 'Applyish is your personal job-hunting assistant. We apply to dozens of jobs for you every week, saving you time and energy so you can focus on what really matters: getting hired.',
+  title: 'Best Job Application Services to Land Interviews Faster | Applyish',
+  description: 'Discover Applyish — the #1 job application service combining AI + humans to land interviews faster. Stop auto-rejections and apply smarter today.',
   openGraph: {
-    title: 'Applyish – We Apply to Jobs So You Don’t Have To',
-    description: 'Applyish is your personal job-hunting assistant. We apply to dozens of jobs for you every week, saving you time and energy so you can focus on what really matters: getting hired.',
+    title: 'Best Job Application Services to Land Interviews Faster | Applyish',
+    description: 'Discover Applyish — the #1 job application service combining AI + humans to land interviews faster. Stop auto-rejections and apply smarter today.',
     type: 'website',
     url: 'https://www.applyish.com',
     locale: 'en_US',
@@ -34,8 +34,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-     <Router>
-    <ClerkProvider>
+     <ClerkProvider>
       <html lang="en">
         <head />
         <body className="flex flex-col">
@@ -48,6 +47,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </body>
       </html>
     </ClerkProvider>
-    </Router>
   )
 }

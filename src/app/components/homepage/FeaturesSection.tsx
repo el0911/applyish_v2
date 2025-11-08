@@ -1,7 +1,6 @@
 import { 
   FileText, 
   Mail, 
-  FormInput, 
   FolderOpen, 
   TrendingUp, 
   Search,
@@ -9,71 +8,72 @@ import {
   Repeat,
   CheckSquare,
   Calendar,
-  Download,
-  Lightbulb
+  Lightbulb,
+  Play,
+  Frown
 } from "lucide-react";
 import { motion } from "motion/react";
 
 const features = [
   {
+    icon: Clock,
+    title: "Hours Saved Weekly",
+    description: "Eliminate the 10+ hours you currently spend on repetitive application forms and data entry. Imagine having that time back to spend with family, pursuing hobbies, or focused on high-value networking activities instead of administrative paperwork."
+  },
+  {
     icon: FileText,
-    title: "AI-Powered Resume Builder & Customization",
-    description: "Generate ATS-optimized, tailored resumes for each job application automatically. Our AI analyzes job descriptions and restructures your experience to match employer requirements, ensuring maximum relevance and keyword optimization."
+    title: "Manual, Error-Free Applications",
+    description: "Real professionals apply on your behalf, guaranteeing accuracy and proper submission every time. We ensure all required fields are correctly completed and attachments are uploaded perfectly, removing the risk of immediate disqualification from simple errors."
   },
   {
     icon: Mail,
-    title: "Intelligent Cover Letter Generator",
-    description: "Stop staring at blank pages. Applyish writes compelling, personalized cover letters that highlight why you're the perfect fit for each specific position. Each letter is unique, professional, and tailored to the company and role."
-  },
-  {
-    icon: FormInput,
-    title: "Auto-Fill Application Forms",
-    description: "Never type the same information twice. Our smart form-filling technology remembers your data and automatically populates repetitive application fields across different job boards and company career pages, saving you hours of data entry."
+    title: "ATS Optimization",
+    description: "Every application uses an ATS-optimized resume and tailored documents to bypass automated screening filters. We ensure your keywords match the job description, giving your qualifications a clear path past the algorithm and into a human recruiter's inbox."
   },
   {
     icon: FolderOpen,
-    title: "Centralized Application Tracking",
-    description: "Keep all your job applications organized in one place. Track which jobs you've applied to, when you applied, application status, and any follow-up actions needed. Never lose track of an opportunity or accidentally apply twice to the same position."
-  },
-  {
-    icon: TrendingUp,
-    title: "Success Analytics & Insights",
-    description: "Understand what's working and what's not with detailed analytics. See your application-to-interview conversion rate, identify which types of jobs respond best, and get data-driven recommendations to improve your job search strategy."
+    title: "Complete Application Management",
+    description: "We handle the entire pipeline—from submission to follow-up—freeing up your schedule. You don't have to worry about tracking countless logins, passwords, or application statuses; we manage the whole system for you."
   },
   {
     icon: Search,
-    title: "Job Board Integration & Aggregation",
-    description: "Find relevant job postings from multiple sources in one place. Applyish integrates with major job boards and company career sites, helping you discover opportunities faster without jumping between dozens of websites."
+    title: "Targeted Submissions",
+    description: "Every job is hand-picked by a specialist to precisely match your goals; no more \"spray-and-pray\" applications. We prioritize quality over quantity, ensuring you apply only to roles where you are genuinely competitive and interested."
   },
   {
-    icon: Clock,
-    title: "Application Time Tracking",
-    description: "See exactly how much time you're saving. Track the time spent on each application and watch as Applyish reduces your average application time from hours to minutes, giving you back weeks of your life."
-  },
-  {
-    icon: Repeat,
-    title: "Template Management & Reusability",
-    description: "Create reusable templates for different types of roles, industries, or seniority levels. Quickly apply variations of your resume and cover letter that are pre-optimized for specific career paths or job categories."
-  },
-  {
-    icon: CheckSquare,
-    title: "Application Checklist & Quality Control",
-    description: "Never submit an incomplete or error-filled application again. Our built-in quality control checks ensure all required fields are filled, documents are properly formatted, and your application meets professional standards before submission."
+    icon: TrendingUp,
+    title: "Access to the Hidden Market",
+    description: "We find and apply to roles on company career pages and niche sites, accessing jobs not found on major boards. This strategic approach opens doors to the crucial 60-70% of the job market where competition is lower and quality roles are often found."
   },
   {
     icon: Calendar,
-    title: "Interview Scheduling & Follow-Up Reminders",
-    description: "Get automatic reminders to follow up on applications, prepare for upcoming interviews, and send thank-you notes. Stay organized and never miss an important deadline or opportunity to make a positive impression."
+    title: "Personalized Strategy Call",
+    description: "Start with a 30-minute consultation to define your career goals and create a custom application approach. This ensures our entire application effort is aligned with your long-term vision, not just securing the next job."
   },
   {
-    icon: Download,
-    title: "Multi-Format Document Export",
-    description: "Download your customized resumes and cover letters in any format employers require—PDF, Word, plain text, or formatted for specific ATS systems. Ensure compatibility with any application system."
+    icon: CheckSquare,
+    title: "Boosted Response Rates",
+    description: "Our expert approach significantly increases your chances of hearing back from employers. By combining manual application rigor with ATS expertise, we ensure your profile stands out in a crowded applicant pool."
   },
   {
     icon: Lightbulb,
-    title: "AI Job Match Recommendations",
-    description: "Get smart suggestions on which jobs are the best fit for your background and career goals. Our AI analyzes job requirements against your experience and highlights opportunities where you're most likely to succeed."
+    title: "The Results Guarantee",
+    description: "Our 100% Money-Back Guarantee means if we don't get you interviews, you don't pay. This removes all risk and demonstrates our complete confidence in the effectiveness of our job application service."
+  },
+  {
+    icon: Frown,
+    title: "Skip the Application Anxiety",
+    description: "Eliminate the stress and worry of managing multiple deadlines and tracking systems. We bring order and professionalism to a chaotic process, allowing you to relax and conserve mental energy."
+  },
+  {
+    icon: Play,
+    title: "Interview Focus",
+    description: "You stop focusing on applying and start focusing solely on preparing for the interviews we secure for you. Your valuable time shifts from data entry to practicing your pitch and negotiating your next offer."
+  },
+  {
+    icon: Repeat,
+    title: "Beat Job Search Burnout",
+    description: "End the cycle of endless rejection and administrative fatigue by handing the hardest part of the search over to the experts. You regain your motivation and enthusiasm, knowing that the application work is being handled efficiently and professionally."
   }
 ];
 
@@ -83,10 +83,10 @@ export function FeaturesSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <h2 className="text-4xl md:text-5xl mb-6">
-            Everything you need to automate your job search
+            Maximize Your Interviews: The Benefits of a Professional Job Application Service
           </h2>
           <p className="text-xl text-muted-foreground">
-            A complete platform designed to solve every pain point in the application process.
+            We’re not another automated tool. We’re your dedicated, professional job application team committed to securing interview invites for you. Unlike automated job platforms, Applyish offers a human-centered job application service that ensures your resume is seen by recruiters, not filtered out by algorithms.
           </p>
         </div>
         

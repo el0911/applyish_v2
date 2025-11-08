@@ -1,31 +1,33 @@
-import { Upload, Sparkles, Send, BarChart } from "lucide-react";
+import { Upload, Sparkles, Send, BarChart, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { Card } from "../ui/card";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 const steps = [
   {
     icon: Upload,
     step: "01",
-    title: "Upload Your Master Resume & Profile",
-    description: "Start by uploading your comprehensive resume and filling out your professional profile once. Include all your experience, skills, education, and achievements. This becomes your master document that Applyish uses to generate customized applications."
+    title: "Sign Up & Strategy Call for Your Job Application Service",
+    description: "We begin with a deep dive. We review your current resume, career goals, and ideal target roles to craft a personalized, high-impact application strategy."
   },
   {
     icon: Sparkles,
     step: "02",
-    title: "Find Jobs & Let AI Customize Your Application",
-    description: "Browse job postings or import them from any job board. When you find a position you want to apply for, Applyish's AI analyzes the job description, identifies key requirements, and automatically generates a tailored resume and cover letter that highlights your most relevant qualifications."
+    title: "Targeted Job Search by Our Specialists",
+    description: "Our specialists do the heavy lifting. They hand-pick only the most relevant, high-quality jobs you&apos;re qualified for—no spam, no guesswork, just strategic targeting for your applications."
   },
   {
     icon: Send,
     step: "03",
-    title: "Review, Edit & Submit in Minutes",
-    description: "Review the AI-generated materials, make any tweaks you want, and submit your application—all within the same platform. Applyish auto-fills repetitive form fields and saves all your application data for future use. What used to take hours now takes minutes."
+    title: "Manual, Tailored Applications",
+    description: "This is the core of our job application service. We manually apply to positions using customized, ATS-optimized resumes and cover letters, ensuring your profile gets past the automated filters and into a recruiter&apos;s hands."
   },
   {
     icon: BarChart,
     step: "04",
-    title: "Track Applications & Optimize Your Strategy",
-    description: "Monitor all your applications in one dashboard. See which jobs you've applied to, track response rates, set reminders for follow-ups, and get insights into what's working. Use analytics to continuously improve your application strategy and land more interviews."
+    title: "Interview Invites — Focus on the Result",
+    description: "We manage all follow-ups and tracking, keeping your applications active and organized. This leaves you free to stop worrying about paperwork and focus solely on preparing for the interview invites that actually happen."
   }
 ];
 
@@ -41,15 +43,11 @@ export function HowItWorksSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500/10 to-green-500/10 border border-emerald-200/50 rounded-full mb-4">
-            <Sparkles className="w-4 h-4 text-emerald-600" />
-            <span className="bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">Simple Process</span>
-          </div>
           <h2 className="text-3xl md:text-4xl mb-4 bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
-            How Applyish Works: From Hours to Minutes
+            How It Works — A Smarter Job Application Service
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Our streamlined 4-step process transforms the painful job application experience into a fast, efficient workflow that helps you apply to more jobs with better quality applications.
+            Our process is simple, transparent, and results-driven. We&apos;ve refined the job application process into four easy steps that maximize your success.
           </p>
         </motion.div>
         
@@ -117,11 +115,11 @@ export function HowItWorksSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          <div className="max-w-3xl mx-auto p-6 bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl border border-emerald-200/50">
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              The entire process is designed to save you time while improving the quality of your applications. No more copying and pasting. No more reformatting resumes. No more writer's block on cover letters. Just fast, effective job applications that get results.
-            </p>
-          </div>
+          <Link href="/apply">
+            <Button size="lg" className="text-base px-8 bg-accent text-accent-foreground hover:bg-accent/90">
+              Start Applying Smarter with Applyish <ArrowRight className="ml-2 w-4 h-4" />
+            </Button>
+          </Link>
         </motion.div>
       </div>
     </section>

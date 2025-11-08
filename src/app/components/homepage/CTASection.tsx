@@ -1,6 +1,7 @@
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { motion } from "motion/react";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 export function CTASection() {
   return (
@@ -17,26 +18,30 @@ export function CTASection() {
           </h2>
           
           <p className="text-xl text-muted-foreground">
-            Join thousands of job seekers who have automated their applications. Start your free trial today.
+            Stop wasting time on endless applications. Let our experts land you the interviews you deserve.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button size="lg" className="text-base px-8 bg-accent text-accent-foreground hover:bg-accent/90">
-              Start free trial <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-            <Button size="lg" variant="outline" className="text-base px-8">
-              Schedule a demo
-            </Button>
+            <Link href="/apply">
+              <Button size="lg" className="text-base px-8 bg-accent text-accent-foreground hover:bg-accent/90">
+                Book Your Free Call <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </Link>
+            <Link href="#pricing">
+              <Button size="lg" variant="outline" className="text-base px-8">
+                See Pricing
+              </Button>
+            </Link>
           </div>
           
           <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground pt-4">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4" />
-              <span>No credit card required</span>
+              <span>No credit card required for consultation</span>
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4" />
-              <span>14-day free trial</span>
+              <span>100% Money-Back Guarantee</span>
             </div>
           </div>
         </motion.div>

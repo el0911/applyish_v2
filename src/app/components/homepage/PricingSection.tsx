@@ -2,58 +2,50 @@ import { Check, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
 import { Card } from "../ui/card";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 const plans = [
   {
-    name: "Starter",
-    price: "$29",
-    period: "/month",
-    description: "Perfect for job seekers who want to try application automation",
+    name: "Bulk",
+    price: "$50",
+    period: "/one-time",
+    description: "Perfect for a quick boost to your job applications.",
     features: [
-      "20 AI-generated applications per month",
-      "Resume & cover letter customization",
-      "ATS optimization",
-      "Application tracking dashboard",
-      "Email support",
-      "14-day free trial"
+      "100 Applications to jobs matching your criteria",
+      "One Time Service",
+      "Progress Report"
     ],
-    cta: "Start Free Trial",
+    cta: "Book Free Call",
     popular: false
   },
   {
-    name: "Professional",
-    price: "$59",
-    period: "/month",
-    description: "Best for active job seekers conducting serious job searches",
+    name: "Pro",
+    price: "$55",
+    period: "/week",
+    description: "Consistent applications to jobs that fit you.",
     features: [
-      "50 AI-generated applications per month",
-      "Everything in Starter, plus:",
-      "Priority support",
-      "Advanced analytics & insights",
-      "Resume template library",
-      "Interview tracking",
-      "Follow-up reminders",
-      "Export to all formats"
+      "55 Applications Weekly based on your resume",
+      "50 LinkedIn Easy Apply Weekly",
+      "Location & Preference Matching",
+      "Weekly Progress Reports"
     ],
-    cta: "Start Free Trial",
+    cta: "Book Free Call",
+    popular: false
+  },
+  {
+    name: "Custom",
+    price: "$65",
+    period: "/week",
+    description: "Maximum applications matched to your profile.",
+    features: [
+      "75 Applications Weekly tailored to your background",
+      "50 LinkedIn Easy Apply Weekly",
+      "Location & Preference Matching",
+      "Priority Support",
+      "Weekly Progress Reports"
+    ],
+    cta: "Book Free Call",
     popular: true
-  },
-  {
-    name: "Premium",
-    price: "$99",
-    period: "/month",
-    description: "For career changers and those applying to many positions",
-    features: [
-      "Unlimited AI-generated applications",
-      "Everything in Professional, plus:",
-      "1-on-1 job search consultation",
-      "LinkedIn profile optimization",
-      "Priority AI processing",
-      "Custom application strategies",
-      "Dedicated success manager"
-    ],
-    cta: "Start Free Trial",
-    popular: false
   }
 ];
 
@@ -77,7 +69,7 @@ export function PricingSection() {
             Simple, Transparent Pricing That Pays for Itself
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Choose the plan that fits your job search intensity. All plans include core automation features and a 14-day free trial. No credit card required to start.
+            Choose the plan that fits your job search intensity. All plans include Money Back Guarantee if we can&apos;t get you an interview in a month.
           </p>
         </motion.div>
         
@@ -116,13 +108,15 @@ export function PricingSection() {
                   </p>
                 </div>
                 
-                <Button 
-                  className="w-full"
-                  size="lg"
-                  variant={plan.popular ? "default" : "outline"}
-                >
-                  {plan.cta}
-                </Button>
+                <Link href="/apply">
+                  <Button 
+                    className="w-full"
+                    size="lg"
+                    variant={plan.popular ? "default" : "outline"}
+                  >
+                    {plan.cta}
+                  </Button>
+                </Link>
                 
                 <div className="space-y-3 pt-4 border-t border-border">
                   {plan.features.map((feature, featureIndex) => (

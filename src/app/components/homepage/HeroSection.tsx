@@ -1,6 +1,6 @@
 import { CheckCircle2, Play, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Button } from "../ui/button";
 import { ImageWithFallback } from "../imageWithFallback";
 
@@ -20,11 +20,11 @@ export function HeroSection() {
               </div>
               
               <h1 className="text-5xl md:text-6xl lg:text-7xl mb-6 tracking-tight">
-                Apply to 10x more jobs.<br />Get 3x more interviews.
+                The Human-Powered Job Application Service That Gets You Interviews
               </h1>
               
               <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-                Stop wasting hours on repetitive applications. Our AI automates the tedious parts so you can focus on landing your dream job.
+                Applyish removes the stress of job hunting. Real humans hand-pick and apply to jobs for you—so you can focus on landing interviews that matter.
               </p>
             </motion.div>
             
@@ -34,12 +34,12 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              <Link to="/pricing">
+              <Link href="/apply">
                 <Button size="lg" className="text-base px-8 bg-accent text-accent-foreground hover:bg-accent/90">
-                  Start free trial <ArrowRight className="ml-2 w-4 h-4" />
+                  Start Applying Smarter with Applyish <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
-              <Link to="/how-it-works">
+              <Link href="#how-it-works">
                 <Button size="lg" variant="outline" className="text-base px-8">
                   <Play className="w-4 h-4 mr-2" />
                   See how it works
@@ -55,11 +55,11 @@ export function HeroSection() {
             >
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4" />
-                <span>No credit card required</span>
+                <span>Free consultation calls</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4" />
-                <span>14-day free trial</span>
+                <span>Money back guarantee if we can&apos;t get you an interview in a month</span>
               </div>
             </motion.div>
           </div>
@@ -74,7 +74,7 @@ export function HeroSection() {
             <div className="relative rounded-lg border border-border overflow-hidden bg-muted">
               <ImageWithFallback
                 src="https://images.unsplash.com/photo-1758876202980-0a28b744fb24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBkYXNoYm9hcmQlMjBtb2Rlcm58ZW58MXx8fHwxNzYwNzEzMjEyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                alt="Applyish Dashboard Interface"
+                alt="Job application services"
                 className="w-full aspect-[16/10] object-cover"
               />
             </div>

@@ -4,36 +4,36 @@ import { ImageWithFallback } from "../imageWithFallback";
 
 const benefits = [
   {
-    title: "Save 90% of Your Application Time",
-    description: "Transform 2-3 hours per application into 5-10 minutes. That's 15+ hours saved per week, giving you time for interview prep, skill development, or simply reducing burnout."
+    title: "Real Human Connection and Precision",
+    description: "We don’t use bots—period. Real humans on our team hand-pick and manually apply to positions on your behalf. This critical step ensures the attention to detail and personalized customization that automated tools simply cannot provide, guaranteeing your profile is perfectly positioned for success with every single submission."
   },
   {
-    title: "Apply to 10x More Jobs",
-    description: "With the time you save, apply to significantly more positions. More applications mean more interviews, which means better chances of landing your ideal role with competitive offers."
+    title: "Time Reclaimed and Energy Restored",
+    description: "By handing off the entire, time-consuming job application process to our dedicated team, you instantly free up dozens of hours you would have spent on administrative tasks. This reclaimed time allows you to recover from burnout and invest in high-value activities like networking and skill development."
   },
   {
-    title: "Increase Your Interview Callback Rate",
-    description: "Tailored, ATS-optimized applications perform 3x better than generic resumes. Get past automated filters and get your application in front of real hiring managers."
+    title: "Shifted Focus to Career Growth",
+    description: "You can finally concentrate on what matters most: preparing for interviews that actually happen. Our comprehensive job application service handles the tracking, customizing, and submission logistics; your only job is to focus on landing the offer."
   },
   {
-    title: "Reduce Job Search Stress & Burnout",
-    description: "Eliminate the mental exhaustion of repetitive tasks. Spend less time on busy work and more time on high-value activities like networking and preparing for interviews."
+    title: "A Strategic Partnership",
+    description: "Applyish isn't just a service; it's a strategic partnership designed to cut through the digital noise and accelerate your career. We turn low-value application effort into high-value interview results."
   },
   {
-    title: "Never Miss Great Opportunities Again",
-    description: "Apply quickly to time-sensitive job postings before they're filled. Many great positions get hundreds of applications within 48 hours—be one of the first to apply."
+    title: "Eliminate ATS Black Holes",
+    description: "We use advanced, human-driven techniques to ensure your application sails past the Applicant Tracking System (ATS) filters. This means your qualifications actually land on a recruiter's desk, effectively eliminating the biggest barrier to entry in the modern job application process."
   },
   {
-    title: "Stay Organized & Professional",
-    description: "Track every application, follow-up, and interview in one place. Never wonder if you've already applied to a company or forget an important follow-up deadline."
+    title: "Guaranteed Professional Follow-Up",
+    description: "Forget the anxiety of \"did they get my application?\" We manage all necessary follow-ups and monitor status changes meticulously. Our professional monitoring is a key feature of our job application service that keeps your candidacy active and visible."
   },
   {
-    title: "Make Data-Driven Decisions",
-    description: "Stop guessing what works. Use real analytics to understand your success rate, optimize your strategy, and focus on opportunities that actually lead to interviews."
+    title: "Competitive Intelligence",
+    description: "Our specialists gain deep insight into which job titles, companies, and application methods are generating the highest interview rates for your specific profile. We use this real-time data to constantly optimize our strategy, ensuring your applications are always one step ahead of the competition."
   },
   {
-    title: "Maintain Quality at Scale",
-    description: "Don't sacrifice quality for quantity. Every application is customized and professional, even when you're applying to dozens of jobs per week."
+    title: "Confidence Through Organization",
+    description: "We provide you with a single, clear report of all applications submitted on your behalf. This organized approach removes the chaos of tracking dozens of submissions across different platforms, giving you back control and boosting your confidence throughout your job search."
   }
 ];
 
@@ -48,10 +48,10 @@ export function BenefitsSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl mb-6">
-            The real impact
+            The Applyish Impact: Focus on Interviews, Not Frustration
           </h2>
           <p className="text-xl text-muted-foreground">
-            When you eliminate repetitive tasks, you unlock time and opportunities that directly translate to better job offers.
+            At Applyish, we offer human-powered job application services that take the stress, guesswork, and frustration out of your job hunt. This strategic approach fundamentally changes your job search experience and accelerates your journey to a new role:
           </p>
         </motion.div>
         
@@ -85,31 +85,13 @@ export function BenefitsSection() {
           >
             <ImageWithFallback 
               src="https://images.unsplash.com/photo-1668608322253-9699284e90db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwZXJzb24lMjB3b3JraW5nJTIwbGFwdG9wfGVufDF8fHx8MTc2MDYzOTUzOHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-              alt="Professional working efficiently"
+              alt="Job application services"
               className="w-full aspect-[4/3] object-cover"
             />
           </motion.div>
         </div>
         
-        <motion.div 
-          className="max-w-3xl mx-auto space-y-8"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <div className="p-8 bg-accent text-accent-foreground rounded-lg">
-            <p className="text-lg mb-4">
-              The average Applyish user goes from submitting <strong>5-10 applications per week</strong> to <strong>30-50 applications per week</strong>, while maintaining or improving application quality.
-            </p>
-            <p className="text-base opacity-90">
-              This dramatic increase leads to 3-5x more interview invitations and ultimately faster job placement with better compensation.
-            </p>
-          </div>
-          <p className="text-center text-muted-foreground">
-            More high-quality applications = More interviews = Better job offers.
-          </p>
-        </motion.div>
-      </div>
+        </div>
     </section>
   );
 }

@@ -13,21 +13,21 @@ const testimonials = [
     name: "Michael Chen",
     role: "Marketing Manager",
     company: "Fortune 500 Company",
-    content: "The AI-generated cover letters are surprisingly good. I barely have to edit them. What used to take me an hour now takes 10 minutes. I've gotten more interviews in the last month than I did in the previous 6 months combined.",
+    content: "The quality of the customized applications is outstanding. What used to take me an hour of tailoring for each application now takes no time at all. I've gotten more interviews in the last month than I did in the previous 6 months combined.",
     rating: 5
   },
   {
     name: "Emily Rodriguez",
     role: "Product Designer",
     company: "Design Agency",
-    content: "Job searching was killing my mental health. The constant rejection and time wasted on applications that went nowhere was exhausting. Applyish gave me back my evenings and weekends. Plus, the analytics helped me figure out which types of roles to focus on.",
+    content: "Job searching was killing my mental health. The constant rejection and time wasted on applications that went nowhere was exhausting. Applyish gave me back my evenings and weekends. Plus, their insights helped me figure out which types of roles to focus on.",
     rating: 5
   },
   {
     name: "David Thompson",
     role: "Data Analyst",
     company: "Healthcare Company",
-    content: "I was skeptical about AI writing my applications, but the quality is excellent. The resume customization actually helped me highlight relevant experience I was underselling. Got 3 job offers within 2 months of using Applyish.",
+    content: "I was skeptical about a service handling my applications, but the quality is excellent. The team's resume customization actually helped me highlight relevant experience I was underselling. Got 3 job offers within 2 months of using Applyish.",
     rating: 5
   },
   {
@@ -60,7 +60,7 @@ export function TestimonialsSection() {
             What our users say
           </h2>
           <p className="text-xl text-muted-foreground">
-            Real results from job seekers who automated their applications.
+            Real results from job seekers who partnered with our experts.
           </p>
         </motion.div>
         
@@ -80,7 +80,7 @@ export function TestimonialsSection() {
                 ))}
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                "{testimonial.content}"
+                &quot;{testimonial.content}&quot;
               </p>
               <div className="pt-4 border-t border-border">
                 <p className="text-sm">{testimonial.name}</p>
