@@ -14,7 +14,7 @@ export function CTASection() {
           className="max-w-3xl mx-auto text-center space-y-8"
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl">
-            Ready to get started?
+            Ready to <span className="text-indigo-500">get started?</span>
           </h2>
           
           <p className="text-xl text-muted-foreground">
@@ -23,8 +23,8 @@ export function CTASection() {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Link href="/apply">
-              <Button size="lg" className="text-base px-8 bg-accent text-accent-foreground hover:bg-accent/90">
-                Book Your Free Call <ArrowRight className="ml-2 w-4 h-4" />
+              <Button size="lg" className="text-base px-8 bg-indigo-500 text-white hover:bg-indigo-400 transform hover:scale-105 transition-transform">
+                Start Your Free Consultation <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </Link>
             <Link href="#pricing">
@@ -36,11 +36,11 @@ export function CTASection() {
           
           <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground pt-4">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4" />
+              <CheckCircle2 className="w-4 h-4 text-indigo-500" />
               <span>No credit card required for consultation</span>
             </div>
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4" />
+              <CheckCircle2 className="w-4 h-4 text-indigo-500" />
               <span>100% Money-Back Guarantee</span>
             </div>
           </div>

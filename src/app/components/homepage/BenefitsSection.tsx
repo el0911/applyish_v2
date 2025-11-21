@@ -48,7 +48,7 @@ export function BenefitsSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl mb-6">
-            The Applyish Impact: Focus on Interviews, Not Frustration
+            The Applyish Impact: Focus on <span className="text-indigo-500">Interviews, Not Frustration</span>
           </h2>
           <p className="text-xl text-muted-foreground">
             At Applyish, we offer human-powered job application services that take the stress, guesswork, and frustration out of your job hunt. This strategic approach fundamentally changes your job search experience and accelerates your journey to a new role:
@@ -60,14 +60,14 @@ export function BenefitsSection() {
             {benefits.map((benefit, index) => (
               <motion.div 
                 key={index} 
-                className="border border-border p-6 rounded-lg hover:border-accent transition-colors"
+                className="border border-border p-6 rounded-lg hover:border-indigo-500 transition-colors"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
               >
                 <div className="flex items-start gap-3 mb-3">
-                  <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5 text-accent" />
+                  <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5 text-indigo-500" />
                   <h3 className="text-base">{benefit.title}</h3>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">

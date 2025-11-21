@@ -43,7 +43,7 @@ export function HowItWorksSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-4xl mb-4 bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-4xl mb-4 bg-gradient-to-r from-indigo-500 to-green-600 bg-clip-text text-transparent">
             How It Works — A Smarter Job Application Service
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
@@ -64,7 +64,7 @@ export function HowItWorksSection() {
           {steps.map((step, index) => {
             const Icon = step.icon;
             const gradients = [
-              "from-blue-500 to-cyan-500",
+              "from-indigo-500 to-cyan-500",
               "from-purple-500 to-pink-500",
               "from-green-500 to-emerald-500",
               "from-orange-500 to-red-500"
@@ -116,7 +116,7 @@ export function HowItWorksSection() {
           viewport={{ once: true }}
         >
           <Link href="/apply">
-            <Button size="lg" className="text-base px-8 bg-accent text-accent-foreground hover:bg-accent/90">
+            <Button size="lg" className="text-base px-8 bg-indigo-500 text-white hover:bg-indigo-400">
               Start Applying Smarter with Applyish <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           </Link>

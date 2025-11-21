@@ -47,7 +47,7 @@ export function ProblemSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl mb-6">
-            The Job Application Process Is Broken (And It’s Costing You Time, Money & Opportunities)
+            The Job Application Process Is Broken (And It’s Costing You <span className="text-indigo-500">Time, Money & Opportunities</span>)
           </h2>
           <p className="text-xl text-muted-foreground">
             That’s where Applyish, one of the most effective job application services, comes in. We offer a comprehensive job application service to fix what’s broken and help you finally get real interview invites, not automated rejections.
@@ -66,7 +66,7 @@ export function ProblemSection() {
                 transition={{ delay: index * 0.05 }}
                 className="bg-background p-8 hover:bg-accent/10 transition-colors"
               >
-                <Icon className="w-6 h-6 text-foreground mb-4" />
+                <Icon className="w-6 h-6 text-indigo-500 mb-4" />
                 <h3 className="text-lg mb-3">{problem.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{problem.description}</p>
               </motion.div>
@@ -84,7 +84,7 @@ export function ProblemSection() {
             Ready to Stop Applying Alone? Let real professionals handle the applications while you focus on landing the job.
           </p>
           <Link href="/apply">
-            <Button size="lg" className="text-base px-8 bg-accent text-accent-foreground hover:bg-accent/90">
+            <Button size="lg" className="text-base px-8 bg-indigo-500 text-white hover:bg-indigo-400">
               Get Started with Applyish Today <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           </Link>

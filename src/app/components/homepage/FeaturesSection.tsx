@@ -83,7 +83,7 @@ export function FeaturesSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <h2 className="text-4xl md:text-5xl mb-6">
-            Maximize Your Interviews: The Benefits of a Professional Job Application Service
+            Maximize Your Interviews: The Benefits of a <span className="text-indigo-500">Professional Job Application Service</span>
           </h2>
           <p className="text-xl text-muted-foreground">
             We’re not another automated tool. We’re your dedicated, professional job application team committed to securing interview invites for you. Unlike automated job platforms, Applyish offers a human-centered job application service that ensures your resume is seen by recruiters, not filtered out by algorithms.
@@ -103,7 +103,7 @@ export function FeaturesSection() {
                 transition={{ delay: index * 0.03 }}
                 className="bg-background p-8 hover:bg-accent/10 transition-colors"
               >
-                <Icon className="w-6 h-6 mb-4" />
+                <Icon className="w-6 h-6 mb-4 text-indigo-500" />
                 <h3 className="text-base mb-3">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {feature.description}

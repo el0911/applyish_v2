@@ -20,7 +20,7 @@ export function HeroSection() {
               </div>
               
               <h1 className="text-5xl md:text-6xl lg:text-7xl mb-6 tracking-tight">
-                The Human-Powered Job Application Service That Gets You Interviews
+                The Human-Powered Job Application Service That Gets You <span className="text-indigo-500">Interviews</span>
               </h1>
               
               <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
@@ -35,8 +35,8 @@ export function HeroSection() {
               transition={{ delay: 0.2, duration: 0.6 }}
             >
               <Link href="/apply">
-                <Button size="lg" className="text-base px-8 bg-accent text-accent-foreground hover:bg-accent/90">
-                  Start Applying Smarter with Applyish <ArrowRight className="ml-2 w-4 h-4" />
+                <Button size="lg" className="text-base px-8 bg-indigo-500 text-white hover:bg-indigo-400">
+                  Free consultation calls <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
               <Link href="#how-it-works">
@@ -53,11 +53,7 @@ export function HeroSection() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4" />
-                <span>Free consultation calls</span>
-              </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-foreground font-semibold">
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Money back guarantee if we can&apos;t get you an interview in a month</span>
               </div>

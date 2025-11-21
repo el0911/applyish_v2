@@ -14,7 +14,7 @@ export function SolutionSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl mb-6">
-            Why Choose Applyish? The Superior Job Application Service
+            Why Choose Applyish? The <span className="text-indigo-500">Superior Job Application Service</span>
           </h2>
           <p className="text-xl text-muted-foreground">
             Our experts manually manage the entire job application process for you. We use tailored resumes and ATS-optimized strategies designed specifically to boost your interview chances. When you choose our job application service, you get:
@@ -35,7 +35,7 @@ export function SolutionSection() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <div className="w-12 h-12 bg-accent text-accent-foreground rounded-lg flex items-center justify-center mx-auto">
+              <div className="w-12 h-12 bg-indigo-500 text-white rounded-lg flex items-center justify-center mx-auto">
                 <item.icon className="w-6 h-6" />
               </div>
               <h3 className="text-lg">{item.title}</h3>
@@ -53,7 +53,7 @@ export function SolutionSection() {
           viewport={{ once: true }}
         >
           <Link href="/apply">
-            <Button size="lg" className="text-base px-8 bg-accent text-accent-foreground hover:bg-accent/90">
+            <Button size="lg" className="text-base px-8 bg-indigo-500 text-white hover:bg-indigo-400">
               Start your job application journey with Applyish today! <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           </Link>

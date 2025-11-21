@@ -57,7 +57,7 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl mb-6">
-            What our users say
+            What our <span className="text-indigo-500">users say</span>
           </h2>
           <p className="text-xl text-muted-foreground">
             Real results from job seekers who partnered with our experts.
@@ -76,7 +76,7 @@ export function TestimonialsSection() {
             >
               <div className="flex gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                  <Star key={i} className="w-4 h-4 fill-indigo-500 text-indigo-500" />
                 ))}
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">
@@ -108,7 +108,7 @@ export function TestimonialsSection() {
               key={index}
               className="bg-background p-8 text-center"
             >
-              <div className="text-3xl mb-2">
+              <div className="text-3xl mb-2 text-indigo-500">
                 {stat.value}
               </div>
               <div className="text-sm text-muted-foreground">{stat.label}</div>

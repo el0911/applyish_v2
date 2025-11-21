@@ -60,7 +60,7 @@ export function FAQSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl mb-6">
-            Frequently Asked Questions (FAQs) — Job Application Service
+            Frequently Asked Questions (FAQs) — <span className="text-indigo-500">Job Application Service</span>
           </h2>
         </motion.div>
         

@@ -19,6 +19,9 @@ export default {
     },
     extend: {
       colors: {
+        indigo: {
+          500: "var(--color-indigo-500)",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

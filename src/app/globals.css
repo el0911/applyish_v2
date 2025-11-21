@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-indigo-500: oklch(58.5% .233 277.117);
 }
 
 @theme inline {
