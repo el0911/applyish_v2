@@ -7,7 +7,8 @@ const nextConfig: NextConfig = {
       "cdn.jsdelivr.net",
       "upload.wikimedia.org",
       "flagcdn.com",
-      "res.cloudinary.com"
+      "res.cloudinary.com",
+      "i.ibb.co"
     ],
   },
 };

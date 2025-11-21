@@ -32,16 +32,15 @@ export const metadata: Metadata = {
 }
 
 
+import Navbar from './components/layout/Navbar';
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
      <ClerkProvider>
       <html lang="en">
         <head />
         <body className="flex flex-col">
-        {/* <header className="flex items-center justify-between p-4">
-            <Image src="/logo.svg" alt="Applyish Logo" width={100} height={40} />
-            <UserButton />
-          </header> */}
+        <Navbar />
           <Analytics />
           {children}
         </body>

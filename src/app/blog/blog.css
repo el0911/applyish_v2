@@ -1,0 +1,89 @@
+.blogContent h1,
+.blogContent h2,
+.blogContent h3,
+.blogContent h4,
+.blogContent h5,
+.blogContent h6 {
+    font-weight: 700;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    color: #111;
+}
+
+.blogContent p {
+    margin-bottom: 1em;
+    line-height: 1.75;
+    color: #333;
+}
+
+.blogContent ul,
+.blogContent ol {
+    margin-bottom: 1em;
+    padding-left: 1.5em;
+}
+
+.blogContent li {
+    margin-bottom: 0.5em;
+}
+
+.blogContent a {
+    color: #0070f3;
+    text-decoration: none;
+}
+
+.blogContent a:hover {
+    text-decoration: underline;
+}
+
+.blogContent img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.blogContent blockquote {
+    font-style: italic;
+    border-left: 4px solid #e5e7eb;
+    padding-left: 1rem;
+    color: #6b7280;
+}
+
+.blogContent hr {
+    border-top: 1px solid #e5e7eb;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+/* css for table td,tr ,etc */
+
+.blogContent table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1em;
+}
+.blogContent th,
+.blogContent td {
+    border: 1px solid #ddd;
+    padding: 0.5em;
+    text-align: left;
+}
+.blogContent th {
+    background-color: #f9fafb;
+    font-weight: 600;
+    color: #111;
+}  
+.blogContent tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.blogContent tr:hover {
+    background-color: #f1f1f1;
+}
+.blogContent code {
+    background-color: #f3f4f6;
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95em;
+}
