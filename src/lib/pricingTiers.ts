@@ -1,7 +1,7 @@
 export const pricingTiers = [
   {
     name: "Bulk",
-    price: "$50",
+    price: "$65",
     frequency: "One Time",
     description: "Perfect for a quick boost to your job applications.",
     features: [
@@ -32,12 +32,26 @@ export const pricingTiers = [
     frequency: "/wk",
     description: "A high-volume of tailored applications and dedicated support.",
     features: [
-      "55 Tailored Resume Applications",
+      "75 Tailored Resume Applications",
       "50 LinkedIn Easy Apply Weekly",
       "Personalized Support",
       "Weekly Progress Reports",
     ],
     cta: "Go Pro",
     isPremium: false,
+  },
+  {
+    name: "Monthly",
+    price: "$240",
+    frequency: "Monthly",
+    description: "High-volume monthly applications with dedicated support.",
+    features: [
+      "400 Job Applications",
+      "Monthly Payment",
+      "Dedicated Support",
+      "Weekly Progress Reports",
+    ],
+    cta: "Get Monthly Plan",
+    isPremium: true,
   },
 ];

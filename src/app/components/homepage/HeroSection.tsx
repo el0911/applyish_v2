@@ -10,7 +10,7 @@ export function HeroSection() {
       <div className="container mx-auto px-4 py-20 md:py-28 lg:py-36">
         <div className="max-w-5xl mx-auto space-y-16">
           <div className="max-w-4xl mx-auto text-center space-y-8">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -18,17 +18,17 @@ export function HeroSection() {
               <div className="inline-block px-3 py-1 border border-border rounded-full text-sm text-muted-foreground mb-6">
                 Job Application Automation
               </div>
-              
+
               <h1 className="text-5xl md:text-6xl lg:text-7xl mb-6 tracking-tight">
                 The Human-Powered Job Application Service That Gets You <span className="text-indigo-500">Interviews</span>
               </h1>
-              
+
               <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
                 Applyish removes the stress of job hunting. Real humans hand-pick and apply to jobs for you—so you can focus on landing interviews that matter.
               </p>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -46,22 +46,23 @@ export function HeroSection() {
                 </Button>
               </Link>
             </motion.div>
-            
-            <motion.div 
-              className="flex items-center justify-center gap-6 text-sm text-muted-foreground pt-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
+
+            <motion.div
+              transition={{ delay: 0.35 }}
+              className="flex justify-center pt-6"
             >
-              <div className="flex items-center gap-2 text-foreground font-semibold">
-                <CheckCircle2 className="w-4 h-4" />
-                <span>Money back guarantee if we can&apos;t get you an interview in a month</span>
+              <div className="flex items-center gap-3 px-6 py-4 rounded-xl border border-red-600 bg-red-600 text-white shadow-sm">
+                <CheckCircle2 className="w-6 h-6 flex-shrink-0 text-white" />
+                <p className="text-base md:text-lg font-semibold">
+                  Guaranteed interviews in 30 days — or your money back.
+                </p>
               </div>
+
             </motion.div>
           </div>
-          
+
           {/* Dashboard Preview */}
-          <motion.div 
+          <motion.div
             className="relative"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -75,9 +76,9 @@ export function HeroSection() {
               />
             </div>
           </motion.div>
-          
+
           {/* Stats */}
-          <motion.div 
+          <motion.div
             className="grid grid-cols-3 gap-8 pt-8 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
