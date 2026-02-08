@@ -53,8 +53,8 @@ export function HeroSection() {
             >
               <div className="flex items-center gap-3 px-6 py-4 rounded-xl border border-red-600 bg-red-600 text-white shadow-sm">
                 <CheckCircle2 className="w-6 h-6 flex-shrink-0 text-white" />
-                <p className="text-base md:text-lg font-semibold">
-                  Guaranteed interviews in 30 days — or your money back.
+                <p className="text-base md:text-lg  font-semibold">
+                  Guaranteed interviews in 30 days — or your money back.  
                 </p>
               </div>
 
