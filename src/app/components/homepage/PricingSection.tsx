@@ -6,8 +6,8 @@ import Link from "next/link";
 
 const plans = [
     {
-        name: "Starter",
-        price: "$50",
+        name: "Bulk",
+        price: "$65",
         period: "/one-time",
         description: "A one-time batch of applications to kickstart your search.",
         features: [
@@ -25,8 +25,7 @@ const plans = [
         period: "/week",
         description: "A weekly stream of applications to keep the momentum going.",
         features: [
-          "55 Applications Weekly",
-          "50 LinkedIn Easy Apply Weekly",
+          "75 Applications Weekly",
           "Location & Preference Matching",
           "Weekly Progress Reports"
         ],
@@ -34,13 +33,12 @@ const plans = [
         popular: true
       },
       {
-        name: "Pro Plus",
-        price: "$65",
-        period: "/week",
+        name: "Monthly",
+        price: "$240",
+        period: "/month",
         description: "Maximum exposure with our most aggressive application strategy.",
         features: [
-          "75 Applications Weekly",
-          "50 LinkedIn Easy Apply Weekly",
+          "400 Applications Monthly",
           "Location & Preference Matching",
           "Priority Support",
           "Weekly Progress Reports"

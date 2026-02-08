@@ -219,7 +219,6 @@
 //         description: "Consistent applications to jobs that fit you.",
 //         features: [
 //           [{ text: "55 Applications Weekly", highlighted: true }, { text: " based on your resume" }],
-//           "50 LinkedIn Easy Apply Weekly",
 //           "Location & Preference Matching",
 //           "Weekly Progress Reports"
 //         ],
@@ -236,7 +235,6 @@
 //         description: "Maximum applications matched to your profile.",
 //         features: [
 //           [{ text: "75 Applications Weekly", highlighted: true }, { text: " tailored to your background" }],
-//           "50 LinkedIn Easy Apply Weekly",
 //           "Location & Preference Matching",
 //           "Priority Support",
 //           "Weekly Progress Reports"
