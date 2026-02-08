@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "generate-posts": "node generate-posts-data.mjs",
-    "build": "next build",
+    "build": "npx prisma generate && next build",
     "start": "next start",
     "test": "jest",
     "lint": "next lint",
