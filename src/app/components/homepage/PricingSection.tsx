@@ -12,7 +12,7 @@ const plans = [
         period: "/week",
         description: "A weekly stream of applications to keep the momentum going.",
         features: [
-          "75 Applications Weekly",
+          "75 tailored Applications Weekly",
           "Location & Preference Matching",
           "Weekly Progress Reports"
         ],
@@ -25,7 +25,7 @@ const plans = [
         period: "/week",
         description: "A weekly stream of applications to keep the momentum going.",
         features: [
-          "100 Applications weekly",
+          "100 tailored Applications weekly",
           "Targeted Job Matching",
           "Progress Report"
         ],
@@ -38,7 +38,7 @@ const plans = [
         period: "/month",
         description: "Maximum exposure with our most aggressive application strategy.",
         features: [
-          "400 Applications Monthly",
+          "400 tailored Applications Monthly",
           "Location & Preference Matching",
           "Priority Support",
           "Weekly Progress Reports"
