@@ -5,20 +5,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 
 const plans = [
-    {
-        name: "Bulk",
-        price: "$65",
-        period: "/one-time",
-        description: "A one-time batch of applications to kickstart your search.",
-        features: [
-          "100 Applications",
-          "Targeted Job Matching",
-          "One-Time Service",
-          "Progress Report"
-        ],
-        cta: "Get Started",
-        popular: false
-      },
+    
       {
         name: "Pro",
         price: "$55",
@@ -28,6 +15,19 @@ const plans = [
           "75 Applications Weekly",
           "Location & Preference Matching",
           "Weekly Progress Reports"
+        ],
+        cta: "Get Started",
+        popular: false
+      },
+      {
+        name: "Bulk",
+        price: "$65",
+        period: "/week",
+        description: "A weekly stream of applications to keep the momentum going.",
+        features: [
+          "100 Applications weekly",
+          "Targeted Job Matching",
+          "Progress Report"
         ],
         cta: "Get Started",
         popular: true
