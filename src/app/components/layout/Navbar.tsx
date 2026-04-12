@@ -24,6 +24,12 @@ export default function Navbar() {
               >
                 Blog
               </Link>
+              <Link
+                href="/referral"
+                className="text-gray-600 hover:text-gray-800"
+              >
+                Referral
+              </Link>
             </nav>
           </div>
           <div className="md:hidden flex items-center">
@@ -48,6 +54,12 @@ export default function Navbar() {
               className="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium"
             >
               Blog
+            </Link>
+            <Link
+              href="/referral"
+              className="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium"
+            >
+              Referral
             </Link>
           </div>
         </div>

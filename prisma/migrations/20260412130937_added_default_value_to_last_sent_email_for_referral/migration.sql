@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Referrals" ALTER COLUMN "lastEmailSentAt" SET DEFAULT CURRENT_TIMESTAMP;
