@@ -404,13 +404,30 @@ import { Question } from './questionTypes';
 
 export const questions: Question[] = [
   {
+    id: "email",
+    type: "email",
+    title: "See how many jobs match your profile",
+    subtitle: "Enter your email to get your personalized job report",
+    placeholder: "john.doe@example.com",
+    answerKey: "email",
+    required: true,
+    helperText: "🔒 We respect your privacy. Unsubscribe anytime.",
+    valueProps: [
+      "See matching jobs in your area",
+      "Get a personalized application strategy",
+      "No payment required"
+    ]
+
+  },
+  {
     type: "calendar-booking",
     title: "Book your free 15-minute consultation",
     subtitle: "Let's discuss the {selectedPlan} plan—no payment required today",
     emoji: "📅",
     callout: {
       text: [
-        { text: "On this call: Review your goals • See if {selectedPlan} fits • Get your questions answered", highlighted: true }
+        { text: "On this call: Review your goals • See if its a fit • Get your questions answered", highlighted: true }
+        // { text: "On this call: Review your goals • See if {selectedPlan} fits • Get your questions answered", highlighted: true }
       ],
       style: "info"
     },
@@ -460,14 +477,14 @@ export const questions: Question[] = [
     nextSteps: {
       title: "📄 Before your call (optional but helpful):",
       items: [
-        { 
-          text: "Upload your resume", 
+        {
+          text: "Upload your resume",
           subtext: "We'll review it and have better recommendations ready",
           cta: "Upload Resume",
           action: "email-upload-link"
         },
-        { 
-          text: "Think about your ideal role", 
+        {
+          text: "Think about your ideal role",
           subtext: "Job titles, locations, salary range, remote vs on-site",
           cta: null,
           action: null
