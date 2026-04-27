@@ -35,6 +35,10 @@ export default function EmailQuestion({ question, onNext }: EmailQuestionProps) 
         <input
           type="email"
           value={email}
+          style={{
+            background: 'white',
+            color: 'black'
+          }}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={question.placeholder}
           className="w-full p-4 border border-gray-300 rounded-lg"
