@@ -5,54 +5,54 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 
 const plans = [
-    
-      {
-        name: "Pro",
-        price: "$55",
-        period: "/week",
-        description: "A weekly stream of applications to keep the momentum going.",
-        features: [
-          "75 tailored Applications Weekly",
-          "Location & Preference Matching",
-          "Weekly Progress Reports"
-        ],
-        cta: "Get Started",
-        popular: false
-      },
-      {
-        name: "Bulk",
-        price: "$65",
-        period: "/week",
-        description: "A weekly stream of applications to keep the momentum going.",
-        features: [
-          "100 tailored Applications weekly",
-          "Targeted Job Matching",
-          "Progress Report"
-        ],
-        cta: "Get Started",
-        popular: true
-      },
-      {
-        name: "Monthly",
-        price: "$240",
-        period: "/month",
-        description: "Maximum exposure with our most aggressive application strategy.",
-        features: [
-          "400 tailored Applications Monthly",
-          "Location & Preference Matching",
-          "Priority Support",
-          "Weekly Progress Reports"
-        ],
-        cta: "Get Started",
-        popular: false
-      }
+
+  {
+    name: "Pro",
+    price: "$55",
+    period: "/week",
+    description: "A weekly stream of applications to keep the momentum going.",
+    features: [
+      "50 tailored Applications Weekly",
+      "Location & Preference Matching",
+      "Weekly Progress Reports"
+    ],
+    cta: "Get Started",
+    popular: false
+  },
+  {
+    name: "Bulk",
+    price: "$65",
+    period: "/week",
+    description: "A weekly stream of applications to keep the momentum going.",
+    features: [
+      "75 tailored Applications weekly",
+      "Targeted Job Matching",
+      "Progress Report"
+    ],
+    cta: "Get Started",
+    popular: true
+  },
+  {
+    name: "Monthly",
+    price: "$240",
+    period: "/month",
+    description: "Maximum exposure with our most aggressive application strategy.",
+    features: [
+      "300 tailored Applications Monthly",
+      "Location & Preference Matching",
+      "Priority Support",
+      "Weekly Progress Reports"
+    ],
+    cta: "Get Started",
+    popular: false
+  }
 ];
 
 export function PricingSection() {
   return (
     <section id="pricing" className="py-24 md:py-32 bg-background border-t border-border">
       <div className="container mx-auto px-4">
-        <motion.div 
+        <motion.div
           className="text-center mb-16 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -68,7 +68,7 @@ export function PricingSection() {
             Choose the plan that fits your job search intensity. All plans include a money-back guarantee if we can&apos;t get you an interview in a month.
           </p>
         </motion.div>
-        
+
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start">
           {plans.map((plan, index) => (
             <motion.div
@@ -79,12 +79,11 @@ export function PricingSection() {
               transition={{ delay: index * 0.1 }}
               className={`h-full ${plan.popular ? 'transform md:scale-105' : ''}`}
             >
-              <Card 
-                className={`p-8 space-y-6 h-full flex flex-col ${
-                  plan.popular 
-                    ? 'border-2 border-indigo-500 bg-indigo-50/20 dark:bg-indigo-950/10' 
-                    : 'border border-border'
-                }`}
+              <Card
+                className={`p-8 space-y-6 h-full flex flex-col ${plan.popular
+                  ? 'border-2 border-indigo-500 bg-indigo-50/20 dark:bg-indigo-950/10'
+                  : 'border border-border'
+                  }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
@@ -93,7 +92,7 @@ export function PricingSection() {
                     </div>
                   </div>
                 )}
-                
+
                 <div className="space-y-2 flex-grow">
                   <h3 className="text-xl font-semibold">{plan.name}</h3>
                   <div className="flex items-baseline gap-1">
@@ -106,7 +105,7 @@ export function PricingSection() {
                     {plan.description}
                   </p>
                 </div>
-                
+
                 <div className="space-y-4 pt-4 border-t border-border">
                   {plan.features.map((feature, featureIndex) => (
                     <div key={featureIndex} className="flex gap-3 items-start">
@@ -117,11 +116,11 @@ export function PricingSection() {
                 </div>
 
                 <Link href="/apply" className="block pt-4">
-                  <Button 
+                  <Button
                     className="w-full"
                     size="lg"
                     variant={plan.popular ? "default" : "outline"}
-                    style={plan.popular ? {backgroundColor: 'var(--color-indigo-500)'} : {}}
+                    style={plan.popular ? { backgroundColor: 'var(--color-indigo-500)' } : {}}
                   >
                     {plan.cta} <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
@@ -130,8 +129,8 @@ export function PricingSection() {
             </motion.div>
           ))}
         </div>
-        
-        <motion.div 
+
+        <motion.div
           className="mt-20 text-center space-y-6 max-w-4xl mx-auto"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
